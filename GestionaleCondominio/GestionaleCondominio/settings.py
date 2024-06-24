@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #altre app
-    'Condominio',
+    'Condominio.apps.CondominioConfig',
+    'crispy_forms',
+    'crispy_bootstrap5'
+
 ]
 
 MIDDLEWARE = [
