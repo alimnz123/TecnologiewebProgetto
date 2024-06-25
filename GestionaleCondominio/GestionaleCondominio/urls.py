@@ -22,6 +22,5 @@ urlpatterns = [
 
     #collego l'urlpattern dell'app all'urlpattern principale
     path('', include('Condominio.urls')),
-
-    
+    path('', include('django.contrib.auth.urls')),    
 ]

@@ -20,7 +20,7 @@ class Condominio(models.Model):
     class Meta:
         verbose_name_plural="Palazzine" """
 
-class Interno(models.Model):
+""" class Interno(models.Model):
     condominio=models.ForeignKey(Condominio, on_delete=models.CASCADE)
     #palazzina=models.ForeignKey(Palazzina, verbose_name="Palazzina", on_delete=models.CASCADE)
     numero=models.CharField(verbose_name="Numero", max_length=50, primary_key=True)
@@ -68,4 +68,4 @@ class Lettera_Convocazione(models.Model):
             messaggio=f"C'è una lettera di convocazione, vai a leggerla!"
         return messaggio
     class Meta:
-        verbose_name_plural="Lettere di convocazione"
+        verbose_name_plural="Lettere di convocazione" """
