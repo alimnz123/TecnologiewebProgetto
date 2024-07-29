@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User 
 import datetime
 from django.utils import timezone
+
 # Create your models here.
 
 #condominio
@@ -10,6 +12,18 @@ class Condominio(models.Model):
         return self.nome
     class Meta:
         verbose_name_plural="Condomini"
+
+class Interno(models.Model):
+    condomino = models.ForeignKey(User, on_delete=models.CASCADE)
+    palazzina=models.ForeignKey(Condominio, on_delete=models.CASCADE)
+    numero=models.CharField(verbose_name="Numero", max_length=50, primary_key=True)
+    millesimi_generali=models.FloatField(verbose_name="Millesimi generali")
+    millesimi_scala=models.FloatField(verbose_name="Millesimi Scala")
+    #proprietario=models.TextChoices(verbose_name="Proprietà", choices=User.last_name)
+    #da verificare questi elementi
+    in_affitto=models.BooleanField(verbose_name="In affitto")    
+    #occupante=models.TextChoices(verbose_name="Inquilino", choices=User.last_name)
+    mappali=models.CharField(verbose_name="Mappali", max_length=100)
 
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)

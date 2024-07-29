@@ -28,9 +28,16 @@
 
             <div>
                 <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <span class="navbar-text">Benvenuto/a {{user.first_name}} | </span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
