@@ -2,12 +2,22 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from .models import Verbale, Lettera_Convocazione
 
 # Create your views here.
 
 @login_required(login_url="/login")
 def homepage(request):
     return render(request, 'Condominio_main/homepage.html')
+
+@login_required(login_url="/login")
+def bacheca(request):
+    verbali=Verbale.objects.all()
+    lettere=Lettera_Convocazione.objects.all()
+
+    return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
+
+
 
 @login_required(login_url="/login")
 def create_interno(request):

@@ -1,0 +1,51 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Bacheca{% endblock %}
+{% block content %} 
+<h1>Bacheca</h1>
+
+{% comment  %} solo se sei un amministratore {% endcomment %}
+<a class="btn btn-primary" href="/create_verbale" role="button">Aggiungi un Verbale</a>
+<a class="btn btn-primary" href="/create_lettera" role="button">Aggiungi una Lettera di Convocazione</a>
+
+{% comment %}Lettere{% endcomment %}
+{% for lettera in lettere %}
+<div class="card mt-2">
+    <div class="card-header"><strong>{{lettera.data}}</strong></div>
+    <div class="card-body d-flex flex-row justify-content-between">
+       <div> 
+            {{lettera.descrizione}}
+       </div> 
+       <div> 
+            {{lettera.convocazione_documento}}
+       </div> 
+    </div>
+
+</div>
+
+{%empty%}
+<p>Non sono state caricate ancora delle lettere di convocazione</p>
+{% endfor %}
+
+{% comment %}Verbali{% endcomment %}
+
+{% for verbale in verbali %}
+<div class="card mt-2">
+    <div class="card-header"><strong>{{verbale.data}}</strong></div>
+    <div class="card-body d-flex flex-row justify-content-between">
+       <div> 
+            {{verbale.descrizione}}
+       </div> 
+       <div> 
+            {{verbale.lettera_accompagnatoria}}
+       </div>
+       <div> 
+            {{verbale.documento}}
+       </div> 
+    </div>
+</div>
+
+{%empty%}
+<p>Non sono stati caricati ancora dei verbali</p>
+{% endfor %}
+
+{% endblock %}

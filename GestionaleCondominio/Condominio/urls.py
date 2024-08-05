@@ -15,5 +15,8 @@ urlpatterns = [
     path('create_lettera', views.create_lettera, name="create_lettera"),
 
     path('create_verbale', views.create_verbale, name="create_verbale"),
+
+    path('bacheca', views.bacheca, name="bacheca"),
+
         
 ]
