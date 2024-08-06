@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
 from .models import Verbale, Lettera_Convocazione
 
@@ -14,6 +14,20 @@ def homepage(request):
 def bacheca(request):
     verbali=Verbale.objects.all()
     lettere=Lettera_Convocazione.objects.all()
+
+    if request.method == "POST":
+        lettera_id = request.POST.get("lettera-id")
+        print(lettera_id)
+        lettera=Lettera_Convocazione.objects.filter(id=lettera_id).first()
+        if lettera and (lettera.author == request.user or request.user.has_perm("main.delete_lettera")):
+            lettera.delete()
+
+    if request.method == "POST":
+        verbale_id = request.POST.get("verbale-id")
+        print(verbale_id)
+        verbale=Verbale.objects.filter(id=verbale_id).first()
+        if verbale and (verbale.author == request.user or request.user.has_perm("main.delete_verbale")):
+            verbale.delete()
 
     return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
 
@@ -34,6 +48,7 @@ def create_interno(request):
     return render(request, 'Condominio_main/create_interno.html', {"form": form})
 
 @login_required(login_url="/login")
+@permission_required("main.add_lettera", login_url="/login", raise_exception=True)
 def create_lettera(request):
     if request.method == 'POST':
         form = LettereConvocazioneForm(request.POST)
@@ -48,6 +63,7 @@ def create_lettera(request):
     return render(request, 'Condominio_main/create_lettera.html', {"form": form})    
 
 @login_required(login_url="/login")
+@permission_required("main.add_lettera", login_url="/login", raise_exception=True)
 def create_verbale(request):
     if request.method == 'POST':
         form = VerbaleForm(request.POST)

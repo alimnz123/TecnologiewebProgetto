@@ -19,7 +19,14 @@
             {{lettera.convocazione_documento}}
        </div> 
     </div>
-
+    <div>
+          {% if user == lettera.author %}
+               <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" name="lettera-id" value="{{lettera.id}}">Elimina</button>
+               </form>
+          {% endif %}
+    </div>
 </div>
 
 {%empty%}
@@ -42,6 +49,14 @@
             {{verbale.documento}}
        </div> 
     </div>
+    <div>
+          {% if user == verbale.author %}
+               <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" name="verbale-id" value="{{verbale.id}}">Elimina</button>
+               </form>
+          {% endif %}
+     </div>
 </div>
 
 {%empty%}
