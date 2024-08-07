@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Interno, Lettera_Convocazione, Verbale
+from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo
 
 
 class RegisterForm(UserCreationForm):
@@ -33,3 +33,8 @@ class VerbaleForm(forms.ModelForm):
         model = Verbale
         fields = ["data", "descrizione",
                   "documento", "lettera_accompagnatoria"]
+        
+class DocumentiPalazzoForm(forms.ModelForm):
+    class Meta:
+        model = DocumentiPalazzo
+        fields = ["data", "descrizione", "file_documento"]

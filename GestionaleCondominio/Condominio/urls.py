@@ -16,7 +16,12 @@ urlpatterns = [
 
     path('create_verbale', views.create_verbale, name="create_verbale"),
 
+    path('create_documento', views.create_documento, name="create_documento"),
+
     path('bacheca', views.bacheca, name="bacheca"),
+
+    path('documenti_palazzo', views.documenti_palazzo, name="documenti_palazzo"),
+
 
         
 ]

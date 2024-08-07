@@ -20,7 +20,7 @@
        </div> 
     </div>
     <div>
-          {% if user == lettera.author %}
+          {% if user == lettera.author or perms.main.delete_lettera %}
                <form method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" name="lettera-id" value="{{lettera.id}}">Elimina</button>
@@ -50,7 +50,7 @@
        </div> 
     </div>
     <div>
-          {% if user == verbale.author %}
+          {% if user == verbale.author or perms.main.delete_verbale %}
                <form method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" name="verbale-id" value="{{verbale.id}}">Elimina</button>

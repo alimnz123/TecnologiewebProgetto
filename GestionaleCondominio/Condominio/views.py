@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm
+from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Verbale, Lettera_Convocazione
+from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo
 
 # Create your views here.
 
@@ -31,6 +31,18 @@ def bacheca(request):
 
     return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
 
+@login_required(login_url="/login")
+def documenti_palazzo(request):
+    documenti=DocumentiPalazzo.objects.all()
+
+    if request.method == "POST":
+        documento_id = request.POST.get("documento-id")
+        print(documento_id)
+        documento=DocumentiPalazzo.objects.filter(id=documento_id).first()
+        if documento and (documento.author == request.user or request.user.has_perm("main.delete_documento")):
+            documento.delete()
+
+    return render(request, 'Condominio_main/documenti_palazzo.html', {"documento":documenti})
 
 
 @login_required(login_url="/login")
@@ -76,6 +88,22 @@ def create_verbale(request):
         form = LettereConvocazioneForm()
 
     return render(request, 'Condominio_main/create_verbale.html', {"form": form})    
+
+
+@login_required(login_url="/login")
+@permission_required("main.add_documento", login_url="/login", raise_exception=True)
+def create_documento(request):
+    if request.method == 'POST':
+        form = DocumentiPalazzoForm(request.POST)
+        if form.is_valid():
+            documento = form.save(commit=False)
+            documento.author = request.user
+            documento.save()
+            return redirect("/home")
+    else:
+        form = DocumentiPalazzoForm()
+
+    return render(request, 'Condominio_main/create_documento.html', {"form": form})
 
 
 def sign_up(request):

@@ -1,0 +1,35 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Documenti del Palazzo{% endblock %}
+{% block content %} 
+<h1>Documenti del Palazzo</h1>
+
+{% comment  %} solo se sei un amministratore {% endcomment %}
+<a class="btn btn-primary" href="/create_documento" role="button">Aggiungi un Documento</a>
+
+{% comment %}Documenti del Palazzo{% endcomment %}
+{% for documento in documenti %}
+<div class="card mt-2">
+    <div class="card-header"><strong>{{documento.data}}</strong></div>
+    <div class="card-body d-flex flex-row justify-content-between">
+       <div> 
+            {{documento.descrizione}}
+       </div> 
+       <div> 
+            {{documento.file_documento}}
+       </div> 
+    </div>
+    <div>
+          {% if user == documento.author or perms.main.delete_documento %}
+               <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" name="documento-id" value="{{documento.id}}">Elimina</button>
+               </form>
+          {% endif %}
+    </div>
+</div>
+
+{%empty%}
+<p>Non sono state caricate ancora i Documenti del Palazzo</p>
+{% endfor %}
+
+{% endblock %}

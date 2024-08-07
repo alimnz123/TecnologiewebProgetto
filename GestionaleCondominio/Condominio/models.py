@@ -57,6 +57,14 @@ class Lettera_Convocazione(models.Model):
     class Meta:
         verbose_name_plural="Lettere di convocazione"
 
+
+class DocumentiPalazzo(models.Model):
+    data=models.DateTimeField("Data", primary_key=True)
+    descrizione=models.CharField(max_length=200)
+    file_documento=models.FileField(verbose_name="Documento del Palazzo", blank=True, default=None)
+    class Meta:
+        verbose_name_plural="Documenti del Palazzo"
+
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
     numero=models.CharField(verbose_name="Numero", max_length=50, primary_key=True)
