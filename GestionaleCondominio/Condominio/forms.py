@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo
+from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore
 
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
+    interno=forms.ChoiceField(required=True, choices=Interno)
 
     class Meta:
         model = User
@@ -38,3 +39,9 @@ class DocumentiPalazzoForm(forms.ModelForm):
     class Meta:
         model = DocumentiPalazzo
         fields = ["data", "descrizione", "file_documento"]
+
+class FornitoreForm(forms.ModelForm):
+    class Meta:
+        model = Fornitore
+        fields = ["nome", "contratto", "indirizzo",
+                  "ragione_sociale", "partita_iva", "cf", "iban"]

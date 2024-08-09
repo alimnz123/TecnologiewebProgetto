@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm
+from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo
+from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore
 
 # Create your views here.
 
@@ -127,3 +127,33 @@ def my_login(request):
 
 def dashboard(request):
     pass
+
+
+#views related to Fornitori and Spese
+@login_required(login_url="/login")
+@permission_required("main.add_fornitore", login_url="/login", raise_exception=True)
+def create_fornitore(request):
+    if request.method == 'POST':
+        form = FornitoreForm(request.POST)
+        if form.is_valid():
+            fornitore = form.save(commit=False)
+            fornitore.author = request.user
+            fornitore.save()
+            return redirect("/home")
+    else:
+        form = FornitoreForm()
+
+    return render(request, 'Condominio_main/create_fornitore.html', {"form": form})
+
+@login_required(login_url="/login")
+def fornitori(request):
+    fornitori=Fornitore.objects.all()
+
+    if request.method == "POST":
+        fornitore_id = request.POST.get("fornitore-id")
+        print(fornitore_id)
+        fornitore=Fornitore.objects.filter(id=fornitore_id).first()
+        if fornitore and (fornitore.author == request.user or request.user.has_perm("main.delete_fornitore")):
+            fornitore.delete()
+            
+    return render(request, 'Condominio_main/fornitori.html', {"fornitori":fornitori})

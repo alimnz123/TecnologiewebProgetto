@@ -22,6 +22,12 @@ urlpatterns = [
 
     path('documenti_palazzo', views.documenti_palazzo, name="documenti_palazzo"),
 
+    path('fornitori', views.fornitori, name="fornitori"),
+
+    path('create_fornitore', views.create_fornitore, name="create_fornitore"),
+
+
+
 
         
 ]
