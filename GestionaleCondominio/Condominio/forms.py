@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore
+from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore, Spesa
 
 
 class RegisterForm(UserCreationForm):
@@ -45,3 +45,9 @@ class FornitoreForm(forms.ModelForm):
         model = Fornitore
         fields = ["nome", "contratto", "indirizzo",
                   "ragione_sociale", "partita_iva", "cf", "iban"]
+        
+class SpesaForm(forms.ModelForm):
+    class Meta:
+        model = Spesa
+        fields = ["data", "fornitore", "tipologia",
+                  "descrizione", "assegnatario", "importo"]

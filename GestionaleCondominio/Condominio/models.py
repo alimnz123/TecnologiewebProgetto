@@ -96,6 +96,27 @@ class Fornitore(models.Model):
     class Meta:
         verbose_name_plural = "Fornitori"
 
+class Spesa(models.Model):
+    class Tipologie(models.TextChoices):
+        LUCE_PALAZZINA="Luce Palazzina"
+        SCALE_PALAZZINA="Scale Palazzina"
+        MANUTENZIONE_ORDINARIA="Manutenzione Ordinaria"
+        MANUTENZIONE_ORDINARIA_COMUNE="Manutenzione Ordinaria Comune"
+        SPESA_GENERALE="Spese Generali"
+        SPESA_STRAORDINARIA="Spesa Straordinaria"
+        SPESA_STRAORDINARIA_COMUNE="Spesa Straordinaria Comune"
+        SPESE_DIVERSE="Spese Diverse"
+        
+    fornitore=models.ForeignKey(Fornitore, on_delete=models.PROTECT)
+    data=models.DateTimeField("Data")
+    #documento=models.FileField("File", blank=True, default=None)
+    tipologia=models.TextField("Tipologia", choices=Tipologie.choices, default=Tipologie.SPESE_DIVERSE, max_length=200)
+    descrizione=models.CharField(default=None, max_length=200)
+    assegnatario=models.TextField("Assegnatario") 
+    importo=models.FloatField("Totale", default=0)
+    class Meta:
+        verbose_name_plural="Spese"
+
 
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
@@ -303,4 +324,4 @@ class Riparto_Preventivo(models.Model):
     class Meta:
         verbose_name_plural="Riparti preventivo"
 
-"""
+ """

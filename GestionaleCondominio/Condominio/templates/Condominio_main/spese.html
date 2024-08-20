@@ -1,0 +1,51 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Spese del Palazzo{% endblock %}
+{% block content %} 
+<h1>Spese del Palazzo</h1>
+
+{% comment  %} solo se sei un amministratore {% endcomment %}
+<a class="btn btn-primary" href="/create_spesa" role="button">Aggiungi una Spesa</a>
+
+{% comment %}Spese{% endcomment %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Fornitore</th>
+        <th scope="col">Tipologia</th>
+        <th scope="col">Descrizione</th>
+        <th scope="col">Assegnatario</th> {% comment %} Deve poter essere un utente user di tipo non staff {% endcomment %}
+        <th scope="col">Importo</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for spesa in spese %}
+        <tr>
+            <th scope="row">{{spesa.data}}</th>
+            <td>{{spesa.fornitore}}</td>
+            <td>{{spesa.tipologia}}</td>
+            <td>{{spesa.descrizione}}</td>
+            <td>{{spesa.assegnatario}}</td>
+            <td>{{spesa.importo}}</td>
+            <td>{{spesa.descrizione}}</td>
+            <td>
+                {% if user == spesa.author or perms.main.delete_spesa %}
+                <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
+                </form>
+                {% endif %}
+                {% comment %}
+                pulsante modifica
+                {% endcomment %}
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+{%empty%}
+<p>Non sono state inserite Spese</p>
+{% endfor %}
+
+
+{% endblock %}

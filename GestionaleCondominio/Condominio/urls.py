@@ -26,6 +26,11 @@ urlpatterns = [
 
     path('create_fornitore', views.create_fornitore, name="create_fornitore"),
 
+    path('spesa', views.spesa, name="spesa"),
+
+    path('create_spesa', views.create_spesa, name="create_spesa"),
+
+
 
 
 

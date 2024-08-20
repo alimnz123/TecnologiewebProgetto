@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm
+from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm, SpesaForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore
+from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa
 
 # Create your views here.
 
@@ -157,3 +157,31 @@ def fornitori(request):
             fornitore.delete()
             
     return render(request, 'Condominio_main/fornitori.html', {"fornitori":fornitori})
+
+@login_required(login_url="/login")
+@permission_required("main.add_spesa", login_url="/login", raise_exception=True)
+def create_spesa(request):
+    if request.method == 'POST':
+        form = SpesaForm(request.POST)
+        if form.is_valid():
+            spesa = form.save(commit=False)
+            spesa.author = request.user
+            spesa.save()
+            return redirect("/spesa")
+    else:
+        form = SpesaForm()
+
+    return render(request, 'Condominio_main/create_spesa.html', {"form": form})
+
+@login_required(login_url="/login")
+def spesa(request):
+    spesa=Spesa.objects.all()
+
+    if request.method == "POST":
+        spesa_id = request.POST.get("spesa-id")
+        print(spesa_id)
+        fornitore=Fornitore.objects.filter(id=spesa_id).first()
+        if spesa and (spesa.author == request.user or request.user.has_perm("main.delete_spesa")):
+            spesa.delete()
+            
+    return render(request, 'Condominio_main/spese.html', {"spesa":spesa})
