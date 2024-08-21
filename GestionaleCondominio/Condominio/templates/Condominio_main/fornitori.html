@@ -1,40 +1,48 @@
 {% extends 'Condominio_main/base.html' %}
-{% block title %}Bacheca{% endblock %}
+{% block title %}Fornitori{% endblock %}
 {% block content %} 
-<h1>Bacheca</h1>
+<h1>Fornitori</h1>
 
 {% comment  %} solo se sei un amministratore {% endcomment %}
 <a class="btn btn-primary" href="/create_fornitore" role="button">Aggiungi un Fornitore</a>
 
-{% comment %}Lettere{% endcomment %}
-{% for fornitore in fornitori %}
-<div class="card mt-2">
-    <div class="card-header"><strong>{{fornitore.nome}}</strong></div>
-    <div class="card-body d-flex flex-row justify-content-between">
-       <div> 
-            {{fornitore.indirizzo}}
-            {{fornitore.ragione_sociale}}
-            {{fornitore.partita_iva}}
-            {{fornitore.cf}}
-            {{fornitore.iban}}
-       </div> 
-       <div> 
-            {{fornitore.contratto}}
-       </div> 
-    </div>
-    <div>
-          {% if user == fornitore.author or perms.main.delete_fornitore %}
-               <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" name="lettera-id" value="{{fornitore.id}}">Elimina</button>
-               </form>
-          {% endif %}
-    </div>
-</div>
-
-{%empty%}
-<p>Non sono stati inseriti Fornitori</p>
-{% endfor %}
-
+{% comment %}Fornitori{% endcomment %}
+<table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Nome</th>
+         <th scope="col">Indirizzo</th>
+         <th scope="col">Ragione Sociale</th>
+         <th scope="col">P.iva</th>
+         <th scope="col">Iban</th> 
+         <th scope="col">Contratto</th>
+       </tr>
+     </thead>
+     <tbody>
+         {% for fornitore in fornitori %}
+         <tr>
+             <th scope="row">{{fornitore.nome}}</th>
+             <td>{{fornitore.indirizzo}}</td>
+             <td>{{fornitore.ragione_sociale}}</td>
+             <td>{{fornitore.partita_iva}}</td>
+             <td>{{fornitore.iban}}</td>
+             <td>{{fornitore.contratto}}</td>
+             <td>
+                 {% if user == fornitore.author or perms.main.delete_fornitore %}
+                 <form method="post">
+                         {% csrf_token %}
+                         <button type="submit" class="btn btn-danger" name="fornitore-id" value="{{fornitore.id}}">Elimina</button>
+                 </form>
+                 <form method="post">
+                         {% csrf_token %}
+                         <a href="{% url 'update_fornitore' fornitore.id %}" class="btn btn-secondary">Modifica</a>
+                 </form>
+                 {% endif %}
+             </td>
+         </tr>
+         {% endfor %}
+     </tbody>
+ </table>
+ 
 
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Modifica Spesa {{spesa.pk}}{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+<form method="post">
+    {% csrf_token %}{{form|crispy}}
+    <button type="submit" class="btn btn-success">Salva le modifiche</button>
+</form>
+{% endblock %}
+

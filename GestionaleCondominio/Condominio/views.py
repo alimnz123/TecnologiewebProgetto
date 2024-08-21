@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm, SpesaForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
+from django.views.generic.edit import UpdateView
 from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa
 
 # Create your views here.
@@ -139,7 +141,7 @@ def create_fornitore(request):
             fornitore = form.save(commit=False)
             fornitore.author = request.user
             fornitore.save()
-            return redirect("/home")
+            return redirect("/fornitori")
     else:
         form = FornitoreForm()
 
@@ -175,13 +177,22 @@ def create_spesa(request):
 
 @login_required(login_url="/login")
 def spesa(request):
-    spesa=Spesa.objects.all()
+    spese=Spesa.objects.all()
 
     if request.method == "POST":
         spesa_id = request.POST.get("spesa-id")
         print(spesa_id)
-        fornitore=Fornitore.objects.filter(id=spesa_id).first()
+        spesa=Spesa.objects.filter(id=spesa_id).first()
         if spesa and (spesa.author == request.user or request.user.has_perm("main.delete_spesa")):
             spesa.delete()
             
-    return render(request, 'Condominio_main/spese.html', {"spesa":spesa})
+    return render(request, 'Condominio_main/spese.html', {"spese":spese})
+
+class UpdateSpesaView(UpdateView):
+    model = Spesa
+    template_name = "Condominio_main/edit_spesa.html"
+    fields = "__all__"
+    
+    def get_success_url(self):
+        pk = self.get_context_data()["object"].pk
+        return reverse("spesa")

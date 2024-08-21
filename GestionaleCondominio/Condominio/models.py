@@ -6,8 +6,6 @@ from django.utils import timezone
 # Create your models here.
 
 # condominio
-
-
 class Condominio(models.Model):
     nome = models.CharField(verbose_name="Condominio", max_length=100, primary_key=True)
 
@@ -107,7 +105,7 @@ class Spesa(models.Model):
         SPESA_STRAORDINARIA_COMUNE="Spesa Straordinaria Comune"
         SPESE_DIVERSE="Spese Diverse"
         
-    fornitore=models.ForeignKey(Fornitore, on_delete=models.PROTECT)
+    fornitore=models.ForeignKey(Fornitore, on_delete=models.PROTECT, default=None)
     data=models.DateTimeField("Data")
     #documento=models.FileField("File", blank=True, default=None)
     tipologia=models.TextField("Tipologia", choices=Tipologie.choices, default=Tipologie.SPESE_DIVERSE, max_length=200)
