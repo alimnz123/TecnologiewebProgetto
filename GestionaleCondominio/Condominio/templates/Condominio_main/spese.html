@@ -36,7 +36,7 @@
                 </form>
                 <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'edit_spesa' %}" class="btn btn-secondary">Modifica</a>
+                        <a href="{% url 'edit_spesa' slug=spesa %}" class="btn btn-secondary">Modifica</a>
                 </form>
                 {% endif %}
             </td>

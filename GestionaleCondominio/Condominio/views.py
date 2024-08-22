@@ -190,9 +190,7 @@ def spesa(request):
 
 class UpdateSpesaView(UpdateView):
     model = Spesa
+    form_class = SpesaForm
     template_name = "Condominio_main/edit_spesa.html"
     fields = "__all__"
-    
-    def get_success_url(self):
-        pk = self.get_context_data()["object"].pk
-        return reverse("spesa")
+    success_url='spesa'
