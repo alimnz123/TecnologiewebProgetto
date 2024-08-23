@@ -30,7 +30,7 @@ urlpatterns = [
 
     path('create_spesa', views.create_spesa, name="create_spesa"),
 
-    path("<slug:slug>/edit_spesa", views.UpdateSpesaView.as_view(), name="edit_spesa"),
+    path("<pk>/edit_spesa", views.UpdateSpesaView.as_view(), name="edit_spesa"),
 
 
 ]

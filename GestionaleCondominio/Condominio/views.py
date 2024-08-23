@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse_lazy, reverse
 from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm, SpesaForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
@@ -190,7 +190,10 @@ def spesa(request):
 
 class UpdateSpesaView(UpdateView):
     model = Spesa
-    form_class = SpesaForm
+    fields='__all__'
     template_name = "Condominio_main/edit_spesa.html"
-    fields = "__all__"
-    success_url='spesa'
+    
+
+    def get_success_url(self):
+        pk = self.get_context_data()["object"].id
+        return reverse("spesa",kwargs={'pk': pk})
