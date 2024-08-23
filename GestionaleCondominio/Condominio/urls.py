@@ -32,5 +32,8 @@ urlpatterns = [
 
     path("<pk>/edit_spesa", views.UpdateSpesaView.as_view(), name="edit_spesa"),
 
+    path("notifiche", views.NotificationListView.as_view(), name="notifiche"),
+
+
 
 ]

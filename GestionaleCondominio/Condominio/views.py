@@ -4,7 +4,8 @@ from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleFo
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.edit import UpdateView
-from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa
+from django.views.generic.list import ListView
+from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa, Notification
 
 # Create your views here.
 
@@ -101,6 +102,8 @@ def create_documento(request):
             documento = form.save(commit=False)
             documento.author = request.user
             documento.save()
+            #faccio partire una notifica
+            Notification.objects.create(text="New answer!")
             return redirect("/home")
     else:
         form = DocumentiPalazzoForm()
@@ -197,3 +200,27 @@ class UpdateSpesaView(UpdateView):
     def get_success_url(self):
         pk = self.get_context_data()["object"].id
         return reverse("spesa",kwargs={'pk': pk})
+    
+
+
+#NOTIFICATION SYSTEM
+
+#view che mette in lista tutte le notifiche
+
+@login_required(login_url="/login")
+def notifiche(request):
+    notifiche=Notification.objects.all()
+
+    if request.method == "POST":
+        notifica_id = request.POST.get("notifica-id")
+        print(notifica_id)
+        notifica=Notification.objects.filter(id=notifica_id).first()
+        if notifica and (notifica.author == request.user or request.user.has_perm("main.delete_notifica")):
+            notifica.delete()
+            
+    return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche})
+class NotificationListView(ListView):
+    model = Notification
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user).order_by("-timestamp")

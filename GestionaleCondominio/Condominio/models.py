@@ -115,6 +115,17 @@ class Spesa(models.Model):
     class Meta:
         verbose_name_plural="Spese"
 
+#NOTIFICATION SYSTEM
+class Notification(models.Model):
+    message = models.TextField("Hai un nuovo messaggio in bacheca")
+    users = models.ManyToManyField(User, through='UserNotification')
+
+class UserNotification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    notification = models.ForeignKey(Notification, on_delete=models.CASCADE)
+    is_seen = models.BooleanField()
+
 
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)

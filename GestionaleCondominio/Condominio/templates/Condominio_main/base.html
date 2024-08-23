@@ -42,6 +42,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
+                    <li class="nav-item">
+                        <li class="nav-item">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Notifiche</button>
+
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 id="offcanvasRightLabel">Notifiche</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                {% include 'Condominio_main/notifiche.html' %}
+                            </div>
+                            </div>
+                        </li>
+                    </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>

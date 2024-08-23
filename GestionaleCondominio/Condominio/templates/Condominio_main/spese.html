@@ -27,7 +27,6 @@
             <td>{{spesa.descrizione}}</td>
             <td>{{spesa.assegnatario}}</td>
             <td>{{spesa.importo}}</td>
-            <td>{{spesa.descrizione}}</td>
             <td>
                 {% if user == spesa.author or perms.main.delete_spesa %}
                 <form method="post">
