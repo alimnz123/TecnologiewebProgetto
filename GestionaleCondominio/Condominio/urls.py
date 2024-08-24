@@ -10,6 +10,8 @@ urlpatterns = [
 
     path('my-login', views.my_login, name="Login"),
 
+    path('logout', views.logout_view, name="Logout"),
+
     path('create_interno', views.create_interno, name="create_interno"),
 
     path('create_lettera', views.create_lettera, name="create_lettera"),

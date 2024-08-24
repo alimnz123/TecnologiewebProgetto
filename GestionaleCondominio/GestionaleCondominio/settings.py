@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     #altre app
     'Condominio.apps.CondominioConfig',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
 
 ]
 

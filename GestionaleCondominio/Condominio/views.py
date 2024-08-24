@@ -129,6 +129,12 @@ def sign_up(request):
 def my_login(request):
     pass
 
+def logout_view(request):
+    if request.method=="POST":
+        logout(request)
+        return redirect("/login")
+    
+    return render(request, "registration/logout.html", {})
 
 def dashboard(request):
     pass
@@ -204,7 +210,6 @@ class UpdateSpesaView(UpdateView):
 
 
 #NOTIFICATION SYSTEM
-
 #view che mette in lista tutte le notifiche
 
 @login_required(login_url="/login")

@@ -1,0 +1,16 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Logout eseguito{% endblock %}
+{% block content %} 
+    {% if request.user.is_authenticated %}
+    <div style='margin-top:30px'>
+        <form method='POST'>
+            {% csrf_token %}
+            <p>Sei sicuro/a di voler uscire?</p>
+            <button type="submit" class="btn btn-success">Si, Esci</button>
+        </form>
+
+    </div>
+    {% else %}
+    <p>Non sei Loggato/a, Vuoi fare il <a href="/login">Login</a>?</p>
+    {% endif %}
+{% endblock %}

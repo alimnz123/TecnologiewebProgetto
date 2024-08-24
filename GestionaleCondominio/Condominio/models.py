@@ -127,6 +127,9 @@ class UserNotification(models.Model):
     is_seen = models.BooleanField()
 
 
+
+
+
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
     numero=models.CharField(verbose_name="Numero", max_length=50, primary_key=True)
