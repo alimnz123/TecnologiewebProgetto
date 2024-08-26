@@ -25,7 +25,16 @@
             <td>{{spesa.fornitore}}</td>
             <td>{{spesa.tipologia}}</td>
             <td>{{spesa.descrizione}}</td>
-            <td>{{spesa.assegnatario}}</td>
+            <td>
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Vedi tutti
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for utente in spesa.assegnatario.all %}
+                <li>{{utente}}</li>
+                {% endfor %}
+              </ul>
+            </td>
             <td>{{spesa.importo}}</td>
             <td>
                 {% if user == spesa.author or perms.main.delete_spesa %}
