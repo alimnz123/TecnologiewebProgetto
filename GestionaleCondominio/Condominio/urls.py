@@ -10,7 +10,11 @@ urlpatterns = [
 
     path('my-login', views.my_login, name="Login"),
 
-    path('logout', views.logout_view, name="Logout"),
+    #path('my-logout', views.logout_view, name="Logout"),
+
+    path('interni', views.interno, name="interni"),
+
+    path("<pk>/edit_interno", views.UpdateInternoView.as_view(), name="edit_interno"),
 
     path('create_interno', views.create_interno, name="create_interno"),
 

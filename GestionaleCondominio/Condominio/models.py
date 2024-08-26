@@ -19,14 +19,18 @@ class Condominio(models.Model):
 class Interno(models.Model):
     condomino = models.ForeignKey(User, on_delete=models.CASCADE)
     palazzina = models.ForeignKey(Condominio, on_delete=models.CASCADE, default="Salgari")
-    numero_interno = models.CharField(verbose_name="Numero", max_length=50, primary_key=True)
+    numero_interno = models.CharField(verbose_name="Numero Interno", max_length=50, primary_key=True)
     millesimi_generali = models.FloatField(verbose_name="Millesimi generali")
     millesimi_scala = models.FloatField(verbose_name="Millesimi Scala")
+    millesimi_edificio=models.FloatField(verbose_name="Millesimi Edificio")
     # proprietario=models.TextChoices(verbose_name="Proprietà", choices=User.last_name)
     # da verificare questi elementi
     in_affitto = models.BooleanField(verbose_name="In affitto")
     # occupante=models.TextChoices(verbose_name="Inquilino", choices=User.last_name)
     mappali = models.CharField(verbose_name="Mappali", max_length=100)
+    class Meta:
+        ordering = ["numero_interno"]
+        verbose_name_plural = "Interni"
 
 
 class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) probabilmente in bacheca + contabilità(rendiconto, consuntivo, dell'anno precedente, appena concluso)

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
-from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa, Notification
+from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa, Notification, Interno
 
 # Create your views here.
 
@@ -45,22 +45,7 @@ def documenti_palazzo(request):
         if documento and (documento.author == request.user or request.user.has_perm("main.delete_documento")):
             documento.delete()
 
-    return render(request, 'Condominio_main/documenti_palazzo.html', {"documento":documenti})
-
-
-@login_required(login_url="/login")
-def create_interno(request):
-    if request.method == 'POST':
-        form = InternoForm(request.POST)
-        if form.is_valid():
-            interno = form.save(commit=False)
-            interno.author = request.user
-            interno.save()
-            return redirect("/home")
-    else:
-        form = InternoForm()
-
-    return render(request, 'Condominio_main/create_interno.html', {"form": form})
+    return render(request, 'Condominio_main/documenti_palazzo.html', {"documenti":documenti})
 
 @login_required(login_url="/login")
 @permission_required("main.add_lettera", login_url="/login", raise_exception=True)
@@ -130,11 +115,12 @@ def my_login(request):
     pass
 
 def logout_view(request):
-    if request.method=="POST":
+    pass
+    """ if request.method=="POST":
         logout(request)
-        return redirect("/login")
+        return redirect('/login')
     
-    return render(request, "registration/logout.html", {})
+    return render(request, "registration/logout.html", {}) """
 
 def dashboard(request):
     pass
@@ -208,6 +194,43 @@ class UpdateSpesaView(UpdateView):
         return reverse("spesa",kwargs={'pk': pk})
     
 
+#VIEW INTERNO CON IL RISEPTTIVO OCCUPANTE
+    #view che permette di visionare tutti i consomini e in quali interni si trovano
+@login_required(login_url="/login")
+def interno(request):
+    interni=Interno.objects.all()
+
+    if request.method == "POST":
+        interno_id = request.POST.get("interno-id")
+        print(interno_id)
+        interno=Interno.objects.filter(id=interno_id).first()
+        if interno and (interno.author == request.user or request.user.has_perm("main.delete_interno")):
+            interno.delete()
+            
+    return render(request, 'Condominio_main/interni.html', {"interni":interni})
+
+class UpdateInternoView(UpdateView):
+    model = Interno
+    fields='__all__'
+    template_name = "Condominio_main/edit_interno.html"
+    
+    def get_success_url(self):
+        pk = self.get_context_data()["object"].id
+        return reverse("interno",kwargs={'pk': pk})
+    
+@login_required(login_url="/login")
+def create_interno(request):
+    if request.method == 'POST':
+        form = InternoForm(request.POST)
+        if form.is_valid():
+            interno = form.save(commit=False)
+            interno.author = request.user
+            interno.save()
+            return redirect("/home")
+    else:
+        form = InternoForm()
+
+    return render(request, 'Condominio_main/create_interno.html', {"form": form})
 
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche
