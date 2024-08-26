@@ -114,7 +114,7 @@ class Spesa(models.Model):
     #documento=models.FileField("File", blank=True, default=None)
     tipologia=models.TextField("Tipologia", choices=Tipologie.choices, default=Tipologie.SPESE_DIVERSE, max_length=200)
     descrizione=models.CharField(default=None, max_length=200)
-    assegnatario=models.TextField("Assegnatario") 
+    assegnatario=models.ManyToManyField(User) 
     importo=models.FloatField("Totale", default=0)
     class Meta:
         verbose_name_plural="Spese"

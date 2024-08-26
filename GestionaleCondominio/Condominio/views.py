@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
-from .models import Verbale, Lettera_Convocazione, DocumentiPalazzo, Fornitore, Spesa, Notification, Interno
+from .models import *
 
 # Create your views here.
 
@@ -115,12 +115,8 @@ def my_login(request):
     pass
 
 def logout_view(request):
-    pass
-    """ if request.method=="POST":
-        logout(request)
-        return redirect('/login')
-    
-    return render(request, "registration/logout.html", {}) """
+    logout(request)
+    redirect('/logout')
 
 def dashboard(request):
     pass
@@ -173,12 +169,12 @@ def create_spesa(request):
 @login_required(login_url="/login")
 def spesa(request):
     spese=Spesa.objects.all()
-
+    
     if request.method == "POST":
         spesa_id = request.POST.get("spesa-id")
         print(spesa_id)
         spesa=Spesa.objects.filter(id=spesa_id).first()
-        if spesa and (spesa.author == request.user or request.user.has_perm("main.delete_spesa")):
+        if spesa and (request.user.has_perm("main.delete_spesa")):
             spesa.delete()
             
     return render(request, 'Condominio_main/spese.html', {"spese":spese})
@@ -204,7 +200,7 @@ def interno(request):
         interno_id = request.POST.get("interno-id")
         print(interno_id)
         interno=Interno.objects.filter(id=interno_id).first()
-        if interno and (interno.author == request.user or request.user.has_perm("main.delete_interno")):
+        if interno and (request.user.has_perm("main.delete_interno")):
             interno.delete()
             
     return render(request, 'Condominio_main/interni.html', {"interni":interni})
@@ -243,7 +239,7 @@ def notifiche(request):
         notifica_id = request.POST.get("notifica-id")
         print(notifica_id)
         notifica=Notification.objects.filter(id=notifica_id).first()
-        if notifica and (notifica.author == request.user or request.user.has_perm("main.delete_notifica")):
+        if notifica and (request.user.has_perm("main.delete_notifica")):
             notifica.delete()
             
     return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche})
