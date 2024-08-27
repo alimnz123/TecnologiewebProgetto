@@ -22,8 +22,14 @@
           {% if user == documento.author or perms.main.delete_documento %}
                <form method="post">
                     {% csrf_token %}
+                    {% comment %}
+                    ELIMINA CON FBV
                     <button type="submit" class="btn btn-danger" name="documento-id" value="{{documento.id}}">Elimina</button>
+                    {% endcomment %}
+
+                    <a href="{% url 'cancella_documento_palazzo' pk=documento.pk %}" class="btn btn-secondary">Cancella Documento</a>                    
                </form>
+          
           {% endif %}
     </div>
 </div>

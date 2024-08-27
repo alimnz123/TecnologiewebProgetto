@@ -40,7 +40,11 @@
                 {% if user == spesa.author or perms.main.delete_spesa %}
                 <form method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
+                        <a href="{% url 'cancella_spesa' pk=spesa.pk %}" class="btn btn-secondary">Cancella Spesa</a>
+                        {% comment %}
+                        ELIMINA CON FBV
+                          <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
+                        {% endcomment %}
                 </form>
                 <form method="post">
                         {% csrf_token %}

@@ -109,7 +109,7 @@ def documenti_palazzo(request):
         documento_id = request.POST.get("documento-id")
         print(documento_id)
         documento=DocumentiPalazzo.objects.filter(id=documento_id).first()
-        if documento and (documento.author == request.user or request.user.has_perm("main.delete_documento")):
+        if documento and (request.user.has_perm("main.delete_documento")):
             documento.delete()
 
     return render(request, 'Condominio_main/documenti_palazzo.html', {"documenti":documenti})
@@ -199,6 +199,14 @@ def create_fornitore(request):
 class DeleteFornitoreView(DeleteEntitaView):
     model=Fornitore
 
+class UpdateFornitoreView(UpdateView):
+    model = Fornitore
+    fields = "__all__"
+    template_name = "Condominio_main/edit_fornitore.html"
+    
+    def get_success_url(self):
+        pk = self.get_context_data()["object"].pk
+        return reverse("fornitori", kwargs = {'pk': pk})
 
 @login_required(login_url="/login")
 def spesa(request):
@@ -263,7 +271,7 @@ class UpdateInternoView(UpdateView):
     
     def get_success_url(self):
         pk = self.get_context_data()["object"].pk
-        return reverse("Condominio:interno", kwargs = {'pk': pk})
+        return reverse("interno", kwargs = {'pk': pk})
     
 @login_required(login_url="/login")
 def create_interno(request):

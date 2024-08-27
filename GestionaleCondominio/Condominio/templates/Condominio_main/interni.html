@@ -34,20 +34,18 @@
              <td>
                  {% if user == interno.author or perms.main.delete_interno %}
                  <form method="post">
-                         {% csrf_token %}
-                         <a href="{% url 'cancella_interno' pk=interno.pk %}">Cancella Interno</a>
+                        {% csrf_token %}
+                        <a href="{% url 'cancella_interno' pk=interno.pk %}" class="btn btn-secondary">Cancella Interno</a>
                          {% comment %}
                          ELIMINA BUTTON SE SEGUO LE FBV
                          <button type="submit" class="btn btn-danger" name="interno-id" value="{{interno.id}}">Elimina</button>
                          {% endcomment %}
                  </form>
-                 {% comment %}
-                    MODIFICA
-                    <form method="post">
-                         {% csrf_token %}
-                         <a href="{% url 'edit_interno' interno.id %}" class="btn btn-secondary">Modifica</a>
-                    </form>
-                 {% endcomment %}
+                 <form method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'edit_interno' pk=interno.pk %}" class="btn btn-secondary">Modifica</a>
+                 </form>
+                 
                  
                  {% endif %}
              </td>

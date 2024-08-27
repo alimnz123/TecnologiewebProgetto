@@ -31,11 +31,15 @@
                  {% if user == fornitore.author or perms.main.delete_fornitore %}
                  <form method="post">
                          {% csrf_token %}
+                         <a href="{% url 'cancella_fornitore' pk=fornitore.pk %}" class="btn btn-secondary">Cancella Fornitore</a>
+                         {% comment %}
                          <button type="submit" class="btn btn-danger" name="fornitore-id" value="{{fornitore.id}}">Elimina</button>
+                         {% endcomment %}
                  </form>
                  <form method="post">
-                         {% csrf_token %}
-                         <a href="{% url 'update_fornitore' fornitore.id %}" class="btn btn-secondary">Modifica</a>
+                        {% csrf_token %}
+                        <a href="{% url 'edit_fornitore' pk=fornitore.pk %}" class="btn btn-secondary">Modifica</a>
+                        
                  </form>
                  {% endif %}
              </td>
