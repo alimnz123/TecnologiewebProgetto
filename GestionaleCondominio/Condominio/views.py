@@ -3,15 +3,77 @@ from django.urls import reverse_lazy, reverse
 from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm, SpesaForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
 
 # Create your views here.
 
+def sign_up(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        # i want to create a new user
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/home')
+
+    else:
+        form = RegisterForm()
+
+    return render(request, 'registration/sign_up.html', {"form": form})
+
+
+def my_login(request):
+    pass
+
+def logout_view(request):
+    logout(request)
+    redirect('/logout')
+
+def dashboard(request):
+    pass
+
+#HOMEPAGE
 @login_required(login_url="/login")
 def homepage(request):
     return render(request, 'Condominio_main/homepage.html')
+
+#Classe DeleteView per una generica entità
+class DeleteEntitaView(DeleteView):
+    template_name="Condominio_main/cancella_elemento.html"
+
+    def get_context_data(self, **kwargs):
+        ctx=super().get_context_data()
+        if self.model == Interno:
+            entita="Interno"
+        if self.model == Spesa:
+            entita="Spesa"
+        if self.model == DocumentiPalazzo:
+            entita="DocumentiPalazzo"
+        if self.model == Verbale:
+            entita="Verbale"
+        if self.model == Lettera_Convocazione:
+            entita="LetteraConvocazione"
+        if self.model == Fornitore:
+            entita="Fornitore"
+        ctx["entita"]=entita
+        return ctx
+    
+    def get_success_url(self):
+        if self.model == Interno:
+            return reverse("interni")
+        if self.model == Spesa:
+            return reverse("spesa")
+        if self.model == DocumentiPalazzo:
+            return reverse("documenti_palazzo")
+        if self.model == Verbale:
+            return reverse("bacheca")
+        if self.model == Lettera_Convocazione:
+            return reverse("bacheca")
+        if self.model == Fornitore:
+            return reverse("fornitori")
+        return super().get_success_url()
 
 @login_required(login_url="/login")
 def bacheca(request):
@@ -34,6 +96,11 @@ def bacheca(request):
 
     return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
 
+class DeleteVerbaleView(DeleteEntitaView):
+    model=Verbale
+class DeleteLetteraConvocazioneView(DeleteEntitaView):
+    model=Lettera_Convocazione
+
 @login_required(login_url="/login")
 def documenti_palazzo(request):
     documenti=DocumentiPalazzo.objects.all()
@@ -46,6 +113,9 @@ def documenti_palazzo(request):
             documento.delete()
 
     return render(request, 'Condominio_main/documenti_palazzo.html', {"documenti":documenti})
+
+class DeleteDocumentiPalazzoView(DeleteEntitaView):
+    model=DocumentiPalazzo
 
 @login_required(login_url="/login")
 @permission_required("main.add_lettera", login_url="/login", raise_exception=True)
@@ -96,33 +166,21 @@ def create_documento(request):
     return render(request, 'Condominio_main/create_documento.html', {"form": form})
 
 
-def sign_up(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        # i want to create a new user
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/home')
-
-    else:
-        form = RegisterForm()
-
-    return render(request, 'registration/sign_up.html', {"form": form})
-
-
-def my_login(request):
-    pass
-
-def logout_view(request):
-    logout(request)
-    redirect('/logout')
-
-def dashboard(request):
-    pass
-
-
 #views related to Fornitori and Spese
+
+@login_required(login_url="/login")
+def fornitori(request):
+    fornitori=Fornitore.objects.all()
+
+    if request.method == "POST":
+        fornitore_id = request.POST.get("fornitore-id")
+        print(fornitore_id)
+        fornitore=Fornitore.objects.filter(id=fornitore_id).first()
+        if fornitore and (fornitore.author == request.user or request.user.has_perm("main.delete_fornitore")):
+            fornitore.delete()
+            
+    return render(request, 'Condominio_main/fornitori.html', {"fornitori":fornitori})
+
 @login_required(login_url="/login")
 @permission_required("main.add_fornitore", login_url="/login", raise_exception=True)
 def create_fornitore(request):
@@ -138,18 +196,22 @@ def create_fornitore(request):
 
     return render(request, 'Condominio_main/create_fornitore.html', {"form": form})
 
-@login_required(login_url="/login")
-def fornitori(request):
-    fornitori=Fornitore.objects.all()
+class DeleteFornitoreView(DeleteEntitaView):
+    model=Fornitore
 
-    if request.method == "POST":
-        fornitore_id = request.POST.get("fornitore-id")
-        print(fornitore_id)
-        fornitore=Fornitore.objects.filter(id=fornitore_id).first()
-        if fornitore and (fornitore.author == request.user or request.user.has_perm("main.delete_fornitore")):
-            fornitore.delete()
+
+@login_required(login_url="/login")
+def spesa(request):
+    spese=Spesa.objects.all()
+    
+    """ if request.method == "POST":
+        spesa_id = request.POST.get("spesa-id")
+        print(spesa_id)
+        spesa=Spesa.objects.filter(id=spesa_id).first()
+        if spesa and (request.user.has_perm("main.delete_spesa")):
+            spesa.delete() """
             
-    return render(request, 'Condominio_main/fornitori.html', {"fornitori":fornitori})
+    return render(request, 'Condominio_main/spese.html', {"spese":spese})
 
 @login_required(login_url="/login")
 @permission_required("main.add_spesa", login_url="/login", raise_exception=True)
@@ -166,19 +228,6 @@ def create_spesa(request):
 
     return render(request, 'Condominio_main/create_spesa.html', {"form": form})
 
-@login_required(login_url="/login")
-def spesa(request):
-    spese=Spesa.objects.all()
-    
-    if request.method == "POST":
-        spesa_id = request.POST.get("spesa-id")
-        print(spesa_id)
-        spesa=Spesa.objects.filter(id=spesa_id).first()
-        if spesa and (request.user.has_perm("main.delete_spesa")):
-            spesa.delete()
-            
-    return render(request, 'Condominio_main/spese.html', {"spese":spese})
-
 class UpdateSpesaView(UpdateView):
     model = Spesa
     fields='__all__'
@@ -189,6 +238,8 @@ class UpdateSpesaView(UpdateView):
         pk = self.get_context_data()["object"].id
         return reverse("spesa",kwargs={'pk': pk})
     
+class DeleteSpesaView(DeleteEntitaView):
+    model=Spesa
 
 #VIEW INTERNO CON IL RISEPTTIVO OCCUPANTE
     #view che permette di visionare tutti i consomini e in quali interni si trovano
@@ -207,12 +258,12 @@ def interno(request):
 
 class UpdateInternoView(UpdateView):
     model = Interno
-    fields='__all__'
+    fields = "__all__"
     template_name = "Condominio_main/edit_interno.html"
     
     def get_success_url(self):
-        pk = self.get_context_data()["object"].id
-        return reverse("interno",kwargs={'pk': pk})
+        pk = self.get_context_data()["object"].pk
+        return reverse("Condominio:interno", kwargs = {'pk': pk})
     
 @login_required(login_url="/login")
 def create_interno(request):
@@ -227,6 +278,9 @@ def create_interno(request):
         form = InternoForm()
 
     return render(request, 'Condominio_main/create_interno.html', {"form": form})
+
+class DeleteInternoView(DeleteEntitaView):
+    model=Interno
 
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche
@@ -248,3 +302,5 @@ class NotificationListView(ListView):
 
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user).order_by("-timestamp")
+
+

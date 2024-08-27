@@ -1,0 +1,14 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %} Cancella {{entita}} {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+<h1>Cancellazione di {{entita}}</h1>
+
+<form method="post">
+    <h2>Sicuro/a di voler cancellare "{{object}}" ?</h2>
+    {% csrf_token %}{{form|crispy}}
+    <button type="submit" class="btn btn-success">Conferma</button>
+</form>
+{% endblock %}

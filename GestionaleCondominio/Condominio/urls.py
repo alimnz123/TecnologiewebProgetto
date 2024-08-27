@@ -14,10 +14,12 @@ urlpatterns = [
 
     path('interni', views.interno, name="interni"),
 
-    path("<pk>/edit_interno", views.UpdateInternoView.as_view(), name="edit_interno"),
+    path("edit_interno/<pk>/", views.UpdateInternoView.as_view(), name="edit_interno"),
 
     path('create_interno', views.create_interno, name="create_interno"),
 
+    path("cancella_interno/<pk>/", views.DeleteInternoView.as_view(),name="cancella_interno"),
+    
     path('create_lettera', views.create_lettera, name="create_lettera"),
 
     path('create_verbale', views.create_verbale, name="create_verbale"),
