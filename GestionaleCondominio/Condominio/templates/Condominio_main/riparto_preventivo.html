@@ -1,0 +1,61 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Riparto Preventivo{% endblock %}
+{% block content %} 
+<h1>Riparto Preventivo</h1>
+
+{% comment %}Spese{% endcomment %}
+<div class="overflow-x:auto">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">N</th>
+        <th scope="col">Condomino</th>
+        <th scope="col">Spese Generali</th>
+        <th scope="col">Spese Straordinarie Palazzina</th>
+        <th scope="col">Spese Straordinarie</th> {% comment %} Deve poter essere un utente user di tipo non staff {% endcomment %}
+        <th scope="col">Importo</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for spesa in spese %}
+        <tr>
+            <th scope="row">{{spesa.data}}</th>
+            <td>{{spesa.fornitore}}</td>
+            <td>{{spesa.tipologia}}</td>
+            <td>{{spesa.descrizione}}</td>
+            <td>
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Vedi tutti
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for utente in spesa.assegnatario.all %}
+                <li>{{utente}}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{spesa.importo}}</td>
+            <td>
+                {% if user == spesa.author or perms.main.delete_spesa %}
+                <form method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'cancella_spesa' pk=spesa.pk %}" class="btn btn-secondary">Cancella Spesa</a>
+                        {% comment %}
+                        ELIMINA CON FBV
+                          <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
+                        {% endcomment %}
+                </form>
+                <form method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'edit_spesa' pk=spesa.pk %}" class="btn btn-secondary">Modifica</a>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+
+{% endblock %}
