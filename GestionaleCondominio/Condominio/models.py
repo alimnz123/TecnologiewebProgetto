@@ -28,6 +28,10 @@ class Interno(models.Model):
     in_affitto = models.BooleanField(verbose_name="In affitto")
     # occupante=models.TextChoices(verbose_name="Inquilino", choices=User.last_name)
     mappali = models.CharField(verbose_name="Mappali", max_length=100)
+
+    def __str__(self):
+        out=self.numero_interno + " - " + str(self.condomino.last_name)
+        return out
     class Meta:
         ordering = ["numero_interno"]
         verbose_name_plural = "Interni"

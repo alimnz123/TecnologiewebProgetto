@@ -271,27 +271,21 @@ class UpdateInternoView(UpdateView):
     
     def get_success_url(self):
         pk = self.get_context_data()["object"].pk
-        return reverse("interno", kwargs = {'pk': pk})
+        return reverse("interni", kwargs = {'pk': pk})
     
 @login_required(login_url="/login")
 def create_interno(request):
-    message=""
     if request.method == 'POST':
         form = InternoForm(request.POST)
         if form.is_valid():
             interno = form.save(commit=False)
             interno.author = request.user
-            try:
-                interno.save()
-                message = "Creazione interno riuscita!"
-            except Exception as e:
-                message= "Errore nella creazione dell'interno " + str(e)
-            
-            return redirect("/interni")
+            interno.save()
+            return redirect("interni")
     else:
         form = InternoForm()
 
-    return render(request, 'Condominio_main/create_interno.html', {"form": form, "messaggio":message})
+    return render(request, 'Condominio_main/create_interno.html', {"form": form})
 
 class DeleteInternoView(DeleteEntitaView):
     model=Interno

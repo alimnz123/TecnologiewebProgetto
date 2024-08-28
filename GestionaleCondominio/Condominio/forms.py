@@ -20,7 +20,7 @@ class InternoForm(forms.ModelForm):
     class Meta:
         model = Interno
         fields = ["condomino", "numero_interno", "palazzina", 
-                  "millesimi_generali", "millesimi_scala", "in_affitto", "mappali"]
+                  "millesimi_generali", "millesimi_scala", "millesimi_edificio", "in_affitto", "mappali"]
 
 
 class LettereConvocazioneForm(forms.ModelForm):
