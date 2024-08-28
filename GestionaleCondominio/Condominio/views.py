@@ -275,17 +275,23 @@ class UpdateInternoView(UpdateView):
     
 @login_required(login_url="/login")
 def create_interno(request):
+    message=""
     if request.method == 'POST':
         form = InternoForm(request.POST)
         if form.is_valid():
             interno = form.save(commit=False)
             interno.author = request.user
-            interno.save()
-            return redirect("/home")
+            try:
+                interno.save()
+                message = "Creazione interno riuscita!"
+            except Exception as e:
+                message= "Errore nella creazione dell'interno " + str(e)
+            
+            return redirect("/interni")
     else:
         form = InternoForm()
 
-    return render(request, 'Condominio_main/create_interno.html', {"form": form})
+    return render(request, 'Condominio_main/create_interno.html', {"form": form, "messaggio":message})
 
 class DeleteInternoView(DeleteEntitaView):
     model=Interno
