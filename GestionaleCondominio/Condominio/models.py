@@ -108,9 +108,11 @@ class Spesa(models.Model):
         SCALE_PALAZZINA="Scale Palazzina"
         MANUTENZIONE_ORDINARIA="Manutenzione Ordinaria"
         MANUTENZIONE_ORDINARIA_COMUNE="Manutenzione Ordinaria Comune"
+        MANUTENZIONE_ORDINARIA_SCALA="Manutenzione Ordinaria Scala"
         SPESA_GENERALE="Spese Generali"
-        SPESA_STRAORDINARIA="Spesa Straordinaria"
-        SPESA_STRAORDINARIA_COMUNE="Spesa Straordinaria Comune"
+        SPESA_STRAORDINARIA_EDIFICIO="Spesa Straordinaria Edificio"
+        SPESA_STRAORDINARIA_SCALE="Spesa Straordinaria Scale"
+        SPESA_STRAORDINARIA_ANTENNE="Spesa Straordinaria Antenne"
         SPESE_DIVERSE="Spese Diverse"
         
     fornitore=models.ForeignKey(Fornitore, on_delete=models.PROTECT, default=None)
@@ -118,7 +120,7 @@ class Spesa(models.Model):
     #documento=models.FileField("File", blank=True, default=None)
     tipologia=models.TextField("Tipologia", choices=Tipologie.choices, default=Tipologie.SPESE_DIVERSE, max_length=200)
     descrizione=models.CharField(default=None, max_length=200)
-    assegnatario=models.ManyToManyField(User) 
+    assegnatario=models.ManyToManyField(Interno) 
     importo=models.FloatField("Totale", default=0)
     class Meta:
         verbose_name_plural="Spese"

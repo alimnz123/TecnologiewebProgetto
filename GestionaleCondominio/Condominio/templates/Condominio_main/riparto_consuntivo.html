@@ -1,7 +1,7 @@
 {% extends 'Condominio_main/base.html' %}
-{% block title %}Riparto Preventivo{% endblock %}
+{% block title %}Riparto Consuntivo{% endblock %}
 {% block content %} 
-<h1>Riparto Preventivo</h1>
+<h1>Riparto Consuntivo</h1>
 
 {% comment %}Spese{% endcomment %}
 <div class="overflow-x:auto">
@@ -10,23 +10,27 @@
       <tr>
         <th scope="col">N</th>
         <th scope="col">Condomino</th>
-        <th scope="col">Spese Generali</th>
-        <th scope="col">Spese Straordinarie Palazzina</th>
-        <th scope="col">Spese Straordinarie</th>
-        <th scope="col">Totale Esercizio</th>
-        <th scope="col">Saldo Esercizio Precedente</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
+        <th scope="col">Manutenzione Ordinaria Scala</th>
+        <th scope="col">Manutenzione Ordinaria</th>
+        <th scope="col">Manutenzione Ordinaria Aree Comuni</th>
+        <th scope="col">Totale Occupante</th>
+        <th scope="col">Spese Generali</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
+        <th scope="col">Spese Straordinarie Edificio</th>
+        <th scope="col">Spese Straordinarie Scale</th>
+        <th scope="col">Spese Straordinarie Antenne</th>
+        <th scope="col">Spese Diverse</th>
+        <th scope="col">Totale Esercizio Precedente</th>
+        <th scope="col">Saldo Esercizio Precedente</th>
         <th scope="col">Totale Complessivo</th>
-        {% for i in rate %}
-        <th scope="col">Rata {{i}}</th>
-        {% endfor %}
-        <th scope="col">Totale</th>
+        <th scope="col">Versamenti 2022</th>
+        <th scope="col">Saldi di Esercizio</th>
       </tr>
     </thead>
     <tbody>
-        {% for condomino in object_list.assegnatario %}
+        {% for interno in object_list.get_interno %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
         <tr>
-            <th scope="row">{{condomino.numero_interno}}</th>
-            <td>{{condomino.last_name}}</td>
+            <th scope="row">{{interno.numero_interno}}</th>
+            <td>{{interno.condomino.last_name}}</td>
             <td>{{spesa.tipologia}}</td>
             <td>{{spesa.descrizione}}</td>
             <td>
@@ -61,10 +65,4 @@
     </tbody>
 </table>
 </div>
-
-<h3>Scadenze delle Rate</h3>
-<p>Rata del </p>
-<p>Rata del </p>
-<p>Rata del </p>
-
 {% endblock %}

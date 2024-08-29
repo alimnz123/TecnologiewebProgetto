@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
+from datetime import datetime
 
 # Create your views here.
 
@@ -290,6 +291,42 @@ def create_interno(request):
 class DeleteInternoView(DeleteEntitaView):
     model=Interno
 
+
+#RIPARTO PREVENTIVO
+GEN = "SPESA_GENERALE"
+class RipartoPreventivoView(ListView):
+    model=Spesa
+    template_name="Condominio_main/riparto_preventivo.html"
+    def spese_generali_totale(self):
+        current_date=datetime.now()
+        current_year=current_date.year
+        spese_generali=Spesa.objects.filter(tipologia__eq=GEN, data__eq=current_year)
+        totale_spese=0
+        for spesa in spese_generali:
+            totale_spese += spesa.importo
+            return totale_spese
+        return render({"totale_generali": totale_spese})
+    
+#RIPARTO PREVENTIVO
+GEN = "SPESA_GENERALE"
+class RipartoConsuntivoView(ListView):
+    model=Spesa
+    template_name="Condominio_main/riparto_consuntivo.html"
+
+    def get_interno(self):
+        interni=Interno.objects.all()
+        return render({"interni":interni})
+
+    def spese_generali_totale(self):
+        current_date=datetime.now()
+        current_year=current_date.year
+        spese_generali=Spesa.objects.filter(tipologia__eq=GEN, data__eq=current_year)
+        totale_spese=0
+        for spesa in spese_generali:
+            totale_spese += spesa.importo
+            return totale_spese
+        return render({"totale_generali": totale_spese})
+        
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche
 
