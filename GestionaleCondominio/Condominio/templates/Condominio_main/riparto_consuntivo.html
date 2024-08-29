@@ -10,11 +10,10 @@
       <tr>
         <th scope="col">N</th>
         <th scope="col">Condomino</th>
-        <th scope="col">Manutenzione Ordinaria Scala</th>
-        <th scope="col">Manutenzione Ordinaria</th>
-        <th scope="col">Manutenzione Ordinaria Aree Comuni</th>
-        <th scope="col">Totale Occupante</th>
-        <th scope="col">Spese Generali</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
+        <th scope="col">Millesimi Generali</th>
+        <th scope="col">Millesimi Edificio</th>
+        <th scope="col">Millesimi Scala</th>
+
         <th scope="col">Spese Straordinarie Edificio</th>
         <th scope="col">Spese Straordinarie Scale</th>
         <th scope="col">Spese Straordinarie Antenne</th>
@@ -24,42 +23,20 @@
         <th scope="col">Totale Complessivo</th>
         <th scope="col">Versamenti 2022</th>
         <th scope="col">Saldi di Esercizio</th>
+
+        <th scope="col">Manutenzione Ordinaria Scala</th>
+        <th scope="col">Manutenzione Ordinaria</th>
+        <th scope="col">Manutenzione Ordinaria Aree Comuni</th>
+        <th scope="col">Totale Occupante</th>
+        <th scope="col">Spese Generali</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
+        
       </tr>
     </thead>
     <tbody>
-        {% for interno in object_list.get_interno %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
+        {% for spesa in object_list %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
         <tr>
-            <th scope="row">{{interno.numero_interno}}</th>
-            <td>{{interno.condomino.last_name}}</td>
-            <td>{{spesa.tipologia}}</td>
-            <td>{{spesa.descrizione}}</td>
-            <td>
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Vedi tutti
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                {% for utente in spesa.assegnatario.all %}
-                <li>{{utente}}</li>
-                {% endfor %}
-              </ul>
-            </td>
-            <td>{{spesa.importo}}</td>
-            <td>
-                {% if user == spesa.author or perms.main.delete_spesa %}
-                <form method="post">
-                        {% csrf_token %}
-                        <a href="{% url 'cancella_spesa' pk=spesa.pk %}" class="btn btn-secondary">Cancella Spesa</a>
-                        {% comment %}
-                        ELIMINA CON FBV
-                          <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
-                        {% endcomment %}
-                </form>
-                <form method="post">
-                        {% csrf_token %}
-                        <a href="{% url 'edit_spesa' pk=spesa.pk %}" class="btn btn-secondary">Modifica</a>
-                </form>
-                {% endif %}
-            </td>
+            <th scope="row">{{view.get_numero_interno}}</th>
+            <td>{{spesa.assegnatario.condomino}}</td>            
         </tr>
         {% endfor %}
     </tbody>

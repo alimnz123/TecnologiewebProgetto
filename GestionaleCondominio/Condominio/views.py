@@ -308,25 +308,54 @@ class RipartoPreventivoView(ListView):
         return render({"totale_generali": totale_spese})
     
 #RIPARTO PREVENTIVO
-GEN = "SPESA_GENERALE"
+STRAORDINARIE_EDIFICI = "SPESA_STRAORDINARIA_EDIFICIO"
 class RipartoConsuntivoView(ListView):
     model=Spesa
     template_name="Condominio_main/riparto_consuntivo.html"
 
-    def get_interno(self):
-        interni=Interno.objects.all()
-        return render({"interni":interni})
+    def get_numero_interno(self):
+        pass
+    
+    def get_millesimi_generali(self):
+        pass
 
-    def spese_generali_totale(self):
+
+    def totale_spese_straordinarie_edifici(self):
         current_date=datetime.now()
         current_year=current_date.year
-        spese_generali=Spesa.objects.filter(tipologia__eq=GEN, data__eq=current_year)
+        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year)
         totale_spese=0
-        for spesa in spese_generali:
+        for spesa in spese_straordinarie_edifici:
             totale_spese += spesa.importo
             return totale_spese
-        return render({"totale_generali": totale_spese})
         
+    def totale_spese_straordinarie_scale(self):
+        pass
+    
+    def totale_spese_straordinarie_antenne(self):
+        pass
+    
+    def totale_spese_diverse(self):
+        pass
+    
+    def totale_spese_esercizio_precedente(self):
+        pass
+
+    def totale_saldo_esercizio_precedente(self):
+        pass
+
+    def totale_complessivo(self):
+        pass
+    
+    def totale_versamenti_anno_precedente(self):
+        pass
+        
+    def saldi_esercizio(self):
+        pass
+
+    #da continuare da manutenzione ordinaria in poi
+
+    
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche
 

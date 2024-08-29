@@ -56,4 +56,6 @@ urlpatterns = [
 
     path("riparto_preventivo", views.RipartoPreventivoView.as_view(), name="riparto_preventivo"),
 
+    path("riparto_consuntivo", views.RipartoConsuntivoView.as_view(), name="riparto_consuntivo"),
+
 ]
