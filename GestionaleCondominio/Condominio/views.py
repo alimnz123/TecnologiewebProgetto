@@ -7,6 +7,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
 from datetime import datetime
+from django.db.models import Case, Value, When
 
 # Create your views here.
 
@@ -315,7 +316,7 @@ class RipartoPreventivoView(ListView):
     
 #RIPARTO PREVENTIVO
 STRAORDINARIE_EDIFICI = "SPESA_STRAORDINARIA_EDIFICIO"
-class RipartoConsuntivoView(ListView):
+""" class RipartoConsuntivoView(ListView): 
     model=Spesa
     template_name="Condominio_main/riparto_consuntivo.html"
 
@@ -371,7 +372,26 @@ class RipartoConsuntivoView(ListView):
     def saldi_esercizio(self):
         pass
 
-    #da continuare da manutenzione ordinaria in poi
+    #da continuare da manutenzione ordinaria in poi"""
+
+@login_required(login_url="/login")
+def RipartoConsuntivo(request):
+    interni=Interno.objects.all()
+    
+    #spese generali
+    spese_straordinarie=Spesa.objects.filter(tipologia="Spesa Straordinaria Edificio")
+    current_date = datetime.now()
+    current_year = current_date.year
+
+    spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
+
+    spese_straordinarie_edifici = Spesa.objects.filter(When(spese_straordinarie & spese_anno_corrente)).all()
+    totale_spese = 0
+    for spesa in spese_straordinarie_edifici:
+        totale_spese += spesa.importo
+        return totale_spese
+    
+    return render(request, "Condominio_main/riparto_consuntivo.html", {"interni":interni, "totale_spese":totale_spese})
 
     
 #NOTIFICATION SYSTEM
