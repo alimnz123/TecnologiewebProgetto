@@ -38,7 +38,8 @@ def dashboard(request):
 #HOMEPAGE
 @login_required(login_url="/login")
 def homepage(request):
-    return render(request, 'Condominio_main/homepage.html')
+    condominio=Condominio.objects.first()
+    return render(request, 'Condominio_main/homepage.html', {"condominio":condominio})
 
 #Classe DeleteView per una generica entità
 class DeleteEntitaView(DeleteView):
@@ -322,17 +323,29 @@ class RipartoConsuntivoView(ListView):
         interni=Interno.objects.all()
         return interni
     
+    def get_spese_straordinarie(self):
+        spese_straordinarie=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI)
+        return spese_straordinarie
+    
+    def get_spese_anno_corrente(self):
+        current_date = datetime.now()
+        current_year = current_date.year
+        spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
+        return spese_anno_corrente
+
     def totale_spese_straordinarie_edifici(self):
-        current_date=datetime.now()
-        current_year=current_date.year
-        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year).all()
-        totale_spese=0
+        spese_straordinarie=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI)
+
+        current_date = datetime.now()
+        current_year = current_date.year
+
+        spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
+
+        spese_straordinarie_edifici = Spesa.objects.filter(spese_straordinarie, spese_anno_corrente).all()
+        totale_spese = 0
         for spesa in spese_straordinarie_edifici:
             totale_spese += spesa.importo
-            print(totale_spese)
             return totale_spese
-        """ for interno in Interno.objects.all():
-            return (totale_spese % 1000) * interno.millesimi_edificio """
     
     def totale_spese_straordinarie_scale(self):
         pass

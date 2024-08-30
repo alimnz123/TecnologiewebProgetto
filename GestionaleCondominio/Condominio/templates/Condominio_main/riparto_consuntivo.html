@@ -40,7 +40,10 @@
             <td>{{utente.millesimi_generali}}</td>            
             <td>{{utente.millesimi_edificio}}</td>            
             <td>{{utente.millesimi_scala}}</td>
-            <td>{{utente.totale_spese_straordinarie_edifici}}</td>        
+            {% for spesa in object_list %}
+            <td>{{utente.totale_spese_straordinarie_edifici}}</td>   
+            {% endfor %}
+                 
 
         </tr>
         {% endfor %}

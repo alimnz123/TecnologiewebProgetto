@@ -1,6 +1,29 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Home Page{% endblock %}
 {% block content %} 
-<h1>Home Page!</h1>
+<h1>Home page del Condominio {{condominio.nome}}</h1>
 
+<div class="container">
+    <div class="row">
+      <div class="col">
+        {% comment %}Qui riferimento diretto alla Bacheca{% endcomment %}
+      </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% comment %}  {% endcomment %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% comment %} Collegamento diretto ai link utili come se fosse una lista di buttons {% endcomment %}
+        </div>
+    </div>
+</div>
 {% endblock %}
