@@ -297,15 +297,20 @@ GEN = "SPESA_GENERALE"
 class RipartoPreventivoView(ListView):
     model=Spesa
     template_name="Condominio_main/riparto_preventivo.html"
-    def spese_generali_totale(self):
+    
+    def get_numero_interno(self):
+        interni=Interno.objects.all()
+        return interni
+    
+    def totale_spese_straordinarie_edifici(self):
         current_date=datetime.now()
         current_year=current_date.year
-        spese_generali=Spesa.objects.filter(tipologia__eq=GEN, data__eq=current_year)
+        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year).all()
         totale_spese=0
-        for spesa in spese_generali:
+        for spesa in spese_straordinarie_edifici:
             totale_spese += spesa.importo
+            print(totale_spese)
             return totale_spese
-        return render({"totale_generali": totale_spese})
     
 #RIPARTO PREVENTIVO
 STRAORDINARIE_EDIFICI = "SPESA_STRAORDINARIA_EDIFICIO"
@@ -318,15 +323,17 @@ class RipartoConsuntivoView(ListView):
         return interni
     
     def totale_spese_straordinarie_edifici(self):
-        interni=Interno.objects.all()
         current_date=datetime.now()
         current_year=current_date.year
-        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year)
+        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year).all()
         totale_spese=0
         for spesa in spese_straordinarie_edifici:
             totale_spese += spesa.importo
+            print(totale_spese)
             return totale_spese
-        
+        """ for interno in Interno.objects.all():
+            return (totale_spese % 1000) * interno.millesimi_edificio """
+    
     def totale_spese_straordinarie_scale(self):
         pass
     
