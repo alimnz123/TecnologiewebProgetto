@@ -384,13 +384,12 @@ def RipartoConsuntivo(request):
     current_year = current_date.year
 
     spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
-
+    #DA VEDERE CONDITIONS AND
     spese_straordinarie_edifici = Spesa.objects.filter(When(spese_straordinarie & spese_anno_corrente)).all()
     totale_spese = 0
     for spesa in spese_straordinarie_edifici:
         totale_spese += spesa.importo
-        return totale_spese
-    
+            
     return render(request, "Condominio_main/riparto_consuntivo.html", {"interni":interni, "totale_spese":totale_spese})
 
     
