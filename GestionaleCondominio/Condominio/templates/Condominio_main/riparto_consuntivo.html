@@ -33,10 +33,14 @@
       </tr>
     </thead>
     <tbody>
-        {% for spesa in object_list %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
+        {% for utente in view.get_numero_interno %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
         <tr>
-            <th scope="row">{{view.get_numero_interno}}</th>
-            <td>{{spesa.assegnatario.condomino}}</td>            
+            <th scope="row">{{utente.numero_interno}}</th>
+            <td>{{utente.condomino.last_name}}</td>   
+            <td>{{utente.millesimi_generali}}</td>            
+            <td>{{utente.millesimi_edificio}}</td>            
+            <td>{{utente.millesimi_scala}}</td>            
+
         </tr>
         {% endfor %}
     </tbody>

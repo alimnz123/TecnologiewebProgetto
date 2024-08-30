@@ -314,13 +314,11 @@ class RipartoConsuntivoView(ListView):
     template_name="Condominio_main/riparto_consuntivo.html"
 
     def get_numero_interno(self):
-        pass
+        interni=Interno.objects.all()
+        return interni
     
-    def get_millesimi_generali(self):
-        pass
-
-
     def totale_spese_straordinarie_edifici(self):
+        interni=Interno.objects.all()
         current_date=datetime.now()
         current_year=current_date.year
         spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year)
