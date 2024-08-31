@@ -1,10 +1,10 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Riparto Preventivo{% endblock %}
 {% block content %} 
+{% load mathfilters %}
 <h1>Riparto Preventivo</h1>
 
-{% comment %}Spese{% endcomment %}
-<div class="overflow-x:auto">
+<div style="overflow-x:scroll">
 <table class="table">
     <thead>
       <tr>
@@ -14,42 +14,40 @@
         <th scope="col">Millesimi Edificio</th>
         <th scope="col">Millesimi Scala</th>
 
-        <th scope="col">Manutenzione Ordinaria Scale</th>
-        <th scope="col">Manutenzione Ordinaria</th>
-        <th scope="col">Totale Utente</th>
-
         <th scope="col">Spese Generali</th>
-        <th scope="col">Spese Straordinarie Palazzina</th>
+        <th scope="col">Spese Straordinarie Edificio</th>
         <th scope="col">Spese Straordinarie</th>
         <th scope="col">Totale Esercizio</th>
-        
-        <th scope="col">Saldo Esercizio Precedente</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
+        <th scope="col">Saldo Esercizio Precedente</th>
         <th scope="col">Totale Complessivo</th>
-        {% for i in rate %}
-        <th scope="col">Rata {{i}}</th>
-        {% endfor %}
-        <th scope="col">Totale</th>
+
+        <th scope="col">Manutenzioni Ordinarie Scala</th>
+        <th scope="col">Manutenzioni Ordinarie</th>
+        <th scope="col">Totale Occupante</th>
       </tr>
     </thead>
     <tbody>
-      {% for utente in view.get_numero_interno %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
-      <tr>
-          <th scope="row">{{utente.numero_interno}}</th>
-          <td>{{utente.condomino.last_name}}</td>   
-          <td>{{utente.millesimi_generali}}</td>            
-          <td>{{utente.millesimi_edificio}}</td>            
-          <td>{{utente.millesimi_scala}}</td>
-          <td>{{utente.totale_spese_straordinarie_edifici}}</td>        
-        
-      </tr>
-      {% endfor %}
+        {% for interno in interni %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
+        <tr>
+            <th scope="row">{{interno.numero_interno}}</th>
+            <td scope="row">{{interno.condomino.last_name}}</td>
+            <td scope="row">{{interno.millesimi_generali}}</td>
+            <td scope="row">{{interno.millesimi_edificio}}</td>
+            <td scope="row">{{interno.millesimi_scala}}</td>
+
+            <td scope="row">{{totale_generali|div:1000|mul:interno.millesimi_edificio}}</td>
+            <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_edificio}}</td>
+            <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_edificio}}</td> 
+            <td scope="row">{{totale_esercizio}}</td>   
+            <td scope="row">{{saldo_esercizio_precedente}}</td>
+            <td scope="row">{{totale_complessivo}}</td>
+
+            <td scope="row">{{totale_ordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
+            <td scope="row">{{totale_ordinarie|div:1000|mul:interno.millesimi_generali}}</td>
+            <td scope="row">{{totale_utente_manutenzioni_ordinarie}}</td>                         
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 </div>
-
-<h3>Scadenze delle Rate</h3>
-<p>Rata del </p>
-<p>Rata del </p>
-<p>Rata del </p>
-
 {% endblock %}

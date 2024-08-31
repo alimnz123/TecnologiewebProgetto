@@ -29,8 +29,8 @@
         <th scope="col">Manutenzione Ordinaria</th>
         <th scope="col">Manutenzione Ordinaria Aree Comuni</th>
         <th scope="col">Totale Occupante</th>
-        <th scope="col">Spese Generali</th> {% comment %} è il totale versato nel consuntivo anno passato {% endcomment %}
-        
+        <th scope="col">Spese Generali</th> 
+        <th scope="col">Spese Straordinarie</th> 
       </tr>
     </thead>
     <tbody>
@@ -57,12 +57,8 @@
             <td scope="row">{{totale_ordinarie|div:1000|mul:interno.millesimi_generali}}</td>
             <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_edificio}}</td>
             <td scope="row">{{totale_utente_manutenzioni_ordinarie}}</td>
-            
-
-
-
-                 
-
+            <td scope="row">{{totale_generali|div:1000|mul:interno.millesimi_edificio}}</td>
+            <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_edificio}}</td>              
         </tr>
         {% endfor %}
     </tbody>

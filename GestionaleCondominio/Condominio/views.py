@@ -294,85 +294,7 @@ class DeleteInternoView(DeleteEntitaView):
     model=Interno
 
 
-#RIPARTO PREVENTIVO
-GEN = "SPESA_GENERALE"
-class RipartoPreventivoView(ListView):
-    model=Spesa
-    template_name="Condominio_main/riparto_preventivo.html"
-    
-    def get_numero_interno(self):
-        interni=Interno.objects.all()
-        return interni
-    
-    def totale_spese_straordinarie_edifici(self):
-        current_date=datetime.now()
-        current_year=current_date.year
-        spese_straordinarie_edifici=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI, data__year=current_year).all()
-        totale_spese=0
-        for spesa in spese_straordinarie_edifici:
-            totale_spese += spesa.importo
-            print(totale_spese)
-            return totale_spese
-    
 #RIPARTO CONSUNTIVO
-""" class RipartoConsuntivoView(ListView): 
-    model=Spesa
-    template_name="Condominio_main/riparto_consuntivo.html"
-
-    def get_numero_interno(self):
-        interni=Interno.objects.all()
-        return interni
-    
-    def get_spese_straordinarie(self):
-        spese_straordinarie=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI)
-        return spese_straordinarie
-    
-    def get_spese_anno_corrente(self):
-        current_date = datetime.now()
-        current_year = current_date.year
-        spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
-        return spese_anno_corrente
-
-    def totale_spese_straordinarie_edifici(self):
-        spese_straordinarie=Spesa.objects.filter(tipologia=STRAORDINARIE_EDIFICI)
-
-        current_date = datetime.now()
-        current_year = current_date.year
-
-        spese_anno_corrente=Spesa.objects.filter(data__year=current_year)
-
-        spese_straordinarie_edifici = Spesa.objects.filter(spese_straordinarie, spese_anno_corrente).all()
-        totale_spese = 0
-        for spesa in spese_straordinarie_edifici:
-            totale_spese += spesa.importo
-            return totale_spese
-    
-    def totale_spese_straordinarie_scale(self):
-        pass
-    
-    def totale_spese_straordinarie_antenne(self):
-        pass
-    
-    def totale_spese_diverse(self):
-        pass
-    
-    def totale_spese_esercizio_precedente(self):
-        pass
-
-    def totale_saldo_esercizio_precedente(self):
-        pass
-
-    def totale_complessivo(self):
-        pass
-    
-    def totale_versamenti_anno_precedente(self):
-        pass
-        
-    def saldi_esercizio(self):
-        pass
-
-    #da continuare da manutenzione ordinaria in poi"""
-
 @login_required(login_url="/login")
 def RipartoConsuntivo(request):
     interni=Interno.objects.all()
@@ -453,18 +375,131 @@ def RipartoConsuntivo(request):
     #totale manutenzioni ordinarie
     totale_utente_manutenzioni_ordinarie=totale_ordinarie_comuni+totale_ordinarie+totale_ordinarie_scale
         
-    #manutenzione ordinaria aree comuni 
+    #spese gnerali
     spese_generali=Spesa.objects.filter(Q(tipologia="Spese Generali") & Q(data__year=current_year))
+
+    totale_generali = 0
+    for spesa in spese_generali:
+        totale_generali += spesa.importo
+
+    #spese gnerali
+    spese_straordinarie=Spesa.objects.filter(Q(tipologia="Spese Straordinarie") & Q(data__year=current_year))
+
+    totale_straordinarie = 0
+    for spesa in spese_straordinarie:
+        totale_straordinarie += spesa.importo
+
+    return render(request, "Condominio_main/riparto_consuntivo.html", {"interni":interni, "anno_precedente": anno_precedente, "totale_spese_straordinarie_edifici":totale_spese_straordinarie_edifici, "totale_spese_straordinarie_scale":totale_spese_straordinarie_scale,
+                                                                       "totale_spese_straordinarie_antenne":totale_spese_straordinarie_antenne, "totale_spese_diverse":totale_spese_diverse, "totale_esercizio": totale_esercizio, "saldo_esercizio_precedente":saldo_esercizio_precedente,
+                                                                       "totale_complessivo":totale_complessivo, "versamento_anno_trascorso":versamento_anno_trascorso, "saldi_esercizio":saldi_esercizio, "totale_ordinarie_scale":totale_ordinarie_scale, "totale_ordinarie":totale_ordinarie,
+                                                                       "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie, "totale_generali":totale_generali, "totale_straordinarie": totale_straordinarie})
+
+@login_required(login_url="/login")
+def RipartoPreventivo(request):
+    interni=Interno.objects.all()
+    
+    #spese straordinarie edifici
+    current_date = datetime.now()
+    current_year = current_date.year
+    anno_precedente = current_date.year - 1
+
+    spese_straordinarie_edifici=Spesa.objects.filter(Q(tipologia="Spesa Straordinaria Edificio") & Q(data__year=current_year-1))
+
+    totale_spese_straordinarie_edifici = 0
+    for spesa in spese_straordinarie_edifici:
+        totale_spese_straordinarie_edifici += spesa.importo
+    totale_spese_straordinarie_edifici += (totale_spese_straordinarie_edifici*0.10)
+
+    #spese straordinarie scale
+    spese_straordinarie_scale=Spesa.objects.filter(Q(tipologia="Spesa Straordinaria Scale") & Q(data__year=current_year))
+
+    totale_spese_straordinarie_scale = 0
+    for spesa in spese_straordinarie_scale:
+        totale_spese_straordinarie_scale += spesa.importo
+
+    #spese straordinarie antenne
+    spese_straordinarie_antenne=Spesa.objects.filter(Q(tipologia="Spesa Straordinaria Antenne") & Q(data__year=current_year))
+
+    totale_spese_straordinarie_antenne = 0
+    for spesa in spese_straordinarie_antenne:
+        totale_spese_straordinarie_antenne += spesa.importo
+
+    #spese diverse
+    spese_diverse=Spesa.objects.filter(Q(tipologia="Spese Diverse") & Q(data__year=current_year))
+
+    totale_spese_diverse = 0
+    for spesa in spese_diverse:
+        totale_spese_diverse += spesa.importo
+
+    #totale esercizio
+    spese_totali=Spesa.objects.filter(Q(data__year=current_year-1))
+
+    totale_esercizio = 0
+    for spesa in spese_totali:
+        totale_esercizio += spesa.importo
+
+    totale_esercizio+=(totale_esercizio*0.10)  #il riparto preventivo REGOLAMENTIAMO che da previsione preveda un aumento del 10% ogni anno
+
+    #saldo esercizio precedente
+    saldo_esercizio_precedente = 0  #trova un modo per salvare le rate versate nell'anno appena passato
+
+    #totale complessivo
+    totale_complessivo = totale_esercizio - saldo_esercizio_precedente
+
+    #versamento anno trascorso, sono le rate già versate nell'anno appena trascorso
+        #query seleziono le rate pagate nell'anno corrente e sommo gli importi
+    versamento_anno_trascorso = 0
+
+    #saldi di esercizio
+    saldi_esercizio=totale_complessivo-versamento_anno_trascorso
+
+    #manutenzione ordinaria scale
+    spese_ordinarie_scale=Spesa.objects.filter(Q(tipologia="Manutenzione Ordinaria Scala") & Q(data__year=current_year-1))
+
+    totale_ordinarie_scale = 0
+    for spesa in spese_ordinarie_scale:
+        totale_ordinarie_scale += spesa.importo
+    totale_ordinarie_scale += (totale_ordinarie_scale*0.10) #il riparto preventivo REGOLAMENTIAMO che da previsione preveda un aumento del 10% ogni anno
+    
+    #manutenzione ordinaria 
+    spese_ordinarie=Spesa.objects.filter(Q(tipologia="Manutenzione Ordinaria") & Q(data__year=current_year-1))
+
+    totale_ordinarie = 0
+    for spesa in spese_ordinarie:
+        totale_ordinarie += spesa.importo
+    totale_ordinarie+=(totale_ordinarie*0.10) #il riparto preventivo REGOLAMENTIAMO che da previsione preveda un aumento del 10% ogni anno
+
+    #manutenzione ordinaria aree comuni 
+    spese_ordinarie_comuni=Spesa.objects.filter(Q(tipologia="Manutenzione Ordinaria") & Q(data__year=current_year-1))
 
     totale_ordinarie_comuni = 0
     for spesa in spese_ordinarie_comuni:
         totale_ordinarie_comuni += spesa.importo
 
-    return render(request, "Condominio_main/riparto_consuntivo.html", {"interni":interni, "anno_precedente": anno_precedente, "totale_spese_straordinarie_edifici":totale_spese_straordinarie_edifici, "totale_spese_straordinarie_scale":totale_spese_straordinarie_scale,
+    #totale manutenzioni ordinarie
+    totale_utente_manutenzioni_ordinarie=(totale_ordinarie_comuni+totale_ordinarie+totale_ordinarie_scale)*0.10
+        
+    #spese gnerali
+    spese_generali=Spesa.objects.filter(Q(tipologia="Spese Generali") & Q(data__year=current_year - 1)) #leggo le spese generali dell'anno scorso
+
+    totale_generali = 0
+    for spesa in spese_generali:
+        totale_generali += spesa.importo
+    totale_generali += (totale_generali*0.10) #il riparto preventivo REGOLAMENTIAMO che da previsione preveda un aumento del 10% ogni anno
+
+    #spese straordinarie
+    spese_straordinarie=Spesa.objects.filter(Q(tipologia="Spese Straordinarie") & Q(data__year=current_year-1))
+
+    totale_straordinarie = 0
+    for spesa in spese_straordinarie:
+        totale_straordinarie += spesa.importo
+    totale_straordinarie+=(totale_straordinarie*0.10) #il riparto preventivo REGOLAMENTIAMO che da previsione preveda un aumento del 10% ogni anno
+
+
+    return render(request, "Condominio_main/riparto_preventivo.html", {"interni":interni, "anno_precedente": anno_precedente, "totale_spese_straordinarie_edifici":totale_spese_straordinarie_edifici, "totale_spese_straordinarie_scale":totale_spese_straordinarie_scale,
                                                                        "totale_spese_straordinarie_antenne":totale_spese_straordinarie_antenne, "totale_spese_diverse":totale_spese_diverse, "totale_esercizio": totale_esercizio, "saldo_esercizio_precedente":saldo_esercizio_precedente,
                                                                        "totale_complessivo":totale_complessivo, "versamento_anno_trascorso":versamento_anno_trascorso, "saldi_esercizio":saldi_esercizio, "totale_ordinarie_scale":totale_ordinarie_scale, "totale_ordinarie":totale_ordinarie,
-                                                                       "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie})
-
+                                                                       "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie, "totale_generali":totale_generali, "totale_straordinarie": totale_straordinarie})
     
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche

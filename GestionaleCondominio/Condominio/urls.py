@@ -54,7 +54,7 @@ urlpatterns = [
 
     path("notifiche", views.NotificationListView.as_view(), name="notifiche"),
 
-    path("riparto_preventivo", views.RipartoPreventivoView.as_view(), name="riparto_preventivo"),
+    path("riparto_preventivo", views.RipartoPreventivo, name="riparto_preventivo"),
 
     path("riparto_consuntivo", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
