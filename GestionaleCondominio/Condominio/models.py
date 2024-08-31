@@ -110,6 +110,7 @@ class Spesa(models.Model):
         MANUTENZIONE_ORDINARIA_COMUNE="Manutenzione Ordinaria Comune"
         MANUTENZIONE_ORDINARIA_SCALA="Manutenzione Ordinaria Scala"
         SPESA_GENERALE="Spese Generali"
+        SPESA_STRAORDINARIA="Spese Straordinarie"
         SPESA_STRAORDINARIA_EDIFICIO="Spesa Straordinaria Edificio"
         SPESA_STRAORDINARIA_SCALE="Spesa Straordinaria Scale"
         SPESA_STRAORDINARIA_ANTENNE="Spesa Straordinaria Antenne"

@@ -1,10 +1,11 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Riparto Consuntivo{% endblock %}
 {% block content %} 
+{% load mathfilters %}
 <h1>Riparto Consuntivo</h1>
 
 {% comment %}Spese{% endcomment %}
-<div class="overflow-x:auto">
+<div style="overflow-x:scroll">
 <table class="table">
     <thead>
       <tr>
@@ -18,10 +19,10 @@
         <th scope="col">Spese Straordinarie Scale</th>
         <th scope="col">Spese Straordinarie Antenne</th>
         <th scope="col">Spese Diverse</th>
-        <th scope="col">Totale Esercizio Precedente</th>
+        <th scope="col">Totale Esercizio</th>
         <th scope="col">Saldo Esercizio Precedente</th>
         <th scope="col">Totale Complessivo</th>
-        <th scope="col">Versamenti 2022</th>
+        <th scope="col">Versamenti {{anno_precedente}}</th>
         <th scope="col">Saldi di Esercizio</th>
 
         <th scope="col">Manutenzione Ordinaria Scala</th>
@@ -40,7 +41,25 @@
             <td scope="row">{{interno.millesimi_generali}}</td>
             <td scope="row">{{interno.millesimi_edificio}}</td>
             <td scope="row">{{interno.millesimi_scala}}</td>
-            <td scope="row">{{totale_spese}}</td>
+
+            <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_edificio}}</td>
+            <td scope="row">{{totale_spese_straordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
+            <td scope="row">{{totale_spese_straordinarie_antenne|div:1000|mul:interno.millesimi_generali}}</td>
+            <td scope="row">{{totale_spese_diverse}}</td>
+
+            <td scope="row">{{totale_esercizio}}</td>
+            <td scope="row">{{saldo_esercizio_precedente}}</td>
+            <td scope="row">{{totale_complessivo}}</td>
+            <td scope="row">{{versamento_anno_trascorso}}</td>
+            <td scope="row">{{saldi_esercizio}}</td>
+
+            <td scope="row">{{totale_ordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
+            <td scope="row">{{totale_ordinarie|div:1000|mul:interno.millesimi_generali}}</td>
+            <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_edificio}}</td>
+            <td scope="row">{{totale_utente_manutenzioni_ordinarie}}</td>
+            
+
+
 
                  
 

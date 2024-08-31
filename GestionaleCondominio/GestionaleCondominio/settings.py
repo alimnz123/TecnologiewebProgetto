@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'Condominio.apps.CondominioConfig',
     'crispy_forms',
     'crispy_bootstrap5',
-
+    'mathfilters',
+    
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS="bootstrap5"
