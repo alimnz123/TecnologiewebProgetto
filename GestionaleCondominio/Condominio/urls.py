@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+import notifications.urls
 
 urlpatterns = [
     path('', views.homepage, name="home"),
@@ -16,7 +17,7 @@ urlpatterns = [
 
     path("edit_interno/<pk>/", views.UpdateInternoView.as_view(), name="edit_interno"),
 
-    path('create_interno', views.create_interno, name="create_interno"),
+    path('create_interno/', views.create_interno, name="create_interno"),
 
     path("cancella_interno/<pk>/", views.DeleteInternoView.as_view(),name="cancella_interno"),
     
@@ -24,15 +25,15 @@ urlpatterns = [
 
     path("cancella_lettera/<pk>/", views.DeleteLetteraConvocazioneView.as_view(),name="cancella_lettera"),
 
-    path('create_verbale', views.create_verbale, name="create_verbale"),
+    path('create_verbale/', views.create_verbale, name="create_verbale"),
 
     path("cancella_verbale/<pk>/", views.DeleteVerbaleView.as_view(),name="cancella_verbale"),
 
-    path('create_documento', views.create_documento, name="create_documento"),
+    path('create_documento/', views.create_documento, name="create_documento"),
 
     path("cancella_documento/<pk>/", views.DeleteDocumentiPalazzoView.as_view(),name="cancella_documento_palazzo"),
 
-    path('bacheca', views.bacheca, name="bacheca"),
+    path('bacheca/', views.bacheca, name="bacheca"),
 
     path('documenti_palazzo', views.documenti_palazzo, name="documenti_palazzo"),
 
@@ -44,18 +45,23 @@ urlpatterns = [
 
     path("cancella_fornitore/<pk>/", views.DeleteFornitoreView.as_view(),name="cancella_fornitore"),
 
-    path('spesa', views.spesa, name="spesa"),
+    path('spesa/', views.spesa, name="spesa"),
 
-    path('create_spesa', views.create_spesa, name="create_spesa"),
+    path('create_spesa/', views.create_spesa, name="create_spesa"),
 
-    path("<pk>/edit_spesa", views.UpdateSpesaView.as_view(), name="edit_spesa"),
+    path("<pk>/edit_spesa/", views.UpdateSpesaView.as_view(), name="edit_spesa"),
 
     path("cancella_spesa/<pk>/", views.DeleteSpesaView.as_view(),name="cancella_spesa"),
 
-    path("notifiche", views.NotificationListView.as_view(), name="notifiche"),
+    path("riparto_preventivo/", views.RipartoPreventivo, name="riparto_preventivo"),
 
-    path("riparto_preventivo", views.RipartoPreventivo, name="riparto_preventivo"),
+    path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
-    path("riparto_consuntivo", views.RipartoConsuntivo, name="riparto_consuntivo"),
+    #notifiche
+    path('notifications/', include(notifications.urls, namespace='notifications')),
+
+    path("notifiche/", views.notifiche, name="notifiche"),
+
+    
 
 ]

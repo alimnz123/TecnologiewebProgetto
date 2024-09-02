@@ -16,6 +16,8 @@
         <th scope="col">Descrizione</th>
         <th scope="col">Assegnatario</th> {% comment %} Deve poter essere un utente user di tipo non staff {% endcomment %}
         <th scope="col">Importo</th>
+        <th scope="col">Modifica</th>
+
       </tr>
     </thead>
     <tbody>
@@ -35,7 +37,7 @@
                 {% endfor %}
               </ul>
             </td>
-            <td>{{spesa.importo}}</td>
+            <td>{{spesa.importo}} €</td>
             <td>
                 {% if user == spesa.author or perms.main.delete_spesa %}
                 <form method="post">
