@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-import notifications.urls
+
 
 urlpatterns = [
     path('', views.homepage, name="home"),
@@ -58,9 +58,7 @@ urlpatterns = [
     path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
     #notifiche
-    path('notifications/', include(notifications.urls, namespace='notifications')),
-
-    path("notifiche/", views.notifiche, name="notifiche"),
+    
 
     
 

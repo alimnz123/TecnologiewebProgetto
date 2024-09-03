@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from .models import *
 from datetime import datetime
 from django.db.models import Case, Value, When, Q
+from notifications.signals import notify
 
 # Create your views here.
 
@@ -129,6 +130,8 @@ def create_lettera(request):
             lettera = form.save(commit=False)
             lettera.author = request.user
             lettera.save()
+            #notifica se viene aggiunto un nuovo verbale
+            notify.send(sender=request.user, recipient=request.user, verb="Nuova Lettera di Convocazione", action_objects=form)
             return redirect("/home")
     else:
         form = LettereConvocazioneForm()
@@ -161,7 +164,7 @@ def create_documento(request):
             documento.author = request.user
             documento.save()
             #faccio partire una notifica
-            Notification.objects.create(text="New answer!")
+            
             return redirect("/home")
     else:
         form = DocumentiPalazzoForm()
@@ -506,20 +509,8 @@ def RipartoPreventivo(request):
 
 @login_required(login_url="/login")
 def notifiche(request):
-    notifiche=Notification.objects.all()
-
-    if request.method == "POST":
-        notifica_id = request.POST.get("notifica-id")
-        print(notifica_id)
-        notifica=Notification.objects.filter(id=notifica_id).first()
-        if notifica and (request.user.has_perm("main.delete_notifica")):
-            notifica.delete()
+    
             
     return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche})
-class NotificationListView(ListView):
-    model = Notification
-
-    def get_queryset(self):
-        return Notification.objects.filter(user=self.request.user).order_by("-timestamp")
 
 
