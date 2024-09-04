@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import notifications.urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +25,4 @@ urlpatterns = [
     path('', include('Condominio.urls')),
     path('', include('django.contrib.auth.urls')),  
 
-    #notifiche
-    path('notifications/', include(notifications.urls, namespace='notifications')),
-      
 ]

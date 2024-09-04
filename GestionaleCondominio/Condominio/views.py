@@ -88,14 +88,14 @@ def bacheca(request):
         lettera_id = request.POST.get("lettera-id")
         print(lettera_id)
         lettera=Lettera_Convocazione.objects.filter(id=lettera_id).first()
-        if lettera and (lettera.author == request.user or request.user.has_perm("main.delete_lettera")):
+        if lettera and (request.user.has_perm("main.delete_lettera")):
             lettera.delete()
 
     if request.method == "POST":
         verbale_id = request.POST.get("verbale-id")
         print(verbale_id)
         verbale=Verbale.objects.filter(id=verbale_id).first()
-        if verbale and (verbale.author == request.user or request.user.has_perm("main.delete_verbale")):
+        if verbale and (request.user.has_perm("main.delete_verbale")):
             verbale.delete()
 
     return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
@@ -132,7 +132,7 @@ def create_lettera(request):
             lettera.save()
             #notifica se viene aggiunto un nuovo verbale
             notify.send(sender=request.user, recipient=request.user, verb="Nuova Lettera di Convocazione", action_objects=form)
-            return redirect("/home")
+            return redirect("/bacheca")
     else:
         form = LettereConvocazioneForm()
 
@@ -147,12 +147,11 @@ def create_verbale(request):
             verbale = form.save(commit=False)
             verbale.author = request.user
             verbale.save()
-            return redirect("/home")
+            return redirect("/bacheca")
     else:
         form = LettereConvocazioneForm()
 
     return render(request, 'Condominio_main/create_verbale.html', {"form": form})    
-
 
 @login_required(login_url="/login")
 @permission_required("main.add_documento", login_url="/login", raise_exception=True)
@@ -165,15 +164,13 @@ def create_documento(request):
             documento.save()
             #faccio partire una notifica
             
-            return redirect("/home")
+            return redirect("/documenti_palazzo")
     else:
         form = DocumentiPalazzoForm()
 
     return render(request, 'Condominio_main/create_documento.html', {"form": form})
 
-
 #views related to Fornitori and Spese
-
 @login_required(login_url="/login")
 def fornitori(request):
     fornitori=Fornitore.objects.all()
@@ -182,7 +179,7 @@ def fornitori(request):
         fornitore_id = request.POST.get("fornitore-id")
         print(fornitore_id)
         fornitore=Fornitore.objects.filter(id=fornitore_id).first()
-        if fornitore and (fornitore.author == request.user or request.user.has_perm("main.delete_fornitore")):
+        if fornitore and (request.user.has_perm("main.delete_fornitore")):
             fornitore.delete()
             
     return render(request, 'Condominio_main/fornitori.html', {"fornitori":fornitori})

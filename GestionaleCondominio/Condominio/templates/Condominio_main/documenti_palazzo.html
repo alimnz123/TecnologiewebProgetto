@@ -27,7 +27,7 @@
                     <button type="submit" class="btn btn-danger" name="documento-id" value="{{documento.id}}">Elimina</button>
                     {% endcomment %}
 
-                    <a href="{% url 'cancella_documento_palazzo' pk=documento.pk %}" class="btn btn-secondary">Cancella Documento</a>                    
+                    <a href="{% url 'cancella_documento_palazzo' pk=documento.pk %}" class="btn btn-danger">Cancella Documento</a>                    
                </form>
           
           {% endif %}

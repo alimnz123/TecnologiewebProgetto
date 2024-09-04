@@ -10,7 +10,7 @@
 {% comment %}Lettere{% endcomment %}
 {% for lettera in lettere %}
 <div class="card mt-2">
-    <div class="card-header"><strong>{{lettera.data}}</strong></div>
+    <div class="card-header"><strong>Lettera di convocazione del {{lettera.data}}</strong></div>
     <div class="card-body d-flex flex-row justify-content-between">
        <div> 
             {{lettera.descrizione}}
@@ -23,7 +23,7 @@
           {% if user == lettera.author or perms.main.delete_lettera %}
                <form method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" name="lettera-id" value="{{lettera.id}}">Elimina</button>
+                    <a href="{% url 'cancella_lettera' pk=lettera.pk %}" class="btn btn-danger">Cancella Lettera</a>
                </form>
           {% endif %}
     </div>
@@ -37,7 +37,7 @@
 
 {% for verbale in verbali %}
 <div class="card mt-2">
-    <div class="card-header"><strong>{{verbale.data}}</strong></div>
+    <div class="card-header"><strong>Verbale di assemblea del {{verbale.data}}</strong></div>
     <div class="card-body d-flex flex-row justify-content-between">
        <div> 
             {{verbale.descrizione}}
@@ -53,7 +53,8 @@
           {% if user == verbale.author or perms.main.delete_verbale %}
                <form method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" name="verbale-id" value="{{verbale.id}}">Elimina</button>
+                    <a href="{% url 'cancella_verbale' pk=verbale.pk %}" class="btn btn-danger">Cancella Verbale</a>
+                    
                </form>
           {% endif %}
      </div>
