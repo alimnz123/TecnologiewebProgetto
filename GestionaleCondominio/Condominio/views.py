@@ -506,8 +506,9 @@ def RipartoPreventivo(request):
 
 @login_required(login_url="/login")
 def notifiche(request):
-    
+    notifiche = request.user.notifications.all()
+    notifiche_count = notifiche.count()
             
-    return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche})
+    return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche, "numero_notifiche": notifiche_count})
 
 

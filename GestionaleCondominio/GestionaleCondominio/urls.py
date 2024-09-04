@@ -23,6 +23,7 @@ urlpatterns = [
 
     #collego l'urlpattern dell'app all'urlpattern principale
     path('', include('Condominio.urls')),
-    path('', include('django.contrib.auth.urls')),  
-
+    path('', include('django.contrib.auth.urls')), 
+    #notifications 
+    path('notifications/', include('notifications.urls', namespace='notifications')),
 ]

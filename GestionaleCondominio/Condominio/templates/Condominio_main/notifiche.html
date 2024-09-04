@@ -1,10 +1,25 @@
 {% block content %}
-    {% for notifica in notifiche %}
-        <div>
-            <p>{{notifica.text}}</p>
-            <a class="btn btn-primary" href="bacheca" role="button">Corri a vedere</a>
-        </div>
-        {%empty%}
-        <p>Non sono presenti notifiche</p>
-    {% endfor %}
+    {% load notifications_tags %}
+    
+    {% comment %} Display notifiche non lette {% endcomment %}
+    {% notifications_unread as unread_count %}
+    {% if unread_count %}
+        Hai <strong>{{ unread_count }}</strong> Notifica non letta
+    {% endif %}
+    
+    <ul class="list-group list-group-flush">
+        {% for notification in notifications_unread.all %}
+        <li class="list-group-item">{{notification.verb}}</li>
+        {% endfor %}    
+    </ul>
+
+    {% comment %} Display notifiche lette {% endcomment %}
+    <ul class="list-group list-group-flush">
+        {% for notifica in notifications_read %}
+        <li class="list-group-item">{{notifica}}</li>
+        {% endfor %}    
+    </ul>
+
+    
+
 {% endblock content %}  
