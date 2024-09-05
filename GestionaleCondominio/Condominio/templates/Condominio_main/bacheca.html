@@ -3,6 +3,14 @@
 {% block content %} 
 <h1>Bacheca</h1>
 
+{% comment %}Messaggi relativi alle varie operazioni{% endcomment %}
+{% if messages %}
+<div class="alert alert-success" role="alert">
+     {% for message in messages %}
+     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+     {% endfor %}
+</div>
+{% endif %}
 {% comment  %} solo se sei un amministratore {% endcomment %}
 <a class="btn btn-primary" href="/create_verbale" role="button">Aggiungi un Verbale</a>
 <a class="btn btn-primary" href="/create_lettera" role="button">Aggiungi una Lettera di Convocazione</a>

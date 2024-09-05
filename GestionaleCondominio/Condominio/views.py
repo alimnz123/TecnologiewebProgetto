@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from .models import *
 from datetime import datetime
 from django.db.models import Case, Value, When, Q
+from django.contrib import messages
 from notifications.signals import notify
 
 # Create your views here.
@@ -97,8 +98,8 @@ def bacheca(request):
         verbale=Verbale.objects.filter(id=verbale_id).first()
         if verbale and (request.user.has_perm("main.delete_verbale")):
             verbale.delete()
-
-    return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere di convocazione": lettere})
+    
+    return render(request, 'Condominio_main/bacheca.html', {"verbali":verbali, "lettere": lettere})
 
 class DeleteVerbaleView(DeleteEntitaView):
     model=Verbale
@@ -130,6 +131,7 @@ def create_lettera(request):
             lettera = form.save(commit=False)
             lettera.author = request.user
             lettera.save()
+            messages.success(request, "Profile details updated.")
             #notifica se viene aggiunto un nuovo verbale
             notify.send(sender=request.user, recipient=request.user, verb="Nuova Lettera di Convocazione", action_objects=form)
             return redirect("/bacheca")
@@ -147,9 +149,11 @@ def create_verbale(request):
             verbale = form.save(commit=False)
             verbale.author = request.user
             verbale.save()
+            #notifica
+            notify.send(sender=request.user, recipient=request.user, verb="Nuovo Verbale", action_objects=form)
             return redirect("/bacheca")
     else:
-        form = LettereConvocazioneForm()
+        form = VerbaleForm()
 
     return render(request, 'Condominio_main/create_verbale.html', {"form": form})    
 
@@ -506,9 +510,9 @@ def RipartoPreventivo(request):
 
 @login_required(login_url="/login")
 def notifiche(request):
-    notifiche = request.user.notifications.all()
-    notifiche_count = notifiche.count()
+    notifications = request.user.notifications.all()
+    notifications_count = notifications.count()
             
-    return render(request, 'Condominio_main/notifiche.html', {"notifiche":notifiche, "numero_notifiche": notifiche_count})
+    return render(request, 'Condominio_main/notifiche.html', {"notifications":notifications, "notifications_count": notifications_count})
 
 

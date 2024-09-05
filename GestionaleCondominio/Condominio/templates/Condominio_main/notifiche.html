@@ -4,13 +4,20 @@
     {% comment %} Display notifiche non lette {% endcomment %}
     {% notifications_unread as unread_count %}
     {% if unread_count %}
-        Hai <strong>{{ unread_count }}</strong> Notifica non letta
+        Hai <strong>{{ unread_count }}</strong> notifiche non lette
     {% endif %}
+    
     
     <ul class="list-group list-group-flush">
         {% for notification in notifications_unread.all %}
         <li class="list-group-item">{{notification.verb}}</li>
         {% endfor %}    
+        {% for notification in notifications %}
+        <div class="notification {% if notification.unread %}unread{% else %}read{% endif %}">
+            <p>{{notification.actor}} {{notification.verb}} {{notification.action_object}}</p>
+            <small>{{notification.timestamp}}</small>
+        </div>
+        {% endfor %}
     </ul>
 
     {% comment %} Display notifiche lette {% endcomment %}
@@ -20,6 +27,5 @@
         {% endfor %}    
     </ul>
 
-    
 
 {% endblock content %}  
