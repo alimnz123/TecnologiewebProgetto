@@ -3,27 +3,49 @@
 {% block content %} 
 <h1>Home page del Condominio {{condominio.nome}}</h1>
 
-<div class="container">
+{% load static %}
+
+
+{% if user.is_staff %}
+<div class="container text-center">
     <div class="row">
-      <div class="col">
-        {% comment %}Qui riferimento diretto alla Bacheca{% endcomment %}
+      <div class="col d-grid">
+        {% comment %} INTERNI {% endcomment %}
+        <a class="btn" href="{% url 'interni' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-people-fill" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Interni</h2>
+             </div>     
+        </a> 
+      </div>
+      <div class="col d-grid">
+        {% comment %} fornitori {% endcomment %}
+        <a class="btn" href="{% url 'fornitori' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-truck" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Fornitori</h2>
+             </div>     
+        </a> 
+      </div>
+      <div class="col d-grid">
+        {% comment %} spese {% endcomment %}
+        <a class="btn" href="{% url 'spesa' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-wallet2" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Spese</h2>
+             </div>     
+        </a> 
       </div>
     </div>
-</div>
+  </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            {% comment %}  {% endcomment %}
-        </div>
-    </div>
-</div>
+{% else %}
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            {% comment %} Collegamento diretto ai link utili come se fosse una lista di buttons {% endcomment %}
-        </div>
-    </div>
-</div>
+{% endif %}
 {% endblock %}
