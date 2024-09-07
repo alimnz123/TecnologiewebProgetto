@@ -11,9 +11,12 @@
      {% endfor %}
 </div>
 {% endif %}
+
 {% comment  %} solo se sei un amministratore {% endcomment %}
+{% if user.is_staff %}
 <a class="btn btn-primary" href="/create_verbale" role="button">Aggiungi un Verbale</a>
 <a class="btn btn-primary" href="/create_lettera" role="button">Aggiungi una Lettera di Convocazione</a>
+{% endif %}
 
 {% comment %}Lettere{% endcomment %}
 {% for lettera in lettere %}

@@ -4,7 +4,13 @@
 <h1>Home page del Condominio {{condominio.nome}}</h1>
 
 {% load static %}
-
+<div class="d-grid gap-2 d-md-block">
+  <a class="btn btn-primary" href="{% url 'bacheca' %}"> <i class="bi bi-pin-angle-fill"></i> Bacheca</a>
+  <a class="btn btn-primary" href="{% url 'bacheca' %}"> <i class="bi bi-person-fill"></i> Profilo</a>
+  {% if user.is_staff %}
+  <a class="btn btn-primary" href="{% url 'documenti_palazzo' %}"> <i class="bi bi-file-earmark-text"></i> Documenti Palazzo</a>
+  {% endif %}
+</div>
 
 {% if user.is_staff %}
 <div class="container text-center">
@@ -45,7 +51,48 @@
     </div>
   </div>
 
-{% else %}
+  {% comment %}
+  situazione rate pagate
+  {% endcomment %}
 
+
+{% else %}
+<div class="container text-center">
+    <div class="row">
+      <div class="col d-grid">
+        {% comment %} Rate da pagare {% endcomment %}
+        <a class="btn" href="{% url '' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-wallet2" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Le mie rate</h2>
+             </div>     
+        </a> 
+      </div>
+      <div class="col d-grid">
+        {% comment %} Riparto Consuntivo {% endcomment %}
+        <a class="btn" href="{% url 'riparto_consuntivo' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-speedometer" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Riparto Consuntivo</h2>
+             </div>     
+        </a> 
+      </div>
+      <div class="col d-grid">
+        {% comment %} Riparto Preventivo {% endcomment %}
+        <a class="btn" href="{% url '' %}" role="button">
+            <div class="row text-center">
+                <i class="bi bi-calendar-event" style="font-size: 4rem; color: cornflowerblue;"></i>
+             </div>
+             <div class="row text-center">
+                 <h2>Riparto Preventivo</h2>
+             </div>     
+        </a> 
+      </div>
+    </div>
+  </div>
 {% endif %}
 {% endblock %}

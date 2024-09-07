@@ -32,8 +32,10 @@ def my_login(request):
     pass
 
 def logout_view(request):
-    logout(request)
-    redirect('/logout')
+    if request.method=="POST":
+        logout(request)
+        redirect('/login')
+    return render(request, 'registration/logout.html', {})
 
 def dashboard(request):
     pass
