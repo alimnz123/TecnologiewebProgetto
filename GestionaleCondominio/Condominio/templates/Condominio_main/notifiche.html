@@ -9,23 +9,10 @@
     
     
     <ul class="list-group list-group-flush">
-        {% for notification in notifications_unread.all %}
-        <li class="list-group-item">{{notification.verb}}</li>
-        {% endfor %}    
-        {% for notification in notifications %}
-        <div class="notification {% if notification.unread %}unread{% else %}read{% endif %}">
-            <p>{{notification.actor}} {{notification.verb}} {{notification.action_object}}</p>
-            <small>{{notification.timestamp}}</small>
-        </div>
-        {% endfor %}
+        {{unread_list}}
     </ul>
 
     {% comment %} Display notifiche lette {% endcomment %}
-    <ul class="list-group list-group-flush">
-        {% for notifica in notifications_read %}
-        <li class="list-group-item">{{notifica}}</li>
-        {% endfor %}    
-    </ul>
-
+    
 
 {% endblock content %}  

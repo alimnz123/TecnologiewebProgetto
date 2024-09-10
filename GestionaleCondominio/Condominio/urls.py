@@ -10,9 +10,11 @@ urlpatterns = [
 
     path('sign-up', views.sign_up, name="sign_up"),
 
-    path('my-login', views.my_login, name="Login"),
+    path('login', views.my_login, name="login"),
 
     path('logout', views.logout_view, name="logout"),
+
+    path('profilo', views.profilo_utente, name="profilo"),
 
     path('interni', views.interno, name="interni"),
 
@@ -58,7 +60,11 @@ urlpatterns = [
 
     path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
+    #notifications 
+    path('notifications/', include('notifications.urls', namespace='notifications')),
+    
     #notifiche
     path('sezione-notifiche/', views.notifiche, name="sezione-notifiche"),
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

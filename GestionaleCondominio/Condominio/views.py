@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from .forms import RegisterForm, InternoForm, LettereConvocazioneForm, VerbaleForm, DocumentiPalazzoForm, FornitoreForm, SpesaForm
+from .forms import *
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, views
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
@@ -10,6 +10,7 @@ from datetime import datetime
 from django.db.models import Case, Value, When, Q
 from django.contrib import messages
 from notifications.signals import notify
+from django.contrib import messages
 
 # Create your views here.
 
@@ -32,13 +33,36 @@ def my_login(request):
     pass
 
 def logout_view(request):
-    if request.method=="POST":
-        logout(request)
-        redirect('/login')
-    return render(request, 'registration/logout.html', {})
+    logout(request)
+    return redirect('/login')
 
 def dashboard(request):
     pass
+
+#PROFILO UTENTE
+def profilo_utente(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.user.is_staff == True:
+                fm = EditAdminProfileForm(request.POST, instance=request.user)
+                utenti = User.objects.all()
+            else:
+                fm = EditUserProfileForm(request.POST, instance=request.user)
+                utenti = None
+            if fm.is_valid():
+                messages.success(request, 'Profilo aggiornato')
+                fm.save()
+        else:
+            if request.user.is_staff == True:
+                fm = EditAdminProfileForm(instance=request.user)
+                utenti = User.objects.all()
+            else:
+                fm = EditUserProfileForm(instance=request.user)
+                utenti = None
+        return render(request, 'Condominio_main/profilo.html', 
+            {'Nome': request.user.username, 'form': fm, 'utenti': utenti})
+    else:
+        return redirect('/home')
 
 #HOMEPAGE
 @login_required(login_url="/login")
