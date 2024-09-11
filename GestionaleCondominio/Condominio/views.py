@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from .forms import *
 from django.contrib.auth.decorators import login_required, permission_required
@@ -34,7 +34,7 @@ def my_login(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/login')
+    return HttpResponseRedirect('/login/')
 
 def dashboard(request):
     pass
