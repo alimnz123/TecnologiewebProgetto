@@ -17,8 +17,8 @@ class Condominio(models.Model):
 
 
 class Interno(models.Model):
-    condomino = models.ForeignKey(User, on_delete=models.CASCADE)
-    palazzina = models.ForeignKey(Condominio, on_delete=models.CASCADE, default="Salgari")
+    condomino = models.ForeignKey(User, on_delete=models.PROTECT)
+    palazzina = models.ForeignKey(Condominio, on_delete=models.PROTECT, default="Salgari")
     numero_interno = models.CharField(verbose_name="Numero Interno", max_length=50, primary_key=True)
     millesimi_generali = models.FloatField(verbose_name="Millesimi generali")
     millesimi_scala = models.FloatField(verbose_name="Millesimi Scala")

@@ -6,8 +6,11 @@
 {% load static %}
 <div class="d-grid gap-2 d-md-block">
   <a class="btn btn-primary" href="{% url 'bacheca' %}"> <i class="bi bi-pin-angle-fill"></i> Bacheca</a>
-  <a class="btn btn-primary" href="{% url 'bacheca' %}"> <i class="bi bi-person-fill"></i> Profilo</a>
-  {% if user.is_staff %}
+  {% if not user.is_staff %}
+  <a class="btn btn-primary" href="{% url 'profilo' %}"> <i class="bi bi-person-fill"></i> Profilo</a>
+  {% else %}
+  <a class="btn btn-primary" href="{% url 'riparto_consuntivo' %}"> <i class="bi bi-speedometer"></i> Riparto Consuntivo</a>
+  <a class="btn btn-primary" href="{% url 'riparto_consuntivo' %}"> <i class="bi bi-calendar-event"></i> Riparto Preventivo</a>
   <a class="btn btn-primary" href="{% url 'documenti_palazzo' %}"> <i class="bi bi-file-earmark-text"></i> Documenti Palazzo</a>
   {% endif %}
 </div>

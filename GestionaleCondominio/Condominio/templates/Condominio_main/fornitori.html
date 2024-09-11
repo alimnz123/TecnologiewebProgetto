@@ -16,6 +16,7 @@
          <th scope="col">P.iva</th>
          <th scope="col">Iban</th> 
          <th scope="col">Contratto</th>
+         <th scope="col">Edit</th>
        </tr>
      </thead>
      <tbody>
@@ -31,14 +32,14 @@
                  {% if user == fornitore.author or perms.main.delete_fornitore %}
                  <form method="post">
                          {% csrf_token %}
-                         <a href="{% url 'cancella_fornitore' pk=fornitore.pk %}" class="btn btn-secondary">Cancella Fornitore</a>
+                         <a href="{% url 'cancella_fornitore' pk=fornitore.pk %}" class="btn btn-danger">Cancella Fornitore</a>
                          {% comment %}
                          <button type="submit" class="btn btn-danger" name="fornitore-id" value="{{fornitore.id}}">Elimina</button>
                          {% endcomment %}
                  </form>
                  <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'edit_fornitore' pk=fornitore.pk %}" class="btn btn-secondary">Modifica</a>
+                        <a href="{% url 'edit_fornitore' pk=fornitore.pk %}" class="btn btn-link">Modifica</a>
                         
                  </form>
                  {% endif %}

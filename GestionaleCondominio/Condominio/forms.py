@@ -5,10 +5,10 @@ from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fo
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    interno=forms.ChoiceField(required=True, choices=Interno)
+    email = forms.EmailField(required=True, label="Email")
+    first_name = forms.CharField(required=True, label="Nome")
+    last_name = forms.CharField(required=True, label="Cognome")
+    interno=forms.ChoiceField(required=True, choices=Interno, label="Interno")
 
     class Meta:
         model = User
@@ -58,7 +58,7 @@ class EditUserProfileForm(UserChangeForm):
         model = User
         fields = ["username", "email", "first_name",
                   "last_name"]
-        labels = {'email': 'Email'}
+        labels = {'email': 'Email', 'first_name': 'Nome', 'last_name':'Cognome'}
 
 class EditAdminProfileForm(UserChangeForm):
     password = None
