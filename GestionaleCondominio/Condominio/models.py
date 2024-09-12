@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
+from notifications.models import Notification as BaseNotification 
 
 # Create your models here.
 
@@ -127,17 +128,18 @@ class Spesa(models.Model):
         verbose_name_plural="Spese"
 
 #NOTIFICATION SYSTEM
-class Notification(models.Model):
-    message = models.TextField("Hai un nuovo messaggio in bacheca")
-    users = models.ManyToManyField(User, through='UserNotification')
+class NotificationType(models.Model): 
+    name = models.CharField(max_length=100) 
+    
+    def __str__(self): 
+        return self.name
 
-class UserNotification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    notification = models.ForeignKey(Notification, on_delete=models.CASCADE)
-    is_seen = models.BooleanField()
-
-
+class Notification(BaseNotification): 
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE) 
+    notification_type = models.ForeignKey(NotificationType, on_delete=models.CASCADE) # Additional fields specific to your notification 
+    
+    class Meta: 
+        ordering = ['-timestamp']
 
 
 

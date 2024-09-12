@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     #notifications
     'notifications',
+    #for real time notifications
+    'channels',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS="bootstrap5"

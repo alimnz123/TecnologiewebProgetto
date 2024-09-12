@@ -64,7 +64,6 @@ urlpatterns = [
     path('notifications/', include('notifications.urls', namespace='notifications')),
     
     #notifiche
-    path('sezione-notifiche/', views.notifiche, name="sezione-notifiche"),
-
+    path('notifiche/', views.notifications_view, name="notifiche"),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

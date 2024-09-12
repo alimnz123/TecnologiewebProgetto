@@ -10,7 +10,7 @@ from datetime import datetime
 from django.db.models import Case, Value, When, Q
 from django.contrib import messages
 from notifications.signals import notify
-from django.contrib import messages
+from notifications.models import Notification
 
 # Create your views here.
 
@@ -157,9 +157,9 @@ def create_lettera(request):
             lettera = form.save(commit=False)
             lettera.author = request.user
             lettera.save()
-            messages.success(request, "Profile details updated.")
+            messages.success(request, "Lettera di convocazione aggiunta con successo.")
             #notifica se viene aggiunto un nuovo verbale
-            notify.send(sender=request.user, recipient=request.user, verb="Nuova Lettera di Convocazione", action_objects=form)
+            notify.send(User, recipient=User, verb="Nuova lettera di convocazione!")
             return redirect("/bacheca")
     else:
         form = LettereConvocazioneForm()
@@ -176,7 +176,7 @@ def create_verbale(request):
             verbale.author = request.user
             verbale.save()
             #notifica
-            notify.send(sender=request.user, recipient=request.user, verb="Nuovo Verbale", action_objects=form)
+            #notify.send(sender=request.user, recipient=request.user, verb="Nuovo Verbale", action_objects=form)
             return redirect("/bacheca")
     else:
         form = VerbaleForm()
@@ -534,11 +534,8 @@ def RipartoPreventivo(request):
 #NOTIFICATION SYSTEM
 #view che mette in lista tutte le notifiche
 
-@login_required(login_url="/login")
-def notifiche(request):
-    notifications = request.user.notifications.all()
-    notifications_count = notifications.count()
-            
-    return render(request, 'Condominio_main/notifiche.html', {"notifications":notifications, "notifications_count": notifications_count})
-
+@login_required 
+def notifications_view(request): 
+    notifications = Notification.objects.filter(recipient=request.user) 
+    return render(request, 'notifiche.html', {'notifications': notifications})
 
