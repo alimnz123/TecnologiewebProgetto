@@ -20,7 +20,7 @@ class InternoForm(forms.ModelForm):
     class Meta:
         model = Interno
         fields = ["condomino", "numero_interno", "palazzina", 
-                  "millesimi_generali", "millesimi_scala", "millesimi_edificio", "in_affitto", "mappali"]
+                  "millesimi_generali", "millesimi_scala", "in_affitto"]
 
 
 class LettereConvocazioneForm(forms.ModelForm):
@@ -36,6 +36,7 @@ class VerbaleForm(forms.ModelForm):
                   "documento", "lettera_accompagnatoria"]
         
 class DocumentiPalazzoForm(forms.ModelForm):
+    data= forms.SelectDateWidget(empty_label="Nothing")
     class Meta:
         model = DocumentiPalazzo
         fields = ["data", "descrizione", "file_documento"]

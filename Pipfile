@@ -4,10 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 crispy-bootstrap5 = "*"
 django-mathfilters = "*"
-django-notifications-hq = "*"
 channels = "*"
 
 [dev-packages]

@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'mathfilters',
 
-    #notifications
-    'notifications',
+    #notification APP
+    'notification',
     #for real time notifications
     'channels',
 ]
@@ -85,6 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'GestionaleCondominio.wsgi.application'
 
+ASGI_APPLICATION = 'GestionaleCondominio.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -127,8 +128,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-DATE_FORMAT = "d-m-Y"
+DATE_FORMAT = "d/m/Y"
 
+DATETIME_INPUT_FORMATS = ["%m/%d/%Y %H:%M"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -143,4 +145,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL='/home'
 LOGOUT_REDIRECT_URL='/login/'
-

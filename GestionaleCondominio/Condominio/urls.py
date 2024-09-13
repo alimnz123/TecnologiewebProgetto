@@ -60,10 +60,4 @@ urlpatterns = [
 
     path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
-    #notifications 
-    path('notifications/', include('notifications.urls', namespace='notifications')),
-    
-    #notifiche
-    path('notifiche/', views.notifications_view, name="notifiche"),
-
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

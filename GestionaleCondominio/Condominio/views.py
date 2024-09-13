@@ -9,8 +9,6 @@ from .models import *
 from datetime import datetime
 from django.db.models import Case, Value, When, Q
 from django.contrib import messages
-from notifications.signals import notify
-from notifications.models import Notification
 
 # Create your views here.
 
@@ -159,7 +157,7 @@ def create_lettera(request):
             lettera.save()
             messages.success(request, "Lettera di convocazione aggiunta con successo.")
             #notifica se viene aggiunto un nuovo verbale
-            notify.send(User, recipient=User, verb="Nuova lettera di convocazione!")
+            #notify.send(User, recipient=User, verb="Nuova lettera di convocazione!")
             return redirect("/bacheca")
     else:
         form = LettereConvocazioneForm()
@@ -531,11 +529,3 @@ def RipartoPreventivo(request):
                                                                        "totale_complessivo":totale_complessivo, "versamento_anno_trascorso":versamento_anno_trascorso, "saldi_esercizio":saldi_esercizio, "totale_ordinarie_scale":totale_ordinarie_scale, "totale_ordinarie":totale_ordinarie,
                                                                        "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie, "totale_generali":totale_generali, "totale_straordinarie": totale_straordinarie})
     
-#NOTIFICATION SYSTEM
-#view che mette in lista tutte le notifiche
-
-@login_required 
-def notifications_view(request): 
-    notifications = Notification.objects.filter(recipient=request.user) 
-    return render(request, 'notifiche.html', {'notifications': notifications})
-

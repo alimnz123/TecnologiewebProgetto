@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
-from notifications.models import Notification as BaseNotification 
 
 # Create your models here.
 
@@ -23,12 +22,12 @@ class Interno(models.Model):
     numero_interno = models.CharField(verbose_name="Numero Interno", max_length=50, primary_key=True)
     millesimi_generali = models.FloatField(verbose_name="Millesimi generali")
     millesimi_scala = models.FloatField(verbose_name="Millesimi Scala")
-    millesimi_edificio=models.FloatField(verbose_name="Millesimi Edificio")
+    # millesimi_edificio=models.FloatField(verbose_name="Millesimi Edificio")
     # proprietario=models.TextChoices(verbose_name="Proprietà", choices=User.last_name)
     # da verificare questi elementi
     in_affitto = models.BooleanField(verbose_name="In affitto")
     # occupante=models.TextChoices(verbose_name="Inquilino", choices=User.last_name)
-    mappali = models.CharField(verbose_name="Mappali", max_length=100)
+    # mappali = models.CharField(verbose_name="Mappali", max_length=100)
 
     def __str__(self):
         out=self.numero_interno + " - " + str(self.condomino.last_name)
@@ -126,20 +125,6 @@ class Spesa(models.Model):
     importo=models.FloatField("Totale", default=0)
     class Meta:
         verbose_name_plural="Spese"
-
-#NOTIFICATION SYSTEM
-class NotificationType(models.Model): 
-    name = models.CharField(max_length=100) 
-    
-    def __str__(self): 
-        return self.name
-
-class Notification(BaseNotification): 
-    recipient = models.ForeignKey(User, on_delete=models.CASCADE) 
-    notification_type = models.ForeignKey(NotificationType, on_delete=models.CASCADE) # Additional fields specific to your notification 
-    
-    class Meta: 
-        ordering = ['-timestamp']
 
 
 
