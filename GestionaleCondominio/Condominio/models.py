@@ -40,9 +40,9 @@ class Interno(models.Model):
 class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) probabilmente in bacheca + contabilità(rendiconto, consuntivo, dell'anno precedente, appena concluso)
     data = models.DateTimeField("Data", primary_key=True)
     descrizione = models.CharField(max_length=200)
-    documento = models.FileField("Documento", blank=True, default=None)
+    documento = models.FileField("Documento", upload_to='verbali/', blank=True, default=None)
     lettera_accompagnatoria = models.FileField(
-        "Lettera accompagnatoria", blank=True, default=None)
+        "Lettera accompagnatoria", upload_to="lettereAccompagnatorie", blank=True, default=None) 
 
     def totale_verbali(self):
         totale = self.all().count()
@@ -61,7 +61,7 @@ class Lettera_Convocazione(models.Model):
     data = models.DateTimeField("Data", primary_key=True)
     descrizione = models.CharField(max_length=200)
     convocazione_documento = models.FileField(
-        verbose_name="Lettera di convocazione", blank=True, default=None)
+        verbose_name="Lettera di convocazione", upload_to='lettere/', blank=True, default=None)
 
     def cancella_dopo_un_mese(self):
         data_verificare = self.data
@@ -79,7 +79,7 @@ class Lettera_Convocazione(models.Model):
 class DocumentiPalazzo(models.Model):
     data = models.DateTimeField("Data", primary_key=True)
     descrizione = models.CharField(max_length=200)
-    file_documento = models.FileField(verbose_name="Documento del Palazzo", blank=True, default=None)
+    file_documento = models.FileField(verbose_name="Documento del Palazzo", upload_to='documenti_palazzo/', blank=True, default=None)
 
     class Meta:
         verbose_name_plural = "Documenti del Palazzo"

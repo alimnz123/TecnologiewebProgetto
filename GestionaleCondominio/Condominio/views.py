@@ -168,9 +168,9 @@ def create_lettera(request):
 @permission_required("main.add_lettera", login_url="/login", raise_exception=True)
 def create_verbale(request):
     if request.method == 'POST':
-        form = VerbaleForm(request.POST)
+        form = VerbaleForm(request.POST, request.FILES)
         if form.is_valid():
-            verbale = form.save(commit=False)
+            verbale = form.save()
             verbale.author = request.user
             verbale.save()
             #notifica
@@ -185,7 +185,7 @@ def create_verbale(request):
 @permission_required("main.add_documento", login_url="/login", raise_exception=True)
 def create_documento(request):
     if request.method == 'POST':
-        form = DocumentiPalazzoForm(request.POST)
+        form = DocumentiPalazzoForm(request.POST, request.FILES)
         if form.is_valid():
             documento = form.save(commit=False)
             documento.author = request.user
