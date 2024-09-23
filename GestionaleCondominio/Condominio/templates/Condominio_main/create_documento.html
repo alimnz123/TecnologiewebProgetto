@@ -4,6 +4,31 @@
 {% load crispy_forms_tags %}
 
 {% block content %} 
+
+{% comment %}MESSAGES{% endcomment %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}  
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-success" role="alert">
+          {{ message }}  
+        </div>
+
+        {% endif %}
+        
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
 <form method="post">
     {% csrf_token %}{{form|crispy}}
     <button type="submit" class="btn btn-success">Aggiungi</button>

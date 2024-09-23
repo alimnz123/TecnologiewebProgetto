@@ -1,0 +1,7 @@
+{% extends 'Condominio_main/base.html' %}
+{% block title %}Ottimo lavoro!{% endblock %}
+{% block content %} 
+<h1>Bene!</h1>
+<p>Il {{tipo}} è stato caricato con successo</p>
+<a href="{% url 'bacheca' %}" class="btn btn-success">Clicca e prosegui</a>
+{% endblock %}

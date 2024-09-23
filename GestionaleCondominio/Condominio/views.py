@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from .forms import *
 from django.contrib.auth.decorators import login_required, permission_required
@@ -36,6 +36,9 @@ def logout_view(request):
 
 def dashboard(request):
     pass
+
+def success(request):
+    return render(request, 'Condominio_main/success.html')
 
 #PROFILO UTENTE
 def profilo_utente(request):
@@ -169,12 +172,14 @@ def create_lettera(request):
 def create_verbale(request):
     if request.method == 'POST':
         form = VerbaleForm(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
             verbale = form.save()
             verbale.author = request.user
             verbale.save()
-            #notifica
-            #notify.send(sender=request.user, recipient=request.user, verb="Nuovo Verbale", action_objects=form)
+            
+            messages.success(request, "Verbale aggiunto con successo.")
+            
             return redirect("/bacheca")
     else:
         form = VerbaleForm()
@@ -187,12 +192,15 @@ def create_documento(request):
     if request.method == 'POST':
         form = DocumentiPalazzoForm(request.POST, request.FILES)
         if form.is_valid():
-            documento = form.save(commit=False)
+            documento = form.save()
             documento.author = request.user
             documento.save()
-            #faccio partire una notifica
+            
+            messages.success(request, "Documento aggiunto con successo!")
             
             return redirect("/documenti_palazzo")
+        else:
+            messages.error(request, "Documento non aggiunto correttamente")
     else:
         form = DocumentiPalazzoForm()
 

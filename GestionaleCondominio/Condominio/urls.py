@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('profilo', views.profilo_utente, name="profilo"),
 
+    path('success', views.success, name="success"),
+
     path('interni', views.interno, name="interni"),
 
     path("edit_interno/<pk>/", views.UpdateInternoView.as_view(), name="edit_interno"),
