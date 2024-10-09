@@ -48,6 +48,14 @@ class FornitoreForm(forms.ModelForm):
                   "ragione_sociale", "partita_iva", "cf", "iban"]
         
 class SpesaForm(forms.ModelForm):
+    data=forms.DateField(
+        widget=forms.DateInput(
+            attrs = {
+            'class': 'form-control',
+            'type' : 'date'
+            }
+        )
+    )
     class Meta:
         model = Spesa
         fields = ["data", "fornitore", "tipologia",

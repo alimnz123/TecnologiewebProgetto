@@ -37,11 +37,11 @@
          <th scope="col">Numero</th>
          <th scope="col">Condomino</th>
          <th scope="col">Millesimi Generali</th>
-         <th scope="col">Millesimi Edificio</th> 
+         {% comment %} <th scope="col">Millesimi Edificio</th> {% endcomment %}
          <th scope="col">Millesimi Scala</th>
-         <th scope="col">Mappali</th>
+         {% comment %} <th scope="col">Mappali</th> {% endcomment %}
          <th scope="col">In Affitto</th>
-         <th scope="col">Edit</th>
+         <th scope="col">Operazioni</th>
        </tr>
      </thead>
      <tbody>
@@ -50,9 +50,9 @@
              <th scope="row">{{interno.numero_interno}}</th>
              <td>{{interno.condomino.last_name}}</td>
              <td>{{interno.millesimi_generali}}</td>
-             <td>{{interno.millesimi_edificio}}</td>
+             {% comment %} <td>{{interno.millesimi_edificio}}</td> {% endcomment %}
              <td>{{interno.millesimi_scala}}</td>
-             <td>{{interno.mappali}}</td>
+             {% comment %} <td>{{interno.mappali}}</td> {% endcomment %}
              <td>{{interno.in_affitto}}</td>
              <td>
                  {% if user == interno.author or perms.main.delete_interno %}

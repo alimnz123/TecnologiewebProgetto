@@ -124,13 +124,15 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'CET'
 
-USE_I18N = True
+USE_I18N = False
 
-USE_TZ = True
+USE_TZ = False
 
-DATE_FORMAT = "d/m/Y"
+DATE_FORMAT = ['%d/%m/%Y']
 
-DATETIME_INPUT_FORMATS = ["%m/%d/%Y %H:%M"]
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

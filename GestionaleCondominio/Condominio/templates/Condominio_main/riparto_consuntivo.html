@@ -12,11 +12,11 @@
         <th scope="col">N</th>
         <th scope="col">Condomino</th>
         <th scope="col">Millesimi Generali</th>
-        <th scope="col">Millesimi Edificio</th>
+        {% comment %} <th scope="col">Millesimi Edificio</th> {% endcomment %}
         <th scope="col">Millesimi Scala</th>
 
         <th scope="col">Spese Straordinarie Edificio</th>
-        <th scope="col">Spese Straordinarie Scale</th>
+        <th scope="col">Spese Straordinarie Scala</th>
         <th scope="col">Spese Straordinarie Antenne</th>
         <th scope="col">Spese Diverse</th>
         <th scope="col">Totale Esercizio</th>
@@ -39,10 +39,11 @@
             <th scope="row">{{interno.numero_interno}}</th>
             <td scope="row">{{interno.condomino.last_name}}</td>
             <td scope="row">{{interno.millesimi_generali}}</td>
-            <td scope="row">{{interno.millesimi_edificio}}</td>
+            {% comment %} <td scope="row">{{interno.millesimi_edificio}}</td> {% endcomment %}
             <td scope="row">{{interno.millesimi_scala}}</td>
 
-            <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_edificio}}</td>
+            {% comment %} <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
+            <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_generali}}</td>
             <td scope="row">{{totale_spese_straordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
             <td scope="row">{{totale_spese_straordinarie_antenne|div:1000|mul:interno.millesimi_generali}}</td>
             <td scope="row">{{totale_spese_diverse}}</td>
@@ -55,10 +56,13 @@
 
             <td scope="row">{{totale_ordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
             <td scope="row">{{totale_ordinarie|div:1000|mul:interno.millesimi_generali}}</td>
-            <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_edificio}}</td>
+            {% comment %} <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
+            <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_generali}}</td> 
             <td scope="row">{{totale_utente_manutenzioni_ordinarie}}</td>
-            <td scope="row">{{totale_generali|div:1000|mul:interno.millesimi_edificio}}</td>
-            <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_edificio}}</td>              
+            {% comment %} <td scope="row">{{totale_generali|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
+            <td scope="row">{{totale_generali|div:1000|mul:interno.millesimi_generali}}</td>
+            {% comment %} <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
+            <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_generali}}</td>  
         </tr>
         {% endfor %}
     </tbody>

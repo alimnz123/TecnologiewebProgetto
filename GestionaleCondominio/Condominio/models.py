@@ -89,11 +89,11 @@ class DocumentiPalazzo(models.Model):
 class Fornitore(models.Model):
     nome = models.CharField(max_length=100, primary_key=True)
     contratto = models.FileField("Contratto", blank=True, default=None)
-    indirizzo = models.CharField(max_length=200)
-    ragione_sociale = models.CharField(max_length=100)
-    partita_iva = models.CharField(max_length=100)
-    cf = models.CharField(max_length=100)
-    iban = models.CharField(max_length=200)
+    indirizzo = models.CharField(max_length=200, blank=True)
+    ragione_sociale = models.CharField(max_length=100, blank=True)
+    partita_iva = models.CharField(max_length=100, blank=True)
+    cf = models.CharField(max_length=100, blank=True)
+    iban = models.CharField(max_length=200, blank=True)
     # indirizzo, ragione sociale, partita iva, cf, iban, le fatture vanno pagate attraverso bonifici, f24
 
     def __str__(self):

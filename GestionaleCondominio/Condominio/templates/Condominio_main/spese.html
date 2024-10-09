@@ -39,7 +39,7 @@
         <th scope="col">Descrizione</th>
         <th scope="col">Assegnatario</th> {% comment %} Deve poter essere un utente user di tipo non staff {% endcomment %}
         <th scope="col">Importo</th>
-        <th scope="col">Modifica</th>
+        <th scope="col">Operazioni</th>
 
       </tr>
     </thead>
@@ -51,7 +51,7 @@
             <td>{{spesa.tipologia}}</td>
             <td>{{spesa.descrizione}}</td>
             <td>
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Vedi tutti
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -65,7 +65,7 @@
                 {% if user == spesa.author or perms.main.delete_spesa %}
                 <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'cancella_spesa' pk=spesa.pk %}" class="btn btn-secondary">Cancella Spesa</a>
+                        <a href="{% url 'cancella_spesa' pk=spesa.pk %}" class="btn btn-danger">Cancella Spesa</a>
                         {% comment %}
                         ELIMINA CON FBV
                           <button type="submit" class="btn btn-danger" name="spesa-id" value="{{spesa.id}}">Elimina</button>
@@ -73,7 +73,7 @@
                 </form>
                 <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'edit_spesa' pk=spesa.pk %}" class="btn btn-secondary">Modifica</a>
+                        <a href="{% url 'edit_spesa' pk=spesa.pk %}" class="btn btn-link">Modifica</a>
                 </form>
                 {% endif %}
             </td>
