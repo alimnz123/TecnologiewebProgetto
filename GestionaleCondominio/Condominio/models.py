@@ -127,6 +127,19 @@ class Spesa(models.Model):
         verbose_name_plural="Spese"
 
 
+# RATE
+class Rata(models.Model):
+    assegnatario = models.ManyToManyField(Interno)
+    data_scadenza = models.DateTimeField("Data")
+    descrizione = models.CharField(default=None, max_length=300)
+    importo = models.FloatField(default=None)
+    pagata = models.BooleanField(default = False)
+    file_pagamento = models.FileField(verbose_name="File del pagamento", upload_to='pagamenti/', blank=True, default=None)
+
+    class Meta:
+        verbose_name_plural="Rate"
+
+
 
 """ class Palazzina(models.Model):
     condominio=models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)

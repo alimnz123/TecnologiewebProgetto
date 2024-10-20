@@ -34,7 +34,15 @@
       </tr>
     </thead>
     <tbody>
+        
         {% for interno in interni %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
+        
+        {% comment %} Definisco delle variabili di template {% endcomment %}
+        {% with totale_spese_st_edifici=totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_generali %}
+        {% with totale_spese_st_scale = totale_spese_straordinarie_scale|div:1000|mul:interno.millesimi_scala%}
+        {% with totale_spese_st_antenne = totale_spese_straordinarie_antenne|div:1000|mul:interno.millesimi_generali %}
+        {% with totale_man_ord_scale=totale_ordinarie_scale|div:1000|mul:interno.millesimi_scala %}
+
         <tr>
             <th scope="row">{{interno.numero_interno}}</th>
             <td scope="row">{{interno.condomino.last_name}}</td>
@@ -43,18 +51,19 @@
             <td scope="row">{{interno.millesimi_scala}}</td>
 
             {% comment %} <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
-            <td scope="row">{{totale_spese_straordinarie_edifici|div:1000|mul:interno.millesimi_generali}}</td>
-            <td scope="row">{{totale_spese_straordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
-            <td scope="row">{{totale_spese_straordinarie_antenne|div:1000|mul:interno.millesimi_generali}}</td>
+            <td scope="row">{{totale_spese_st_edifici}}</td>
+            <td scope="row">{{totale_spese_st_scale}}</td>
+            <td scope="row">{{totale_spese_st_antenne}}</td>
             <td scope="row">{{totale_spese_diverse}}</td>
 
-            <td scope="row">{{totale_esercizio}}</td>
+            {% comment %} <td scope="row">{{totale_esercizio}}</td> {% endcomment %}
+            <td scope="row">{{totale_man_ord_scale|add:totale_spese_st_edifici}}</td> {# è il totale però del singolo utente #}
             <td scope="row">{{saldo_esercizio_precedente}}</td>
             <td scope="row">{{totale_complessivo}}</td>
             <td scope="row">{{versamento_anno_trascorso}}</td>
             <td scope="row">{{saldi_esercizio}}</td>
 
-            <td scope="row">{{totale_ordinarie_scale|div:1000|mul:interno.millesimi_scala}}</td>
+            <td scope="row">{{totale_man_ord_sc}}</td>
             <td scope="row">{{totale_ordinarie|div:1000|mul:interno.millesimi_generali}}</td>
             {% comment %} <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
             <td scope="row">{{totale_ordinarie_comuni|div:1000|mul:interno.millesimi_generali}}</td> 
@@ -64,6 +73,10 @@
             {% comment %} <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_edificio}}</td> {% endcomment %}
             <td scope="row">{{totale_straordinarie|div:1000|mul:interno.millesimi_generali}}</td>  
         </tr>
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
         {% endfor %}
     </tbody>
 </table>

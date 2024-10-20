@@ -62,4 +62,12 @@ urlpatterns = [
 
     path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
+    path('rate/', views.Rate, name="rate"),
+
+    path('create_rata/', views.create_rata, name="create_rata"),
+
+    path("<pk>/edit_rata/", views.UpdateRataView.as_view(), name="edit_rata"),
+
+    path("cancella_rata/<pk>/", views.DeleteRataView.as_view(), name="cancella_rata"),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

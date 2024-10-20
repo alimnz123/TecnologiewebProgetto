@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
-from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore, Spesa
+from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore, Spesa, Rata
 
 
 class RegisterForm(UserCreationForm):
@@ -60,6 +60,20 @@ class SpesaForm(forms.ModelForm):
         model = Spesa
         fields = ["data", "fornitore", "tipologia",
                   "descrizione", "assegnatario", "importo"]
+        
+class RataForm(forms.ModelForm):
+    data_scadenza=forms.DateField(
+        widget=forms.DateInput(
+            attrs = {
+            'class': 'form-control',
+            'type' : 'date'
+            }
+        )
+    )
+    class Meta:
+        model = Rata
+        fields = ["assegnatario", "data_scadenza", "descrizione",
+                  "importo", "pagata", "file_pagamento"]
 
 class EditUserProfileForm(UserChangeForm):
     password = None
