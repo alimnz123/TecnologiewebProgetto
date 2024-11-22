@@ -36,13 +36,11 @@
     </thead>
     <tbody>
       {% comment %}elementi di una lista ci vuole il for{% endcomment %}
-      {% for interno in interni %}
       <tr>
-          <th scope="row">{{interno}}</th>
-          
- 
+        {% for i in lista %}
+            <td scope="row">{{i}}</td>
+        {% endfor %}
       </tr>
-      {% endfor %}
     </tbody>
 </table>
 

@@ -24,19 +24,36 @@ class InternoForm(forms.ModelForm):
 
 
 class LettereConvocazioneForm(forms.ModelForm):
+    data=forms.DateField(
+        label="Data",
+        required=True,
+        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
+        input_formats=["%d-%m-%Y"]
+    )
     class Meta:
         model = Lettera_Convocazione
         fields = ["data", "descrizione", "convocazione_documento"]
 
 
 class VerbaleForm(forms.ModelForm):
+    data=forms.DateField(
+        label="Data",
+        required=True,
+        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
+        input_formats=["%d-%m-%Y"]
+    )
     class Meta:
         model = Verbale
         fields = ["data", "descrizione",
                   "documento", "lettera_accompagnatoria"]
         
 class DocumentiPalazzoForm(forms.ModelForm):
-    data= forms.SelectDateWidget(empty_label="Nothing")
+    data=forms.DateField(
+        label="Data",
+        required=True,
+        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
+        input_formats=["%d-%m-%Y"]
+    )
     class Meta:
         model = DocumentiPalazzo
         fields = ["data", "descrizione", "file_documento"]
@@ -49,32 +66,15 @@ class FornitoreForm(forms.ModelForm):
         
 class SpesaForm(forms.ModelForm):
     data=forms.DateField(
-        widget=forms.DateInput(
-            attrs = {
-            'class': 'form-control',
-            'type' : 'date'
-            }
-        )
+        label="Data",
+        required=True,
+        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
+        input_formats=["%d-%m-%Y"]
     )
     class Meta:
         model = Spesa
         fields = ["data", "fornitore", "tipologia",
                   "descrizione", "assegnatario", "importo"]
-        
-class RataForm(forms.ModelForm):
-    data_scadenza=forms.DateField(
-        widget=forms.DateInput(
-            attrs = {
-            'class': 'form-control',
-            'type' : 'date'
-            }
-        )
-    )
-    class Meta:
-        model = Rata
-        fields = ["assegnatario", "data_scadenza", "descrizione",
-                  "importo", "pagata", "file_pagamento"]
-
 class EditUserProfileForm(UserChangeForm):
     password = None
     class Meta:

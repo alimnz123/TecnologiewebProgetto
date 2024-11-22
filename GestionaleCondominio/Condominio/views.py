@@ -333,18 +333,19 @@ class DeleteInternoView(DeleteEntitaView):
 #RIPARTO CONSUNTIVO
 @login_required(login_url="/login")
 def RipartoConsuntivo(request):
-    interni=Interno.objects.all()
+    interni = Interno.objects.filter("numero_interno")
     #Elementi utili
     current_date = datetime.now()
     current_year = current_date.year
     anno_precedente = current_date.year - 1
-
+    
     # COSA SERVE
-    def get_interno(interno):
-        return interno.numero_interno
+    def get_interno():
+        return interni
     
     def get_cognome():
-        Interno.condomino.__getattribute__("last_name")
+        condomino = Interno.condomino
+        return condomino.last_name
     
     def get_millesimi_scala():
         pass
@@ -469,7 +470,7 @@ def RipartoConsuntivo(request):
                                                                        "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie, "totale_generali":totale_generali, "totale_straordinarie": totale_straordinarie,
                                                                        "totale_ordinarie_scale_interno":totale_ordinarie_scale_interno}
  """
-    ctx={"interno": get_interno, "cognome":get_cognome }
+    ctx = {"interni": interni, "lista" : [ get_interno ] }
 
     return render(request, "Condominio_main/riparto_consuntivo.html", ctx)
 
