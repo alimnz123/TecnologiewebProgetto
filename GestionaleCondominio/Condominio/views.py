@@ -580,38 +580,3 @@ def RipartoPreventivo(request):
                                                                        "totale_spese_straordinarie_antenne":totale_spese_straordinarie_antenne, "totale_spese_diverse":totale_spese_diverse, "totale_esercizio": totale_esercizio, "saldo_esercizio_precedente":saldo_esercizio_precedente,
                                                                        "totale_complessivo":totale_complessivo, "versamento_anno_trascorso":versamento_anno_trascorso, "saldi_esercizio":saldi_esercizio, "totale_ordinarie_scale":totale_ordinarie_scale, "totale_ordinarie":totale_ordinarie,
                                                                        "totale_ordinarie_comuni":totale_ordinarie_comuni, "totale_utente_manutenzioni_ordinarie":totale_utente_manutenzioni_ordinarie, "totale_generali":totale_generali, "totale_straordinarie": totale_straordinarie})
-    
-#   view RATA
-@login_required(login_url="/login")
-def Rate(request):
-    rate=Rata.objects.all()
-    
-    return render(request, 'Condominio_main/rate.html', {"rate":rate})
-
-@login_required(login_url="/login")
-@permission_required("main.add_rata", login_url="/login", raise_exception=True)
-def create_rata(request):
-    if request.method == 'POST':
-        form = RataForm(request.POST)
-        if form.is_valid():
-            rata = form.save(commit=False)
-            rata.author = request.user
-            rata.save()
-            return redirect("/rate")
-    else:
-        form = RataForm()
-
-    return render(request, 'Condominio_main/create_rata.html', {"form": form})
-
-class UpdateRataView(UpdateView):
-    model = Rata
-    fields='__all__'
-    template_name = "Condominio_main/edit_rata.html"
-    
-
-    def get_success_url(self):
-        pk = self.get_context_data()["object"].id
-        return reverse("rata",kwargs={'pk': pk})
-    
-class DeleteRataView(DeleteEntitaView):
-    model=Rata
