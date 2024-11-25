@@ -2,6 +2,8 @@
 {% block title %}Riparto Consuntivo{% endblock %}
 {% block content %} 
 {% load mathfilters %}
+{% load custom_tags %}
+
 <h1>Riparto Consuntivo Anno {{anno_precedente|add:1}}</h1>
 
 {% comment %}Spese{% endcomment %}
@@ -36,11 +38,15 @@
     </thead>
     <tbody>
       {% comment %}elementi di una lista ci vuole il for{% endcomment %}
+      {% for interno in interni %}
       <tr>
-        {% for i in lista %}
-            <td scope="row">{{i}}</td>
-        {% endfor %}
+        <th scope="row">{{interno|get_interno}}</th>
+        <td scope="row">{{interno|get_cognome}}</td>
+        <td scope="row">{{interno|get_millesimi_generali}}</td>
+        <td scope="row">{{interno|get_millesimi_scala}}</td>
+
       </tr>
+      {% endfor %}
     </tbody>
 </table>
 
