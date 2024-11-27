@@ -34,6 +34,8 @@
         {% comment %} <th scope="col">Totale Occupante</th> {% endcomment %}
         <th scope="col">Spese Generali</th> 
         <th scope="col">Spese Straordinarie</th> 
+
+        <th scope="col">Totale Esercizio</th>
       </tr>
     </thead>
     <tbody>
@@ -45,45 +47,24 @@
         <td scope="row">{{interno|get_millesimi_generali}}</td>
         <td scope="row">{{interno|get_millesimi_scala}}</td>
 
+        <td scope="row">{{interno|get_spese_straordinarie_edifici}}</td>
+        <td scope="row">{{interno|get_spese_straordinarie_scala}}</td>
+        <td scope="row">{{interno|get_spese_straordinarie_antenne}}</td>
+
+        <td scope="row">{{interno|get_spese_diverse}}</td>
+
+        <td scope="row">{{interno|get_manutenzione_ordinaria_scala}}</td>
+        <td scope="row">{{interno|get_manutenzione_ordinaria}}</td>
+        <td scope="row">{{interno|get_manutenzione_ordinaria_aree_comuni}}</td>
+
+        <td scope="row">{{interno|get_generali}}</td>
+        <td scope="row">{{interno|get_straordinarie}}</td>
+
+        <td scope="row">{{interno|get_totale_esercizio}}</td>
+
       </tr>
       {% endfor %}
     </tbody>
 </table>
 
-<h2>Riepilogo</h2>
-<div style="overflow-x:scroll">
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">N</th>
-          <th scope="col">Condomino</th>
-  
-          <th scope="col">Totale Esercizio</th>
-          <th scope="col">Saldo Esercizio Precedente</th>
-          <th scope="col">Totale Complessivo</th>
-          <th scope="col">Versamenti {{anno_precedente}}</th>
-          <th scope="col">Saldi di Esercizio</th>
-
-          {% comment %}il totale occupante è da inserire solo se c'è l'inquilino ma è uno step successivo e più complesso 
-          <th scope="col">Totale Occupante</th>
-          {% endcomment %}
- 
-        </tr>
-      </thead>
-      <tbody>
-        {% for interno in interni %} {% comment %} Per ogni condomino io devo mostrare la SOMMA delle spese % millesimi{% endcomment %}
-        <tr>
-            <th scope="row">{{interno.numero_interno}}</th>
-            <td scope="row">{{interno.condomino.last_name}}</td>
-  
-            <td scope="row">{{totale_esercizio}}</td>
-            <td scope="row">{{saldo_esercizio_precedente}}</td>
-            <td scope="row">{{totale_complessivo}}</td>
-            <td scope="row">{{versamento_anno_trascorso}}</td>
-            <td scope="row">{{saldi_esercizio}}</td>  
-        </tr>
-        {% endfor %}
-      </tbody>
-  </table>
-</div>
 {% endblock %}
