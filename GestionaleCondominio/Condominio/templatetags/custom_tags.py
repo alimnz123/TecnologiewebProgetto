@@ -150,4 +150,4 @@ def get_totale_esercizio(value):
 @register.filter(name="generali_previsionali")
 def generali_previsionali(value):
 
-    return get_generali(value) 
+    return get_generali(value) + (get_generali(value) * (0.1))
