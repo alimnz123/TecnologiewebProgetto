@@ -151,3 +151,28 @@ def get_totale_esercizio(value):
 def generali_previsionali(value):
 
     return get_generali(value) + (get_generali(value) * (0.1))
+
+@register.filter(name="straordinarie_edifici_previsionali")
+def straordinarie_edifici_previsionali(value):
+
+    return get_spese_straordinarie_edifici(value) + (get_spese_straordinarie_edifici(value) * (0.1))
+
+@register.filter(name="straordinarie_previsionali")
+def straordinarie_previsionali(value):
+
+    return get_straordinarie(value) + (get_straordinarie(value) * (0.1))
+
+@register.filter(name="ordinarie_scala_previsionali")
+def ordinarie_scala_previsionali(value):
+
+    return get_manutenzione_ordinaria_scala(value) + (get_manutenzione_ordinaria_scala(value) * (0.1))
+
+@register.filter(name="ordinarie_previsionali")
+def ordinarie_previsionali(value):
+
+    return get_manutenzione_ordinaria(value) + (get_manutenzione_ordinaria(value) * (0.1))
+
+@register.filter(name="totale_previsionali")
+def totale_previsionali(value):
+
+    return ordinarie_previsionali(value) + ordinarie_scala_previsionali(value) + generali_previsionali(value) + straordinarie_edifici_previsionali(value) + straordinarie_edifici_previsionali(value) + straordinarie_previsionali(value) 
