@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
+from django.conf import settings
 
 # Create your models here.
 
@@ -38,7 +39,7 @@ class Interno(models.Model):
 
 
 class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) probabilmente in bacheca + contabilità(rendiconto, consuntivo, dell'anno precedente, appena concluso)
-    data = models.DateTimeField("Data", primary_key=True)
+    data = models.DateField("Data", primary_key=True)
     descrizione = models.CharField(max_length=200)
     documento = models.FileField("Documento", upload_to='static/files', blank=True, default=None)
     lettera_accompagnatoria = models.FileField(
@@ -58,7 +59,7 @@ class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) pro
 
 
 class Lettera_Convocazione(models.Model):
-    data = models.DateTimeField("Data", primary_key=True)
+    data = models.DateField("Data", primary_key=True)
     descrizione = models.CharField(max_length=200)
     convocazione_documento = models.FileField(
         verbose_name="Lettera di convocazione", upload_to='media/', blank=True, default=None)
@@ -117,7 +118,7 @@ class Spesa(models.Model):
         SPESE_DIVERSE="Spese Diverse"
         
     fornitore=models.ForeignKey(Fornitore, on_delete=models.PROTECT, default=None)
-    data=models.DateTimeField("Data")
+    data=models.DateField("Data")
     #documento=models.FileField("File", blank=True, default=None)
     tipologia=models.TextField("Tipologia", choices=Tipologie.choices, default=Tipologie.SPESE_DIVERSE, max_length=200)
     descrizione=models.CharField(default=None, max_length=200)

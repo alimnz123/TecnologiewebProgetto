@@ -46,7 +46,7 @@
     <tbody>
         {% for spesa in spese %}
         <tr>
-            <th scope="row">{{spesa.data}}</th>
+            <th scope="row">{{spesa.data|date:"d-m-Y"}}</th>
             <td>{{spesa.fornitore}}</td>
             <td>{{spesa.tipologia}}</td>
             <td>{{spesa.descrizione}}</td>

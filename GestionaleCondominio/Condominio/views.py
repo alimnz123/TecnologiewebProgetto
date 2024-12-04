@@ -175,6 +175,7 @@ def create_lettera(request):
             handle_uploaded_file(request.FILES['file'])
             model_istance = form.save(commit = False)
             model_istance.save()
+            form.cleaned_data["data"]
             return HttpResponseRedirect("/bacheca")
     else:
         form = LettereConvocazioneForm()

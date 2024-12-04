@@ -123,11 +123,11 @@ USE_I18N = False
 
 USE_TZ = False
 
-DATE_FORMAT = ['%d/%m/%Y']
+DATE_FORMAT = ["%Y-%m-%d"]
 
-DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATE_INPUT_FORMATS = ['%Y-%m-%d']
 
-DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M']
+DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
