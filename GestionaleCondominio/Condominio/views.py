@@ -40,6 +40,11 @@ def dashboard(request):
 def success(request):
     return render(request, 'Condominio_main/success.html')
 
+def handle_uploaded_file(f):
+    with open("some/file/name.txt", "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
 #PROFILO UTENTE
 def profilo_utente(request):
     if request.user.is_authenticated:
@@ -152,20 +157,28 @@ class DeleteDocumentiPalazzoView(DeleteEntitaView):
 @login_required(login_url="/login")
 @permission_required("main.add_lettera", login_url="/login", raise_exception=True)
 def create_lettera(request):
-    if request.method == 'POST':
+    """ if request.method == 'POST':
         form = LettereConvocazioneForm(request.POST)
         if form.is_valid():
             lettera = form.save(commit=False)
             lettera.author = request.user
             lettera.save()
             messages.success(request, "Lettera di convocazione aggiunta con successo.")
-            #notifica se viene aggiunto un nuovo verbale
-            #notify.send(User, recipient=User, verb="Nuova lettera di convocazione!")
             return redirect("/bacheca")
     else:
         form = LettereConvocazioneForm()
 
-    return render(request, 'Condominio_main/create_lettera.html', {"form": form})    
+    return render(request, 'Condominio_main/create_lettera.html', {"form": form})  """ 
+    if request.method == "POST":
+        form = LettereConvocazioneForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            model_istance = form.save(commit = False)
+            model_istance.save()
+            return HttpResponseRedirect("/bacheca")
+    else:
+        form = LettereConvocazioneForm()
+    return render(request, 'Condominio_main/create_lettera.html', {"form": form})
 
 @login_required(login_url="/login")
 @permission_required("main.add_lettera", login_url="/login", raise_exception=True)

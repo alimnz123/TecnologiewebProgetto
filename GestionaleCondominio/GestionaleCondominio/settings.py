@@ -44,11 +44,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'mathfilters',
-
-    #notification APP
-    'notification',
-    #for real time notifications
-    'channels',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS="bootstrap5"
@@ -151,3 +146,4 @@ LOGOUT_REDIRECT_URL='/login/'
 
 # MEDIA ROOT TO UPLOAD AND STORE FILES
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'

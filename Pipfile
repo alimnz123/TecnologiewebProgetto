@@ -8,6 +8,7 @@ crispy-bootstrap5 = "*"
 django-mathfilters = "*"
 channels = "*"
 django = "*"
+django-anchor = "*"
 
 [dev-packages]
 

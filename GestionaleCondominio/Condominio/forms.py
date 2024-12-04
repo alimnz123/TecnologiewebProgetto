@@ -24,6 +24,7 @@ class InternoForm(forms.ModelForm):
 
 
 class LettereConvocazioneForm(forms.ModelForm):
+    convocazione_documento = forms.FileField()
     data=forms.DateField(
         label="Data",
         required=True,
@@ -36,6 +37,9 @@ class LettereConvocazioneForm(forms.ModelForm):
 
 
 class VerbaleForm(forms.ModelForm):
+    documento = forms.FileField()
+    lettera_accompagnatoria = forms.FileField()
+
     data=forms.DateField(
         label="Data",
         required=True,
@@ -48,6 +52,8 @@ class VerbaleForm(forms.ModelForm):
                   "documento", "lettera_accompagnatoria"]
         
 class DocumentiPalazzoForm(forms.ModelForm):
+    file_documento = forms.FileField()
+
     data=forms.DateField(
         label="Data",
         required=True,
@@ -59,6 +65,7 @@ class DocumentiPalazzoForm(forms.ModelForm):
         fields = ["data", "descrizione", "file_documento"]
 
 class FornitoreForm(forms.ModelForm):
+    contratto = forms.FileField()
     class Meta:
         model = Fornitore
         fields = ["nome", "contratto", "indirizzo",
