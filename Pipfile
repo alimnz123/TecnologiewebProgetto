@@ -13,4 +13,4 @@ django-anchor = "*"
 [dev-packages]
 
 [requires]
-pyth
+python_version = "3.11"

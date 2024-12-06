@@ -24,12 +24,21 @@ class InternoForm(forms.ModelForm):
 
 
 class LettereConvocazioneForm(forms.ModelForm):
-    convocazione_documento = forms.FileField()
+    convocazione_documento = forms.FileField(
+        label="Carica documento",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
     data=forms.DateField(
-        label="Data",
-        required=True,
-        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
-        input_formats=["%d-%m-%Y"]
+        widget=forms.DateInput(
+            attrs={
+                'class' : 'form-control',
+                'type': "date"
+            }
+        )
     )
     class Meta:
         model = Lettera_Convocazione
@@ -37,14 +46,31 @@ class LettereConvocazioneForm(forms.ModelForm):
 
 
 class VerbaleForm(forms.ModelForm):
-    documento = forms.FileField()
-    lettera_accompagnatoria = forms.FileField()
+    documento = forms.FileField(
+        label="Carica documento",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
+    
+    lettera_accompagnatoria = forms.FileField(
+        label="Carica documento",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
 
     data=forms.DateField(
-        label="Data",
-        required=True,
-        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
-        input_formats=["%d-%m-%Y"]
+        widget=forms.DateInput(
+            attrs={
+                'class' : 'form-control',
+                'type': "date"
+            }
+        )
     )
     class Meta:
         model = Verbale
@@ -52,20 +78,36 @@ class VerbaleForm(forms.ModelForm):
                   "documento", "lettera_accompagnatoria"]
         
 class DocumentiPalazzoForm(forms.ModelForm):
-    file_documento = forms.FileField()
+    file_documento = forms.FileField(
+        label="Carica documento",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
 
     data=forms.DateField(
-        label="Data",
-        required=True,
-        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
-        input_formats=["%d-%m-%Y"]
+        widget=forms.DateInput(
+            attrs={
+                'class' : 'form-control',
+                'type': "date"
+            }
+        )
     )
     class Meta:
         model = DocumentiPalazzo
         fields = ["data", "descrizione", "file_documento"]
 
 class FornitoreForm(forms.ModelForm):
-    contratto = forms.FileField()
+    contratto = forms.FileField(
+        label="Carica documento",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
     class Meta:
         model = Fornitore
         fields = ["nome", "contratto", "indirizzo",
@@ -73,10 +115,12 @@ class FornitoreForm(forms.ModelForm):
         
 class SpesaForm(forms.ModelForm):
     data=forms.DateField(
-        label="Data",
-        required=True,
-        widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date"}),
-        input_formats=["%d-%m-%Y"]
+        widget=forms.DateInput(
+            attrs={
+                'class' : 'form-control',
+                'type': "date"
+            }
+        )
     )
     class Meta:
         model = Spesa
