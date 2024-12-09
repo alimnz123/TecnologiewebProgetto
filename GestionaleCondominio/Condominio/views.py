@@ -29,12 +29,12 @@ def sign_up(request):
 
 
 def my_login(request):
-    pass
+    return render(request, 'registration/login.html')
 
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('login')
 
 
 def dashboard(request):
@@ -189,6 +189,7 @@ def create_lettera(request):
             )
 
             let.save()
+            form.save()
 
             return HttpResponseRedirect("/bacheca")
     form = LettereConvocazioneForm()
@@ -214,6 +215,7 @@ def create_verbale(request):
             )
 
             verb.save()
+            form.save()
 
             return HttpResponseRedirect("/bacheca")
     form = VerbaleForm()
@@ -237,6 +239,7 @@ def create_documento(request):
             )
 
             pal.save()
+            form.save()
 
             return HttpResponseRedirect("/bacheca")
     form = DocumentiPalazzoForm()
@@ -284,6 +287,7 @@ def create_fornitore(request):
             )
 
             forn.save()
+            form.save()
 
             return HttpResponseRedirect("/fornitori")
     form = FornitoreForm()
@@ -341,6 +345,7 @@ def create_spesa(request):
             )
 
             spe.save()
+            form.save()
 
             return HttpResponseRedirect("/spesa")
     form = SpesaForm()

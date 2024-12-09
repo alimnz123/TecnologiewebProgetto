@@ -8,12 +8,12 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Email")
     first_name = forms.CharField(required=True, label="Nome")
     last_name = forms.CharField(required=True, label="Cognome")
-    interno=forms.ChoiceField(required=True, choices=Interno, label="Interno")
+    interno = forms.ChoiceField(required=True, choices=Interno, label="Interno")
 
     class Meta:
         model = User
         fields = ["username", "email", "first_name",
-                  "last_name", "password1", "password2"]
+                  "last_name", "password1", "password2", "interno"]
 
 
 class InternoForm(forms.ModelForm):

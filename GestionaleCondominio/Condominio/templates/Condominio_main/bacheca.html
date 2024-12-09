@@ -27,7 +27,8 @@
             {{lettera.descrizione}}
        </div> 
        <div> 
-            {{lettera.convocazione_documento}}
+            {% comment %}Link del file{% endcomment %}
+            <a href="{{lettera.convocazione_documento}}">{{lettera.convocazione_documento}}</a>
        </div> 
     </div>
     <div>
@@ -54,6 +55,7 @@
             {{verbale.descrizione}}
        </div> 
        <div> 
+           {% comment %}Link del file{% endcomment %}
             {{verbale.lettera_accompagnatoria}}
        </div>
        <div> 

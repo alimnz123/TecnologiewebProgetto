@@ -1,0 +1,136 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red140\green211\blue254;\red24\green24\blue24;\red202\green202\blue202;
+\red67\green192\blue160;\red193\green193\blue193;\red212\green214\blue154;\red194\green126\blue101;\red167\green197\blue152;
+\red183\green111\blue179;\red89\green138\blue67;}
+{\*\expandedcolortbl;;\cssrgb\c61176\c86275\c99608;\cssrgb\c12157\c12157\c12157;\cssrgb\c83137\c83137\c83137;
+\cssrgb\c30588\c78824\c69020;\cssrgb\c80000\c80000\c80000;\cssrgb\c86275\c86275\c66667;\cssrgb\c80784\c56863\c47059;\cssrgb\c70980\c80784\c65882;
+\cssrgb\c77255\c52549\c75294;\cssrgb\c41569\c60000\c33333;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 spese_straordinarie_edifici\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spesa Straordinaria Edificio"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3     \cf2 \strokec2 totale_spese_straordinarie_edifici\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_straordinarie_edifici\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_spese_straordinarie_edifici\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\cb3     \cb1 \
+\cb3     \cf11 \strokec11 #spese straordinarie scale\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_straordinarie_scale\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spesa Straordinaria Scale"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_spese_straordinarie_scale\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_straordinarie_scale\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_spese_straordinarie_scale\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #spese straordinarie antenne\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_straordinarie_antenne\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spesa Straordinaria Antenne"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_spese_straordinarie_antenne\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_straordinarie_antenne\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_spese_straordinarie_antenne\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #spese diverse \cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_diverse\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spese Diverse"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_spese_diverse\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_diverse\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_spese_diverse\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #manutenzione ordinaria scale\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_ordinarie_scale\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Manutenzione Ordinaria Scala"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_ordinarie_scale\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_ordinarie_scale\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_ordinarie_scale\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \strokec6  \cb1 \
+\cb3     \cb1 \
+\
+\cb3     \cf11 \strokec11 #manutenzione ordinaria \cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_ordinarie\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Manutenzione Ordinaria"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_ordinarie\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_ordinarie\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_ordinarie\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #manutenzione ordinaria aree comuni \cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_ordinarie_comuni\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Manutenzione Ordinaria"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_ordinarie_comuni\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_ordinarie_comuni\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_ordinarie_comuni\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #totale manutenzioni ordinarie\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 totale_utente_manutenzioni_ordinarie\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie_comuni\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie_scale\cf6 \cb1 \strokec6 \
+\cb3         \cb1 \
+\cb3     \cf11 \strokec11 #spese gnerali\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_generali\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spese Generali"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_generali\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_generali\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_generali\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #spese gnerali\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 spese_straordinarie\cf4 \strokec4 =\cf5 \strokec5 Spesa\cf6 \strokec6 .\cf2 \strokec2 objects\cf6 \strokec6 .\cf7 \strokec7 filter\cf6 \strokec6 (\cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 tipologia\cf4 \strokec4 =\cf8 \strokec8 "Spese Straordinarie"\cf6 \strokec6 ) \cf7 \strokec7 &\cf6 \strokec6  \cf5 \strokec5 Q\cf6 \strokec6 (\cf2 \strokec2 data__year\cf4 \strokec4 =\cf2 \strokec2 current_year\cf6 \strokec6 ))\cb1 \
+\
+\cb3     \cf2 \strokec2 totale_straordinarie\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 spese_straordinarie\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 totale_straordinarie\cf6 \strokec6  \cf4 \strokec4 +=\cf6 \strokec6  \cf2 \strokec2 spesa\cf6 \strokec6 .\cf2 \strokec2 importo\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 # totale esercizio per il singolo utente.\cf6 \cb1 \strokec6 \
+\cb3     \cf11 \strokec11 # per ogni utente devo mostrare la somma complessiva delle spese\cf6 \cb1 \strokec6 \
+\cb3     \cf11 \strokec11 # solo quelle legate a lui per\'f2\cf6 \cb1 \strokec6 \
+\cb3     \cb1 \
+\cb3     \cf11 \strokec11 # 1) seleziono tutte le tipologie di spesa e calcolo il totale per ogni assegnatario\cf6 \cb1 \strokec6 \
+\cb3     \cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 \strokec10 for\cf6 \strokec6  \cf2 \strokec2 interno\cf6 \strokec6  \cf7 \strokec7 in\cf6 \strokec6  \cf2 \strokec2 interni\cf6 \strokec6 :\cb1 \
+\cb3         \cf2 \strokec2 mill_generali\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 interno\cf6 \strokec6 .\cf2 \strokec2 millesimi_generali\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 mill_scale\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 interno\cf6 \strokec6 .\cf2 \strokec2 millesimi_generali\cf6 \cb1 \strokec6 \
+\
+\cb3         \cf11 \strokec11 #manutenzione ordinaria scale\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 totale_ordinarie_scale_interno\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  (\cf2 \strokec2 totale_ordinarie_scale\cf6 \strokec6  \cf4 \strokec4 /\cf6 \strokec6  \cf9 \strokec9 1000\cf6 \strokec6 ) \cf4 \strokec4 *\cf6 \strokec6  \cf2 \strokec2 mill_generali\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #manutenzione ordinaria\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 totale_ordinarie_interno\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  (\cf2 \strokec2 totale_ordinarie\cf6 \strokec6  \cf4 \strokec4 /\cf6 \strokec6  \cf9 \strokec9 1000\cf6 \strokec6 ) \cf4 \strokec4 *\cf6 \strokec6  \cf2 \strokec2 mill_scale\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #manutenzione ordinarie comuni\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 totale_ordinarie_comuni_interno\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  (\cf2 \strokec2 totale_ordinarie_comuni\cf6 \strokec6  \cf4 \strokec4 /\cf6 \strokec6  \cf9 \strokec9 1000\cf6 \strokec6 ) \cf4 \strokec4 *\cf6 \strokec6  \cf2 \strokec2 mill_generali\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #generali\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 totale_generali_interno\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 totale_generali\cf6 \strokec6  \cf4 \strokec4 /\cf6 \strokec6  \cf9 \strokec9 1000\cf6 \strokec6  \cf4 \strokec4 *\cf6 \strokec6  \cf2 \strokec2 mill_generali\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #straordinarie\cf6 \cb1 \strokec6 \
+\cb3         \cf2 \strokec2 totale_straordinarie_interno\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 totale_straordinarie\cf6 \strokec6  \cf4 \strokec4 /\cf6 \strokec6  \cf9 \strokec9 1000\cf6 \strokec6  \cf4 \strokec4 *\cf6 \strokec6  \cf2 \strokec2 mill_generali\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #manutenzione straordinaria edifici\cf6 \cb1 \strokec6 \
+\
+\cb3         \cf11 \strokec11 #manutenzione straordinaria scale\cf6 \cb1 \strokec6 \
+\
+\cb3         \cf11 \strokec11 #manutenzione straordinaria antenna\cf6 \cb1 \strokec6 \
+\
+\cb3         \cf11 \strokec11 #diverse\cf6 \cb1 \strokec6 \
+\
+\
+\cb3         \cf2 \strokec2 totale_esercizio\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie_scale_interno\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie_interno\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_ordinarie_comuni_interno\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_generali_interno\cf6 \strokec6  \cf4 \strokec4 +\cf6 \strokec6  \cf2 \strokec2 totale_straordinarie_interno\cf6 \cb1 \strokec6 \
+\
+\
+\
+\cb3     \cf11 \strokec11 #saldo esercizio precedente\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 saldo_esercizio_precedente\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \strokec6   \cf11 \strokec11 #trova un modo per salvare le rate versate nell'anno precedente\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #totale complessivo\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 totale_complessivo\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf2 \strokec2 totale_esercizio\cf6 \strokec6  \cf4 \strokec4 -\cf6 \strokec6  \cf2 \strokec2 saldo_esercizio_precedente\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #versamento anno trascorso, sono le rate gi\'e0 versate nell'anno appena trascorso\cf6 \cb1 \strokec6 \
+\cb3         \cf11 \strokec11 #query seleziono le rate pagate nell'anno corrente e sommo gli importi\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 versamento_anno_trascorso\cf6 \strokec6  \cf4 \strokec4 =\cf6 \strokec6  \cf9 \strokec9 0\cf6 \cb1 \strokec6 \
+\
+\cb3     \cf11 \strokec11 #saldi di esercizio\cf6 \cb1 \strokec6 \
+\cb3     \cf2 \strokec2 saldi_esercizio\cf4 \strokec4 =\cf2 \strokec2 totale_complessivo\cf4 \strokec4 -\cf2 \strokec2 versamento_anno_trascorso\cf6 \cb1 \strokec6 \
+\
+\
+\
+\cb3     \cf10 \strokec10 return\cf6 \strokec6  \cf7 \strokec7 render\cf6 \strokec6 (\cf2 \strokec2 request\cf6 \strokec6 , \cf8 \strokec8 "Condominio_main/riparto_consuntivo.html"\cf6 \strokec6 , \{\cf8 \strokec8 "interni"\cf6 \strokec6 :\cf2 \strokec2 interni\cf6 \strokec6 , \cf8 \strokec8 "anno_precedente"\cf6 \strokec6 : \cf2 \strokec2 anno_precedente\cf6 \strokec6 , \cf8 \strokec8 "totale_spese_straordinarie_edifici"\cf6 \strokec6 :\cf2 \strokec2 totale_spese_straordinarie_edifici\cf6 \strokec6 , \cf8 \strokec8 "totale_spese_straordinarie_scale"\cf6 \strokec6 :\cf2 \strokec2 totale_spese_straordinarie_scale\cf6 \strokec6 ,\cb1 \
+\cb3                                                                        \cf8 \strokec8 "totale_spese_straordinarie_antenne"\cf6 \strokec6 :\cf2 \strokec2 totale_spese_straordinarie_antenne\cf6 \strokec6 , \cf8 \strokec8 "totale_spese_diverse"\cf6 \strokec6 :\cf2 \strokec2 totale_spese_diverse\cf6 \strokec6 , \cf8 \strokec8 "totale_esercizio"\cf6 \strokec6 : \cf2 \strokec2 totale_esercizio\cf6 \strokec6 , \cf8 \strokec8 "saldo_esercizio_precedente"\cf6 \strokec6 :\cf2 \strokec2 saldo_esercizio_precedente\cf6 \strokec6 ,\cb1 \
+\cb3                                                                        \cf8 \strokec8 "totale_complessivo"\cf6 \strokec6 :\cf2 \strokec2 totale_complessivo\cf6 \strokec6 , \cf8 \strokec8 "versamento_anno_trascorso"\cf6 \strokec6 :\cf2 \strokec2 versamento_anno_trascorso\cf6 \strokec6 , \cf8 \strokec8 "saldi_esercizio"\cf6 \strokec6 :\cf2 \strokec2 saldi_esercizio\cf6 \strokec6 , \cf8 \strokec8 "totale_ordinarie_scale"\cf6 \strokec6 :\cf2 \strokec2 totale_ordinarie_scale\cf6 \strokec6 , \cf8 \strokec8 "totale_ordinarie"\cf6 \strokec6 :\cf2 \strokec2 totale_ordinarie\cf6 \strokec6 ,\cb1 \
+\cb3                                                                        \cf8 \strokec8 "totale_ordinarie_comuni"\cf6 \strokec6 :\cf2 \strokec2 totale_ordinarie_comuni\cf6 \strokec6 , \cf8 \strokec8 "totale_utente_manutenzioni_ordinarie"\cf6 \strokec6 :\cf2 \strokec2 totale_utente_manutenzioni_ordinarie\cf6 \strokec6 , \cf8 \strokec8 "totale_generali"\cf6 \strokec6 :\cf2 \strokec2 totale_generali\cf6 \strokec6 , \cf8 \strokec8 "totale_straordinarie"\cf6 \strokec6 : \cf2 \strokec2 totale_straordinarie\cf6 \strokec6 ,\cb1 \
+\cb3                                                                        \cf8 \strokec8 "totale_ordinarie_scale_interno"\cf6 \strokec6 :\cf2 \strokec2 totale_ordinarie_scale_interno\cf6 \strokec6 \})\cb1 \
+\
+}
