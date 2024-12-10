@@ -17,6 +17,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/home">Home</a>
                     </li>
+                    
                     {% if user.is_authenticated and  user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="/interni">Interni</a>
@@ -26,11 +27,13 @@
                         <a class="nav-link" href="/documenti_palazzo">Documenti palazzo</a>
                     </li>
                     {% endif %}
+
                     {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="/fornitori">Fornitori</a>
                     </li>
                     {% endif %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="/spesa">Spese del Palazzo</a>
                     </li>

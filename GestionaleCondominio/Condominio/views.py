@@ -25,25 +25,21 @@ def sign_up(request):
     else:
         form = RegisterForm()
 
-    return render(request, 'registration/sign_up.html', {"form": form})
+    return render(request, "registration/sign_up.html", {"form": form})
 
 
 def my_login(request):
-    return render(request, 'registration/login.html')
-
+    return render(request, "registration/login.html")
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('login')
-
+    return HttpResponseRedirect('/login/')
 
 def dashboard(request):
     pass
 
-
 def success(request):
     return render(request, 'Condominio_main/success.html')
-
 
 def handle_uploaded_file(f):
     with open("some/file/name.txt", "wb+") as destination:
@@ -51,8 +47,6 @@ def handle_uploaded_file(f):
             destination.write(chunk)
 
 # PROFILO UTENTE
-
-
 def profilo_utente(request):
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -78,9 +72,7 @@ def profilo_utente(request):
         return redirect('/home')
 
 # HOMEPAGE
-
-
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def homepage(request):
     condominio = Condominio.objects.first()
     return render(request, 'Condominio_main/homepage.html', {"condominio": condominio})
@@ -124,7 +116,7 @@ class DeleteEntitaView(DeleteView):
         return super().get_success_url()
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def bacheca(request):
     verbali = Verbale.objects.all()
     lettere = Lettera_Convocazione.objects.all()
@@ -154,7 +146,7 @@ class DeleteLetteraConvocazioneView(DeleteEntitaView):
     model = Lettera_Convocazione
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def documenti_palazzo(request):
     documenti = DocumentiPalazzo.objects.all()
 
@@ -172,8 +164,8 @@ class DeleteDocumentiPalazzoView(DeleteEntitaView):
     model = DocumentiPalazzo
 
 
-@login_required(login_url="/login")
-@permission_required("main.add_lettera", login_url="/login", raise_exception=True)
+@login_required(login_url='login')
+@permission_required("main.add_lettera", login_url='login', raise_exception=True)
 def create_lettera(request):
     if request.method == "POST":
         form = LettereConvocazioneForm(request.POST, request.FILES)
@@ -196,8 +188,8 @@ def create_lettera(request):
     return render(request, 'Condominio_main/create_lettera.html', {"form": form})
 
 
-@login_required(login_url="/login")
-@permission_required("main.add_lettera", login_url="/login", raise_exception=True)
+@login_required(login_url='login')
+@permission_required("main.add_lettera", login_url='login', raise_exception=True)
 def create_verbale(request):
     if request.method == "POST":
         form = VerbaleForm(request.POST, request.FILES)
@@ -222,8 +214,8 @@ def create_verbale(request):
     return render(request, 'Condominio_main/create_verbale.html', {"form": form})
 
 
-@login_required(login_url="/login")
-@permission_required("main.add_documento", login_url="/login", raise_exception=True)
+@login_required(login_url='login')
+@permission_required("main.add_documento", login_url='login', raise_exception=True)
 def create_documento(request):
     if request.method == "POST":
         form = DocumentiPalazzoForm(request.POST, request.FILES)
@@ -248,7 +240,7 @@ def create_documento(request):
 # views related to Fornitori and Spese
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def fornitori(request):
     fornitori = Fornitore.objects.all()
 
@@ -262,8 +254,8 @@ def fornitori(request):
     return render(request, 'Condominio_main/fornitori.html', {"fornitori": fornitori})
 
 
-@login_required(login_url="/login")
-@permission_required("main.add_fornitore", login_url="/login", raise_exception=True)
+@login_required(login_url='login')
+@permission_required("main.add_fornitore", login_url='login', raise_exception=True)
 def create_fornitore(request):
     if request.method == "POST":
         form = FornitoreForm(request.POST, request.FILES)
@@ -308,7 +300,7 @@ class UpdateFornitoreView(UpdateView):
         return reverse("fornitori", kwargs={'pk': pk})
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def spesa(request):
     spese = Spesa.objects.all()
 
@@ -322,8 +314,8 @@ def spesa(request):
     return render(request, 'Condominio_main/spese.html', {"spese": spese})
 
 
-@login_required(login_url="/login")
-@permission_required("main.add_spesa", login_url="/login", raise_exception=True)
+@login_required(login_url='login')
+@permission_required("main.add_spesa", login_url='login', raise_exception=True)
 def create_spesa(request):
     if request.method == "POST":
         form = SpesaForm(request.POST)
@@ -370,7 +362,7 @@ class DeleteSpesaView(DeleteEntitaView):
     # view che permette di visionare tutti i consomini e in quali interni si trovano
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def interno(request):
     interni = Interno.objects.all()
 
@@ -394,7 +386,7 @@ class UpdateInternoView(UpdateView):
         return reverse("interni", kwargs={'pk': pk})
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def create_interno(request):
     if request.method == 'POST':
         form = InternoForm(request.POST)
@@ -414,7 +406,7 @@ class DeleteInternoView(DeleteEntitaView):
 
 
 # RIPARTO CONSUNTIVO
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def RipartoConsuntivo(request):
     interni = Interno.objects.all()
 
@@ -427,7 +419,7 @@ def RipartoConsuntivo(request):
     return render(request, "Condominio_main/riparto_consuntivo.html", ctx)
 
 
-@login_required(login_url="/login")
+@login_required(login_url='login')
 def RipartoPreventivo(request):
     interni = Interno.objects.all()
 
