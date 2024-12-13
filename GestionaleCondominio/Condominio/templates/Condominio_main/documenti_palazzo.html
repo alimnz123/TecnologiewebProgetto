@@ -1,6 +1,9 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Documenti del Palazzo{% endblock %}
+
 {% block content %} 
+{% load static %}
+
 <h1>Documenti del Palazzo</h1>
 
 
@@ -39,7 +42,7 @@
             {{documento.descrizione}}
        </div> 
        <div> 
-            {{documento.file_documento}}
+          <a href="{% get_media_prefix %}{{ documento.file_documento }}">{{ documento.file_documento }}</object>
        </div> 
     </div>
     <div>

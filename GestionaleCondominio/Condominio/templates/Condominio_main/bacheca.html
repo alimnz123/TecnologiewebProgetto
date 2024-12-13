@@ -1,6 +1,8 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Bacheca{% endblock %}
+
 {% block content %} 
+{% load static %}
 <h1>Bacheca</h1>
 
 {% comment %}Messaggi relativi alle varie operazioni{% endcomment %}
@@ -28,7 +30,7 @@
        </div> 
        <div> 
             {% comment %}Link del file{% endcomment %}
-            <a href="{{lettera.convocazione_documento}}">{{lettera.convocazione_documento}}</a>
+            <a href="{% get_media_prefix %}{{lettera.convocazione_documento}}">{{lettera.convocazione_documento}}</a>
        </div> 
     </div>
     <div>
@@ -56,10 +58,10 @@
        </div> 
        <div> 
            {% comment %}Link del file{% endcomment %}
-           <a href="{{ GestionaleCondominio/media/files/consuntivo_GkPPAC4.rtf }}" download>{{ object.url }}</a>
+           <a href="{% get_media_prefix %}{{ verbale.lettera_accompagnatoria }}">{{ verbale.lettera_accompagnatoria }}</object>
        </div>
        <div> 
-            {{verbale.documento}}
+          <a href="{% get_media_prefix %}{{ verbale.documento }}">{{ verbale.documento }}</object>
        </div> 
     </div>
     <div>
@@ -67,7 +69,6 @@
                <form method="post">
                     {% csrf_token %}
                     <a href="{% url 'cancella_verbale' pk=verbale.pk %}" class="btn btn-danger">Cancella Verbale</a>
-                    
                </form>
           {% endif %}
      </div>
