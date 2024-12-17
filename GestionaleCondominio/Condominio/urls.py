@@ -46,7 +46,7 @@ urlpatterns = [
 
     path('create_fornitore', views.create_fornitore, name="create_fornitore"),
 
-    path("edit_fornitore/<pk>/", views.UpdateFornitoreView.as_view(), name="edit_fornitore"),
+    path("edit_fornitore/<str:nome>/", views.update_fornitore, name="edit_fornitore"),
 
     path("cancella_fornitore/<pk>/", views.DeleteFornitoreView.as_view(),name="cancella_fornitore"),
 
@@ -54,7 +54,7 @@ urlpatterns = [
 
     path('create_spesa/', views.create_spesa, name="create_spesa"),
 
-    path("<pk>/edit_spesa/", views.UpdateSpesaView.as_view(), name="edit_spesa"),
+    path("edit_spesa/<fornitore>", views.update_spesa, name="edit_spesa"),
 
     path("cancella_spesa/<pk>/", views.DeleteSpesaView.as_view(),name="cancella_spesa"),
 

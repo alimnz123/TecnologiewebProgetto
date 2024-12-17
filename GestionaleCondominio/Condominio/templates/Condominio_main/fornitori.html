@@ -1,6 +1,8 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Fornitori{% endblock %}
-{% block content %} 
+
+{% block content %}
+{% load static %}
 <h1>Fornitori</h1>
 
 {% comment %}MESSAGES{% endcomment %}
@@ -50,19 +52,16 @@
              <td>{{fornitore.ragione_sociale}}</td>
              <td>{{fornitore.partita_iva}}</td>
              <td>{{fornitore.iban}}</td>
-             <td>{{fornitore.contratto}}</td>
+             <td><a href="{% get_media_prefix %}{{ fornitore.contratto }}">{{fornitore.contratto }}</object></td>
              <td>
                  {% if user == fornitore.author or perms.main.delete_fornitore %}
                  <form method="post">
                          {% csrf_token %}
                          <a href="{% url 'cancella_fornitore' pk=fornitore.pk %}" class="btn btn-danger">Cancella Fornitore</a>
-                         {% comment %}
-                         <button type="submit" class="btn btn-danger" name="fornitore-id" value="{{fornitore.id}}">Elimina</button>
-                         {% endcomment %}
                  </form>
                  <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'edit_fornitore' pk=fornitore.pk %}" class="btn btn-link">Modifica</a>
+                        <a href="{% url 'edit_fornitore' nome=fornitore.nome %}" class="btn btn-link">Modifica</a>
                         
                  </form>
                  {% endif %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from .forms import *
 from django.contrib.auth.decorators import login_required, permission_required
@@ -290,14 +290,13 @@ class DeleteFornitoreView(DeleteEntitaView):
     model = Fornitore
 
 
-class UpdateFornitoreView(UpdateView):
-    model = Fornitore
-    fields = "__all__"
-    template_name = "Condominio_main/edit_fornitore.html"
-
-    def get_success_url(self):
-        pk = self.get_context_data()["object"].pk
-        return reverse("fornitori", kwargs={'pk': pk})
+def update_fornitore(request, nome):
+    fornitore = get_object_or_404(Fornitore, nome = nome)
+    form = FornitoreForm(request.POST or None, instance = fornitore)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect("/fornitori")
+    return render(request, 'Condominio_main/edit_fornitore.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -345,14 +344,13 @@ def create_spesa(request):
 
 
 
-class UpdateSpesaView(UpdateView):
-    model = Spesa
-    fields = '__all__'
-    template_name = "Condominio_main/edit_spesa.html"
-
-    def get_success_url(self):
-        pk = self.get_context_data()["object"].id
-        return reverse("spesa", kwargs={'pk': pk})
+def update_spesa(request, fornitore):
+    spesa = get_object_or_404(Spesa, fornitore = fornitore)
+    form = SpesaForm(request.POST or None, instance = spesa)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect("/spesa")
+    return render(request, 'Condominio_main/edit_spesa.html', {'form': form})
 
 
 class DeleteSpesaView(DeleteEntitaView):

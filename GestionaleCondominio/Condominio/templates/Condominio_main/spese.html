@@ -73,7 +73,7 @@
                 </form>
                 <form method="post">
                         {% csrf_token %}
-                        <a href="{% url 'edit_spesa' pk=spesa.pk %}" class="btn btn-link">Modifica</a>
+                        <a href="{% url 'edit_spesa' fornitore=spesa.fornitore %}" class="btn btn-link">Modifica</a>
                 </form>
                 {% endif %}
             </td>

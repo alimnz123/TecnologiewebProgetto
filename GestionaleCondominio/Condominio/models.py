@@ -89,7 +89,7 @@ class DocumentiPalazzo(models.Model):
 # PARTE RELATIVA ALLE SPESE
 class Fornitore(models.Model):
     nome = models.CharField(max_length=100, primary_key=True)
-    contratto = models.FileField("Contratto", upload_to="files/", blank=True, default=None)
+    contratto = models.FileField(verbose_name="Contratto", upload_to='files/', blank=True, default=None)
     indirizzo = models.CharField(max_length=200, blank=True)
     ragione_sociale = models.CharField(max_length=100, blank=True)
     partita_iva = models.CharField(max_length=100, blank=True)
