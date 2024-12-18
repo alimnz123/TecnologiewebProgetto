@@ -52,10 +52,15 @@ class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) pro
         else:
             messaggio = f"Ci sono {totale} verbali disponibili"
         return messaggio
+    
+    def __str__(self):
+        out = self.descrizione + " - " + self.data
+        return out 
 
     class Meta:
         ordering = ["data"]
         verbose_name_plural = "Verbali"
+
 
 
 class Lettera_Convocazione(models.Model):
@@ -72,6 +77,10 @@ class Lettera_Convocazione(models.Model):
         else:
             messaggio = f"C'è una lettera di convocazione, vai a leggerla!"
         return messaggio
+    
+    def __str__(self):
+        out = self.descrizione + " - " + self.data
+        return out 
 
     class Meta:
         verbose_name_plural = "Lettere di convocazione"
@@ -82,6 +91,9 @@ class DocumentiPalazzo(models.Model):
     descrizione = models.CharField(max_length=200)
     file_documento = models.FileField(verbose_name="Documento del Palazzo", upload_to='files/', blank=True, default=None)
 
+    def __str__(self):
+        out = self.descrizione + " pubblicata il " + str(self.data)
+        return out 
     class Meta:
         verbose_name_plural = "Documenti del Palazzo"
 
@@ -124,5 +136,9 @@ class Spesa(models.Model):
     descrizione=models.CharField(default=None, max_length=200)
     assegnatario=models.ManyToManyField(Interno) 
     importo=models.FloatField("Totale", default=0)
+    
+    def __str__(self):
+        out = "Spesa " + self.tipologia + " del " + str(self.data) + " di importo: " + str(self.importo) + " €"
+        return out 
     class Meta:
         verbose_name_plural="Spese"
