@@ -33,7 +33,7 @@ def my_login(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect("/login")
 
 def dashboard(request):
     pass
@@ -78,8 +78,6 @@ def homepage(request):
     return render(request, 'Condominio_main/homepage.html', {"condominio": condominio})
 
 # Classe DeleteView per una generica entità
-
-
 class DeleteEntitaView(DeleteView):
     template_name = "Condominio_main/cancella_elemento.html"
 

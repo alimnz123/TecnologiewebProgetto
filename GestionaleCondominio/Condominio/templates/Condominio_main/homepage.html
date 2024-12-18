@@ -1,10 +1,10 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Home Page{% endblock %}
 {% block content %} 
-<h1>Home page del Condominio {{condominio.nome}}</h1>
+<h1 style="margin-top: 30px">Home page del Condominio {{condominio.nome}}</h1>
 
 {% load static %}
-<div class="d-grid gap-2 d-md-block">
+<div class="d-grid gap-2 d-md-block" style="margin-top: 30px">
   <a class="btn btn-primary" href="{% url 'bacheca' %}"> <i class="bi bi-pin-angle-fill"></i> Bacheca</a>
   {% if not user.is_staff %}
   <a class="btn btn-primary" href="{% url 'profilo' %}"> <i class="bi bi-person-fill"></i> Profilo</a>
@@ -16,7 +16,7 @@
 </div>
 
 {% if user.is_staff %}
-<div class="container text-center">
+<div class="container text-center" style="margin-top: 30px">
     <div class="row">
       <div class="col d-grid">
         {% comment %} INTERNI {% endcomment %}
@@ -60,19 +60,8 @@
 
 
 {% else %}
-<div class="container text-center">
+<div class="container text-center" style="margin-top: 30px">
     <div class="row">
-      <div class="col d-grid">
-        {% comment %} Rate da pagare {% endcomment %}
-        <a class="btn" href="#" role="button">
-            <div class="row text-center">
-                <i class="bi bi-wallet2" style="font-size: 4rem; color: cornflowerblue;"></i>
-             </div>
-             <div class="row text-center">
-                 <h2>Le mie rate</h2>
-             </div>     
-        </a> 
-      </div>
       <div class="col d-grid">
         {% comment %} Riparto Consuntivo {% endcomment %}
         <a class="btn" href="{% url 'riparto_consuntivo' %}" role="button">

@@ -1,7 +1,7 @@
 {% extends 'Condominio_main/base.html' %}
 {% block title %}Spese del Palazzo{% endblock %}
 {% block content %} 
-<h1>Spese del Palazzo</h1>
+<h1 style="margin-left: 30px; margin-top: 30px">Spese del Palazzo</h1>
 
 {% comment %}MESSAGES{% endcomment %}
 {% if messages %}
@@ -27,10 +27,10 @@
 {% endif %}
 
 {% comment  %} solo se sei un amministratore {% endcomment %}
-<a class="btn btn-primary" href="/create_spesa" role="button">Aggiungi una Spesa</a>
+<a class="btn btn-primary" href="/create_spesa" role="button" style="margin-left: 30px; margin-top: 30px">Aggiungi una Spesa</a>
 
 {% comment %}Spese{% endcomment %}
-<table class="table">
+<table class="table" style="margin: 30px;">
     <thead>
       <tr>
         <th scope="col">Data</th>
