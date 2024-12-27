@@ -425,3 +425,37 @@ def RipartoPreventivo(request):
 
     ctx = {"interni": interni, "anno_successivo": anno_successivo}
     return render(request, "Condominio_main/riparto_preventivo.html", ctx)
+
+
+# notifiche
+# creo un model Notifiche che ne crea una ogni volta che il secondo/data attuale 
+# è uguale al secondo/data dell'ultimo documento inserito (verbali o lettere)
+def notifiche_timer(request):
+    verbale = Verbale.objects.last()  # Retrieve the last Verbale object
+    lettera = Lettera_Convocazione.objects.last() # Retrieve the last Lettera_Convocazione object
+    if verbale:
+        # time_remaining = verbale.data - timezone.now()  # Calculate time remaining
+        if verbale.data <= timezone.now():
+            #creo la notifica
+            notif = Notifica.objects.create(
+                data=verbale.data,
+                titolo="Nuova notifica",
+                descrizione=verbale.descrizione
+            )
+            notif.save()
+
+    if lettera:
+        if lettera.data == timezone.now():
+            #creo la notifica
+            notif = Notifica.objects.create(
+                data=lettera.data,
+                titolo="Nuova notifica",
+                descrizione=lettera.descrizione
+            )
+            notif.save()
+
+    notifiche = Notifica.objects.all()
+        
+    return render(request, 'Condominio_main/notifiche.html', {'notifiche': notifiche})
+
+# se in bootstrap la possibilità di cancellarla

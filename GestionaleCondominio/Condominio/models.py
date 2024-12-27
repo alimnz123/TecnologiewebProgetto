@@ -54,7 +54,7 @@ class Verbale(models.Model):  # lettera di convocazione (ora, giorno, luogo) pro
         return messaggio
     
     def __str__(self):
-        out = self.descrizione + " - " + self.data
+        out = self.descrizione + " - " + str(self.data)
         return out 
 
     class Meta:
@@ -142,3 +142,15 @@ class Spesa(models.Model):
         return out 
     class Meta:
         verbose_name_plural="Spese"
+
+# Notifiche
+class Notifica(models.Model):
+    titolo = models.CharField("Titolo", default="Nuova Notifica", max_length=200)
+    descrizione = models.CharField("Descrizione", default="Vai a vedere in Bacheca", max_length=200)
+    data = models.DateField("Data")
+
+    def __str__(self):
+        out = self.titolo + " del " + self.data
+        return out
+    class Meta:
+        verbose_name_plural="Notifica"

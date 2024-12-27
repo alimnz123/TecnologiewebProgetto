@@ -62,5 +62,7 @@ urlpatterns = [
 
     path("riparto_consuntivo/", views.RipartoConsuntivo, name="riparto_consuntivo"),
 
+    path("notifiche/", views.notifiche_timer, name="notifiche"),
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
