@@ -30,6 +30,9 @@ class Interno(models.Model):
     # occupante=models.TextChoices(verbose_name="Inquilino", choices=User.last_name)
     # mappali = models.CharField(verbose_name="Mappali", max_length=100)
 
+    def get_interno(self):
+        return self.numero_interno
+    
     def __str__(self):
         out=self.numero_interno + " - " + str(self.condomino.last_name)
         return out

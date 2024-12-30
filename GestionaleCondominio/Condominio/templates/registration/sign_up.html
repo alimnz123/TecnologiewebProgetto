@@ -1,12 +1,17 @@
 {% extends 'Condominio_main/base.html' %}
-{% block title %}Login{% endblock %}
+{% block title %}Registrati{% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %} 
-<form method="post">
-    {% csrf_token %}{{form|crispy}}
-    <p> Hai un account? <a href="/login">Login!</a> </p>
-    <button type="submit" class="btn btn-success">Registrati</button>
-</form>
+<div style="margin: 30px">
+
+    <h1>Registrati</h1>
+    
+    <form method="post">
+        {% csrf_token %}{{form|crispy}}
+        <p> Hai un account? <a href="/login">Login!</a> </p>
+        <button type="submit" class="btn btn-success">Registrati</button>
+    </form>
+</div>
 {% endblock %}

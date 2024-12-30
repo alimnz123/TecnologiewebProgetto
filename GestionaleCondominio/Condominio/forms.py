@@ -3,13 +3,13 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from .models import Interno, Lettera_Convocazione, Verbale, DocumentiPalazzo, Fornitore, Spesa
 
-
+at_obj = Interno()
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Email")
     first_name = forms.CharField(required=True, label="Nome")
     last_name = forms.CharField(required=True, label="Cognome")
-    interno = forms.ChoiceField(required=True, choices=Interno, label="Interno")
-
+    interno = forms.CharField(label= "interno", help_text="inserisci il valore da 1 a 9")
+    
     class Meta:
         model = User
         fields = ["username", "email", "first_name",
