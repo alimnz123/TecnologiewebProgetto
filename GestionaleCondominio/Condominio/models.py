@@ -105,7 +105,7 @@ class DocumentiPalazzo(models.Model):
 class Fornitore(models.Model):
     nome = models.CharField(max_length=100, primary_key=True)
     contratto = models.FileField(verbose_name="Contratto", upload_to='files/', blank=True, default=None)
-    indirizzo = models.CharField(max_length=200, blank=True)
+    indirizzo = models.CharField(max_length=200, blank=True, default="non dichiarato")
     ragione_sociale = models.CharField(max_length=100, blank=True)
     partita_iva = models.CharField(max_length=100, blank=True)
     cf = models.CharField(max_length=100, blank=True)
