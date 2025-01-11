@@ -96,14 +96,14 @@
     {% comment %}FOOTER{% endcomment %}
     <div class="container" style="margin: auto auto 0 auto">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-body-secondary"> 2024 Gestione Condominio </p>
+          {% comment %} <p class="col-md-4 mb-0 text-body-secondary"> 2024 Gestione Condominio </p> {% endcomment %}
           {% comment %} Logo 
           <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
           </a>
           {% endcomment %}
           {% comment %}FOOTER MENU{% endcomment %}
-          <ul class="nav col-md-8 justify-content-end">
+          <ul class="nav col-md-12 justify-content-end">
             <li class="nav-item"><a href="/home" class="nav-link px-2 text-body-secondary">Home</a></li>
             <li class="nav-item"><a href="/documenti_palazzo" class="nav-link px-2 text-body-secondary">Documenti del Palazzo</a></li>
             <li class="nav-item"><a href="/interni" class="nav-link px-2 text-body-secondary">Interni</a></li>
@@ -119,14 +119,14 @@
     {% comment %}FOOTER{% endcomment %}
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-body-secondary"> 2024 Gestione Condominio </p>
+          {% comment %} <p class="col-md-4 mb-0 text-body-secondary"> 2024 Gestione Condominio </p> {% endcomment %}
           {% comment %} Logo 
           <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
           </a>
           {% endcomment %}
           {% comment %}FOOTER MENU{% endcomment %}
-          <ul class="nav col-md-8 justify-content-end">
+          <ul class="nav col-md-12 justify-content-center">
             <li class="nav-item"><a href="{% url 'home' %}" class="nav-link px-2 text-body-secondary">Home</a></li>
             <li class="nav-item"><a href="{% url 'bacheca' %}" class="nav-link px-2 text-body-secondary">Bacheca</a></li>
             <li class="nav-item"><a href="{% url 'riparto_preventivo' %}" class="nav-link px-2 text-body-secondary">Riparto Preventivo</a></li>

@@ -27,7 +27,9 @@
 {% endif %}
 
 {% comment  %} solo se sei un amministratore {% endcomment %}
+{% if user.is_staff %}
 <a class="btn btn-primary" href="/create_spesa" role="button" style="margin-left: 30px; margin-top: 30px">Aggiungi una Spesa</a>
+{% endif %}
 
 {% comment %}Spese{% endcomment %}
 <table class="table" style="margin: 30px;">
@@ -39,8 +41,9 @@
         <th scope="col">Descrizione</th>
         <th scope="col">Assegnatario</th> {% comment %} Deve poter essere un utente user di tipo non staff {% endcomment %}
         <th scope="col">Importo</th>
+        {% if user.is_staff %}
         <th scope="col">Operazioni</th>
-
+        {% endif %}
       </tr>
     </thead>
     <tbody>
